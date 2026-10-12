@@ -1,5 +1,7 @@
 # Learn JavaScript, TypeScript & Playwright (4x)
 
+![Learn JavaScript, TypeScript & Playwright: chapter by chapter, built for testers](assets/images/banner.png)
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
 ![Prompt Engineering](https://img.shields.io/badge/Prompt_Eng-RICE--POT-purple)
@@ -39,6 +41,15 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [22: Comparison Operators (Loose vs Strict)](#22-comparison-operators-loose-vs-strict)
   - [23: Logical Operators](#23-logical-operators)
   - [24: Confusing Comparisons](#24-confusing-comparisons)
+  - [27: String Concatenation and Template Literals](#27-string-concatenation-and-template-literals)
+  - [28: Ternary Operator](#28-ternary-operator)
+  - [30: Ternary in Test Code (Interview Practice)](#30-ternary-in-test-code-interview-practice)
+  - [34: Nested Ternary](#34-nested-ternary)
+  - [37: The typeof Operator](#37-the-typeof-operator)
+- [Chapter 05: Increment, Decrement and Nullish](#chapter-05-increment-decrement-and-nullish)
+  - [38: Pre vs Post Increment and Decrement](#38-pre-vs-post-increment-and-decrement)
+  - [40: Increment Interview Questions](#40-increment-interview-questions)
+  - [45: Nullish Coalescing (??)](#45-nullish-coalescing-)
 - [Coming Up](#coming-up)
 
 ---
@@ -50,8 +61,9 @@ flowchart LR
     C0["00 Prompt Engineering<br/>RICE-POT"]:::done --> C1["01 JS Basics<br/>Hello World, Math"]:::done
     C1 --> C2["02 Keywords and Identifiers<br/>var/let/const, naming, comments"]:::done
     C2 --> C3["03 Literals<br/>null, undefined, numbers, BigInt"]:::done
-    C3 --> C4["04 Operators<br/>arithmetic, comparison, logical"]:::progress
-    C4 --> TS["TypeScript"]:::planned
+    C3 --> C4["04 Operators<br/>comparison, logical, ternary, typeof"]:::done
+    C4 --> C5["05 Increment, Decrement, Nullish<br/>++, --, ??"]:::progress
+    C5 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -69,7 +81,8 @@ flowchart LR
 | 01 | JavaScript Basics | [01_chapter_JS_Basics](01_chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic expressions |
 | 02 | Keywords and Identifiers | [02_chapter_JS_Keywrods_Identifiers](02_chapter_JS_Keywrods_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
 | 03 | Literals | [03_chapter_JS_Literals](03_chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
-| 04 | Operators | [04_chapter_JS_Operators](04_chapter_JS_Operators/) | 🟡 In progress | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps |
+| 04 | Operators | [04_chapter_JS_Operators](04_chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
+| 05 | Increment, Decrement and Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | 🟡 In progress | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
 
 ---
 
@@ -79,6 +92,7 @@ flowchart LR
 LearnJSTSPlaywright4x/
 ├── README.md
 ├── .gitignore
+├── assets/images/                          # Banner and chapter cheat-sheet images used in this README
 ├── 00_chapter_Prompt_Eng/
 │   ├── 00_RICE_POT_FullForm.md             # What each RICE-POT letter means
 │   ├── 01_RICE_POT_Prompt.md               # Worked prompt: Salesforce login (Selenium + TestNG)
@@ -107,14 +121,35 @@ LearnJSTSPlaywright4x/
 │   ├── 16_Numbers_PART2.js                 # Numeric separators (1_000_000) and BigInt
 │   ├── 17_Special.js                       # Infinity, -Infinity, NaN
 │   └── 18_undefined.js                     # Practice: undefined vs null
-└── 04_chapter_JS_Operators/
-    ├── 19_Arch.js                          # Anatomy of an expression, JS data types
-    ├── 20_Assigment_Op.js                  # = and reassigning a variable
-    ├── 21_Arithematic_Op.js                # + - * / % ** and the odd/even check
-    ├── 22_Comparsion_Op.js                 # == vs ===, != vs !==
-    ├── 23_Logical_Op.js                    # && || !
-    ├── 24_Confusing_Comparsion.js          # "" == 0, "0" == 0, "" == "0"
-    └── 25_CC.js                            # (empty, work in progress)
+├── 04_chapter_JS_Operators/
+│   ├── 19_Arch.js                          # Anatomy of an expression, JS data types
+│   ├── 20_Assigment_Op.js                  # = and reassigning a variable
+│   ├── 21_Arithematic_Op.js                # + - * / % ** and the odd/even check
+│   ├── 22_Comparsion_Op.js                 # == vs ===, != vs !==
+│   ├── 23_Logical_Op.js                    # && || !
+│   ├── 24_Confusing_Comparsion.js          # "" == 0, "0" == 0, "" == "0"
+│   ├── 25_CC.js                            # (empty, work in progress)
+│   ├── 26_Question.js                      # Quiz: != vs !==, and why !=== does not exist
+│   ├── 27_String.js                        # + and += on strings, console.log with commas
+│   ├── 28_Ternary_Op.js                    # condition ? "Yes" : "No"
+│   ├── 29_T_Op.js                          # Ternary as a test verdict: PASS / FAIL
+│   ├── 30_IQ.js                            # Ternary: pick a base URL per environment
+│   ├── 31_IQ.js                            # Ternary: headless on CI, headed locally
+│   ├── 32_IQ.js                            # Ternary + template literal: SLA check
+│   ├── 33_IQ.js                            # Redundant ternary: condition ? true : false
+│   ├── 34_Nested_Ternary.js                # Ternary inside a ternary
+│   ├── 35_IQ.js                            # Chained ternary: HTTP status categories
+│   ├── 36_IQ.js                            # Chained ternary: temperature bands
+│   └── 37_TypeOf.js                        # typeof on strings and numbers
+└── 05_chapter_JS_Incre_Decr_Op/
+    ├── 38_ID_Op.js                         # Pre-increment: ++a
+    ├── 39_ID.js                            # Post-increment: a++
+    ├── 40_IQ.js                            # ++a + a
+    ├── 41_IQ.js                            # ++a + a + a++
+    ├── 42_IQ.js                            # i++ + ++i
+    ├── 43_De.js                            # Pre-decrement: --a
+    ├── 44.js                               # Post-decrement: a--
+    └── 45_Nullish.js                       # ?? : fallback only for null / undefined
 ```
 
 ---
@@ -137,6 +172,8 @@ Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
 ## Chapter 00: Prompt Engineering
 
 ### 00: RICE-POT Prompt Engineering
+
+![RICE-POT prompt framework: Role, Instructions, Context, Example, Parameters, Output, Tone feeding an LLM](assets/images/ch00-rice-pot.png)
 
 **Concept:** RICE-POT is a seven-part prompt template (**R**ole, **I**nstructions, **C**ontext, **E**xample, **P**arameters, **O**utput, **T**one) for getting production-quality test artifacts out of an LLM instead of toy snippets.
 
@@ -181,6 +218,8 @@ The full result of this prompt lives in [Selenium_Framework/](00_chapter_Prompt_
 ## Chapter 01: JavaScript Basics
 
 ### 01: Hello World
+
+![How Node runs your file: HelloWorld.js goes through Node.js (V8) and prints Hello World! in the terminal](assets/images/ch01-node-runs-file.png)
 
 **Concept:** `console.log()` prints a value to the output. Run a `.js` file with `node <file>` and whatever you log appears in your terminal.
 
@@ -303,6 +342,8 @@ $ node 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
 `04_letengine.js` is the smallest program you can feed the engine: a single `let x = 10;`. It prints nothing, but V8 still parses, compiles and runs it.
 
 ### 05: Keywords vs Identifiers: var, let, const
+
+![Anatomy of a declaration: let is the keyword, userName the identifier, = the assignment, "Pramod" the literal](assets/images/ch02-declaration-anatomy.png)
 
 **Concept:** A keyword is a word the language owns (`var`, `let`, `const`, `if`, `class`, `return`). An identifier is the name you choose. In `let l = 10;`, `let` is the keyword, `l` is the identifier and `10` is the literal value.
 
@@ -559,6 +600,8 @@ console.log(typeof undefinedValue); // undefined
 `10_Literal.js` is the one-line version: in `let a = 10;` the literal is `10`.
 
 ### 12: null vs undefined
+
+![undefined means not assigned yet, null means empty on purpose; null == undefined is true, null === undefined is false](assets/images/ch03-null-vs-undefined.png)
 
 **Concept:** `undefined` means a variable exists but nothing has been assigned to it yet, and JavaScript sets it for you. `null` means "intentionally empty", and only you (or an API) set it.
 
@@ -855,6 +898,8 @@ console.log(a ** b);  // 1000 (10^3)
 
 ### 22: Comparison Operators (Loose vs Strict)
 
+![Loose vs strict equality: 5 == "5" converts types and is true, 5 === "5" compares number vs string and is false](assets/images/ch04-loose-vs-strict.png)
+
 **Concept:** Comparison operators always return a boolean. `==` (loose) converts both sides to the same type before comparing; `===` (strict) compares both value and type with no conversion. `!=` and `!==` are their "not equal" versions, and `>`, `<`, `>=`, `<=` compare order.
 
 **Why:** Assertions are comparisons, and loose equality can let a wrong value pass: `5 == "5"` is `true`.
@@ -890,6 +935,8 @@ console.log(5 != "5");   // false
 console.log(5 !== "5");  // true
 console.log(5 === 5);    // true
 ```
+
+`26_Question.js` is a quick quiz on the same idea: `5 != "5"` is `false`, `5 !== "5"` is `true`. There is no `!===` operator; `5 !=== "5"` throws `SyntaxError: Unexpected token '='`.
 
 ### 23: Logical Operators
 
@@ -968,9 +1015,330 @@ console.log("0" === 0);  // false
 console.log("" === "0"); // false
 ```
 
+### 27: String Concatenation and Template Literals
+
+**Concept:** `+` joins two strings into one (`"Hello" + "World"` is `"HelloWorld"`) and `+=` appends to an existing string. Template literals use backticks and `${}` to drop values straight into text: `` `Response: ${responseTime}ms` ``.
+
+**Why:** Test logs, error messages and URLs are built from pieces, and how you join them decides whether the output reads well or turns into `"Hello12"`.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Template literals for anything with a variable in it (`` `${baseUrl}/login` ``), `+=` to build a string step by step, and `console.log(a, b, c)` with commas for quick debugging, since it puts the spaces in for you.
+- **Q: What does it replace?** A: Java's `String.format()` and long `"a" + b + "c"` chains. Template literals can also span several lines without `\n`.
+- **Q: What's the gotcha?** A: `+` works left to right and switches to text the moment it meets a string: `1 + 2 + "Hello"` is `"3Hello"`, but `"Hello" + 1 + 2` is `"Hello12"`. A template literal avoids the surprise: `` `Hello ${1 + 2}` `` is `"Hello 3"`.
+
+```mermaid
+flowchart LR
+    A["1 + 2 + 'Hello'"] --> A1["3 + 'Hello'"] --> A2["'3Hello'"]
+    B["'Hello' + 1 + 2"] --> B1["'Hello1' + 2"] --> B2["'Hello12'"]
+```
+
+```js
+// 04_chapter_JS_Operators/27_String.js (plus a template literal from 32_IQ.js)
+let s = "Hi, ";
+console.log(typeof s);                   // string
+s += "Dev";                              // append to the same string
+console.log(s);                          // Hi, Dev
+
+console.log("HELLO", "Prrammod");        // HELLO Prrammod (commas add a space)
+console.log("Hello" + "World");          // HelloWorld (+ adds nothing)
+console.log(1, 2, 3, 4, "Hello", true);  // 1 2 3 4 Hello true
+
+let sla = 1000;
+console.log(`What is the SLA time ? - ${sla}`);  // What is the SLA time ? - 1000
+```
+
+### 28: Ternary Operator
+
+![Ternary operator: status === 200 ? leads to PASS when true and FAIL when false](assets/images/ch04-ternary.png)
+
+**Concept:** The ternary operator `condition ? valueIfTrue : valueIfFalse` is an `if/else` that produces a value. It is the only JavaScript operator that takes three operands.
+
+**Why:** Tests constantly choose between two values (PASS or FAIL, headless or headed, prod or staging URL), and a ternary does it in one line you can assign straight to a variable.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When both branches produce a value and the condition is short: `actual === expected ? "✅ PASS" : "❌ FAIL"`. Use a full `if/else` when a branch has to do several things.
+- **Q: What does it replace?** A: A five-line `if/else` whose only job is to set one variable. Java has the same `? :` operator.
+- **Q: What's the gotcha?** A: Watch the boundary. `age > 18 ? "Yes" : "No"` answers "No" for an 18-year-old; if 18 should pass, write `age >= 18`. That is boundary value analysis, the same check you would run on a form field.
+
+```mermaid
+flowchart LR
+    C{"age > 18 ?"} -->|true| Y["'Yes'"]
+    C -->|false| N["'No'"]
+    Y --> V["stored in can_I_go"]
+    N --> V
+```
+
+```js
+// 04_chapter_JS_Operators/28_Ternary_Op.js
+let age = 17;
+let can_I_go = age > 18 ? "Yes" : "No";
+console.log(can_I_go);    // No
+
+// 04_chapter_JS_Operators/29_T_Op.js
+let actualStatusCode = 200;
+let expectedStatusCode = 200;
+let testResult = actualStatusCode === expectedStatusCode ? "✅ PASS" : "❌ FAIL";
+console.log(testResult);  // ✅ PASS
+```
+
+### 30: Ternary in Test Code (Interview Practice)
+
+**Concept:** Four short drills (`30_IQ.js` to `33_IQ.js`) that use a ternary the way real test frameworks do: a base URL per environment, headless vs headed browser, an SLA verdict, and one redundant pattern to avoid.
+
+**Why:** Interviewers ask for exactly these one-liners, and they are the same lines you will write in a Playwright config.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Config-style decisions made once at the top of a file. The `playwright.config.ts` that `npm init playwright` generates does it too: `retries: process.env.CI ? 2 : 0`.
+- **Q: What does it replace?** A: Hard-coding one environment and editing the file before every run.
+- **Q: What's the gotcha?** A: `condition ? true : false` (`33_IQ.js`) is redundant: if `condition` is already a boolean, just write `condition`. If it might not be, use `Boolean(condition)`.
+
+```mermaid
+flowchart TD
+    E{"environment === 'prod'"} -->|true| P["https://api.example.com"]
+    E -->|false| S["https://staging-api.example.com"]
+    C{"isCI"} -->|true| H["headless"]
+    C -->|false| HD["headed"]
+    R{"responseTime <= sla"} -->|true| W["Within SLA ✅"]
+    R -->|false| B["SLA breached ❌"]
+```
+
+```js
+// 04_chapter_JS_Operators/30_IQ.js
+let environment = "staging";
+let baseUrl = environment === "prod"
+    ? "https://api.example.com"
+    : "https://staging-api.example.com";
+console.log(baseUrl);  // https://staging-api.example.com
+
+// 31_IQ.js
+let isCI = true;
+let browserMode = isCI ? "headless" : "headed";
+console.log("Launching browser in:", browserMode, "mode");  // Launching browser in: headless mode
+
+// 32_IQ.js (adapted)
+let responseTime = 850;  // ms
+let sla = 1000;          // ms
+let slaStatus = responseTime <= sla ? "Within SLA ✅" : "SLA breached ❌";
+console.log(`Response: ${responseTime}ms, ${slaStatus}`);  // Response: 850ms, Within SLA ✅
+
+// 33_IQ.js: this ternary adds nothing
+let condition = true;
+let isSKMale = condition ? true : false;  // same as: let isSKMale = condition;
+console.log(isSKMale);                    // true
+```
+
+### 34: Nested Ternary
+
+**Concept:** A ternary can sit inside another ternary to choose between more than two values. Chained flat (`a ? x : b ? y : z`), it reads like an `if / else if / else` ladder.
+
+**Why:** Sorting a value into categories (HTTP status class, temperature band, age rules) is common in test reports and logs.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Three or four ordered bands, written one condition per line as in `35_IQ.js`. The first true condition wins, so order the checks from smallest to largest (or the reverse) and never mix the two.
+- **Q: What does it replace?** A: An `if / else if / else` chain, or a `switch`, whose only job is to assign one variable.
+- **Q: What's the gotcha?** A: Readability drops fast. A ternary nested in the middle, as in `34_Nested_Ternary.js`, is harder to follow than a flat chain, and past three branches most style guides (and ESLint's `no-nested-ternary` rule) prefer `if/else`.
+
+```mermaid
+flowchart TD
+    S{"statusCode < 300"} -->|true| OK["Success"]
+    S -->|false| R{"statusCode < 400"}
+    R -->|true| RD["Redirect"]
+    R -->|false| C{"statusCode < 500"}
+    C -->|true| CE["Client Error"]
+    C -->|false| SE["Server Error"]
+```
+
+```js
+// 04_chapter_JS_Operators/34_Nested_Ternary.js
+let age = 26;
+let is_pramod_enjoy = (age > 18) ? (age > 25 ? "Goa & Drink" : "No Drink,ONly Goa") : "No Goa";
+console.log(`Pramod can Enjoy ${is_pramod_enjoy}`);  // Pramod can Enjoy Goa & Drink
+
+// 04_chapter_JS_Operators/35_IQ.js
+let statusCode = 404;
+let category =
+    statusCode < 300 ? "Success" :
+        statusCode < 400 ? "Redirect" :
+            statusCode < 500 ? "Client Error" : "Server Error";
+console.log(`Status ${statusCode}: ${category}`);   // Status 404: Client Error
+```
+
+`36_IQ.js` applies the same flat chain to temperature: `35` lands in the `"Hot"` band (`>= 30`).
+
+### 37: The typeof Operator
+
+**Concept:** `typeof` is an operator, not a function: it takes one operand and returns its type as a lowercase string such as `"string"` or `"number"`. Whole numbers and decimals both return `"number"`.
+
+**Why:** When a value comes from outside your code (page text, JSON, environment variables), `typeof` is the one-word check that tells you what you actually received.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: To guard input before using it: `if (typeof price === "number")`. The result is a string, so compare it with a string.
+- **Q: What does it replace?** A: Java's `instanceof` and `getClass()`. JavaScript's `typeof` works on any value, and even on a variable that was never declared (`typeof notDeclared` is `"undefined"`, no error).
+- **Q: What's the gotcha?** A: The classic interview twist: `typeof typeof 123` is `"string"`, because the inner `typeof` already returned the string `"number"`. And remember the two odd answers: `typeof null` is `"object"` and `typeof function () {}` is `"function"`.
+
+```mermaid
+flowchart LR
+    V["123"] --> T1["typeof 123"] --> R1["'number'<br/>(a string)"] --> T2["typeof 'number'"] --> R2["'string'"]
+```
+
+| Value | `typeof` result |
+|:------|:----------------|
+| `"hello"` | `"string"` |
+| `123`, `31.4`, `NaN` | `"number"` |
+| `true` | `"boolean"` |
+| `undefined` | `"undefined"` |
+| `null` | `"object"` (historical bug) |
+| `10n` | `"bigint"` |
+| `Symbol()` | `"symbol"` |
+| `function () {}` | `"function"` |
+| `[]`, `{}` | `"object"` |
+
+```js
+// 04_chapter_JS_Operators/37_TypeOf.js (plus the commented cases)
+console.log(typeof "hello");     // string
+console.log(typeof 123);         // number
+console.log(typeof 31.4);        // number
+console.log(typeof true);        // boolean
+console.log(typeof undefined);   // undefined
+console.log(typeof null);        // object
+console.log(typeof typeof 123);  // string
+```
+
+---
+
+## Chapter 05: Increment, Decrement and Nullish
+
+### 38: Pre vs Post Increment and Decrement
+
+![Pre vs post increment: with a = 10, let b = ++a gives b 11 and a 11; let b = a++ gives b 10 and a 11](assets/images/ch05-pre-vs-post.png)
+
+**Concept:** `++` adds 1 to a variable and `--` subtracts 1. Before the variable (`++a`, pre) it changes the value first and then hands back the new value; after the variable (`a++`, post) it hands back the old value and then changes it.
+
+**Why:** Loop counters and retry counters use these every day, and pre vs post decides which value the surrounding expression actually sees.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Standalone counters like `i++` in a `for` loop or `retries++`, where pre vs post makes no difference because nothing reads the expression's value.
+- **Q: What does it replace?** A: `a = a + 1` and `a += 1`. The operators and the pre/post rules are the same as in Java.
+- **Q: What's the gotcha?** A: Only variables can change: `5++` is a `SyntaxError`, and `++` on a `const` throws `TypeError: Assignment to constant variable.` Also, `++` converts strings: `let s = "5"; s++` leaves `s` as the number `6`.
+
+```mermaid
+flowchart LR
+    subgraph PRE["let b = ++a (pre)"]
+        P1["a: 10 to 11"] --> P2["b gets 11"]
+    end
+    subgraph POST["let b = a++ (post)"]
+        Q1["b gets 10"] --> Q2["a: 10 to 11"]
+    end
+```
+
+| Code (start: `a = 10`) | `b` | `a` after |
+|:-----------------------|:---:|:---------:|
+| `let b = ++a;` | 11 | 11 |
+| `let b = a++;` | 10 | 11 |
+| `let b = --a;` | 9 | 9 |
+| `let b = a--;` | 10 | 9 |
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/38_ID_Op.js: pre-increment
+let a = 10;
+let b = ++a;          // a becomes 11, then b gets 11
+console.log(b, a);    // 11 11
+
+// 39_ID.js: post-increment (variables renamed so this runs as one file)
+let c = 10;
+let d = c++;          // d gets 10, then c becomes 11
+console.log(d, c);    // 10 11
+
+// 43_De.js and 44.js: the same rules with --
+let e = 10;
+console.log(--e, e);  // 9 9
+let f = 10;
+console.log(f--, f);  // 10 9
+```
+
+### 40: Increment Interview Questions
+
+**Concept:** Three drills (`40_IQ.js` to `42_IQ.js`) that mix pre and post increment in one expression. Solve them by reading left to right and writing down the variable's value after every step.
+
+**Why:** These are favourite interview questions precisely because guessing fails and tracing works.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: In interviews. In real code, keep one `++` per statement so nobody has to trace it.
+- **Q: What does it replace?** A: Guessing. Trace with two columns: the value each operand uses, and the variable after that step.
+- **Q: What's the gotcha?** A: Each `++` updates the variable immediately, so operands further right see the new value. In `++a + a`, the second `a` is already 11.
+
+```mermaid
+flowchart LR
+    S0["a = 10"] --> S1["++a<br/>uses 11, a = 11"] --> S2["a<br/>uses 11, a = 11"] --> S3["a++<br/>uses 11, a = 12"] --> R["11 + 11 + 11 = 33"]
+```
+
+| Expression | Values used | Result | Variable after |
+|:-----------|:------------|:------:|:--------------:|
+| `++a + a` (a = 10) | 11 + 11 | 22 | a = 11 |
+| `++a + a + a++` (a = 10) | 11 + 11 + 11 | 33 | a = 12 |
+| `i++ + ++i` (i = 1) | 1 + 3 | 4 | i = 3 |
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/40_IQ.js
+let a = 10;
+console.log(++a + a);        // 22  (11 + 11)
+console.log(a);              // 11
+
+// 41_IQ.js (variable renamed so this runs as one file)
+let b = 10;
+console.log(++b + b + b++);  // 33  (11 + 11 + 11)
+console.log(b);              // 12
+
+// 42_IQ.js
+let i = 1;
+let result = i++ + ++i;      // i++ uses 1 (i is now 2), ++i makes i 3 and uses 3
+console.log(result, i);      // 4 3
+```
+
+### 45: Nullish Coalescing (??)
+
+**Concept:** `a ?? b` returns `a` unless `a` is `null` or `undefined`; in that case it returns the fallback `b`.
+
+**Why:** API responses and config values are often missing, and `??` supplies a safe default without throwing away real values like `0` or `""`.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Defaults for data that may be absent: `let responsedata = api_response ?? "{}"`. Its sibling `??=` assigns only when the variable is null or undefined: `timeout ??= 30_000`.
+- **Q: What does it replace?** A: `||` for defaults. `||` also replaces `0`, `""` and `false`; `??` only replaces `null` and `undefined`. So `0 || 5` is `5`, but `0 ?? 5` is `0`.
+- **Q: What's the gotcha?** A: You cannot mix `??` with `||` or `&&` without parentheses: `a || b ?? c` is a `SyntaxError`. Write `(a || b) ?? c`.
+
+```mermaid
+flowchart TD
+    V{"Is the left side null<br/>or undefined?"} -->|Yes| F["Return the fallback<br/>'NANDANI Milk'"]
+    V -->|No| L["Return the left side<br/>(even 0, '' or false)"]
+```
+
+| `value` | `value ?? "x"` | `value \|\| "x"` |
+|:--------|:--------------:|:----------------:|
+| `null` | `"x"` | `"x"` |
+| `undefined` | `"x"` | `"x"` |
+| `0` | `0` | `"x"` |
+| `""` | `""` | `"x"` |
+| `false` | `false` | `"x"` |
+| `"Pramod"` | `"Pramod"` | `"Pramod"` |
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/45_Nullish.js (commented examples switched on)
+let amul = null;
+let val = amul ?? "NANDANI Milk";
+console.log(val);            // NANDANI Milk
+
+let api_response = null;
+let responsedata = api_response ?? "{}";
+console.log(responsedata);   // {}
+
+let api_response1 = "Pramod";
+let responsedata1 = api_response1 ?? "{}";
+console.log(responsedata1);  // Pramod
+```
+
 ---
 
 ## Coming Up
 
-- **Chapter 04: Operators** continues: `25_CC.js` is still empty.
+- **Chapter 05: Increment, Decrement and Nullish** continues.
 - Then TypeScript, then Playwright.
