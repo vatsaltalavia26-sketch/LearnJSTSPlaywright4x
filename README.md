@@ -50,6 +50,22 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [38: Pre vs Post Increment and Decrement](#38-pre-vs-post-increment-and-decrement)
   - [40: Increment Interview Questions](#40-increment-interview-questions)
   - [45: Nullish Coalescing (??)](#45-nullish-coalescing-)
+- [Chapter 06: if, else and else if](#chapter-06-if-else-and-else-if)
+  - [46: if and else](#46-if-and-else)
+  - [47: Nested if](#47-nested-if)
+  - [48: Ternary vs if and else](#48-ternary-vs-if-and-else)
+  - [49: else if Ladder: Grade Calculator](#49-else-if-ladder-grade-calculator)
+- [Chapter 07: switch](#chapter-07-switch)
+  - [50: switch Basics](#50-switch-basics)
+  - [51: Fall-Through (Missing break)](#51-fall-through-missing-break)
+  - [53: Status Codes and Grouped Cases](#53-status-codes-and-grouped-cases)
+  - [56: switch (true) for Ranges](#56-switch-true-for-ranges)
+  - [57: switch Gotchas: Duplicate Cases, let and Strict Matching](#57-switch-gotchas-duplicate-cases-let-and-strict-matching)
+- [Chapter 08: User Input](#chapter-08-user-input)
+  - [59: prompt() in the Browser](#59-prompt-in-the-browser)
+  - [60: readline in Node](#60-readline-in-node)
+  - [61: prompt-sync](#61-prompt-sync)
+  - [62: Reading Piped Input with fs.readFileSync](#62-reading-piped-input-with-fsreadfilesync)
 - [Coming Up](#coming-up)
 
 ---
@@ -62,8 +78,11 @@ flowchart LR
     C1 --> C2["02 Keywords and Identifiers<br/>var/let/const, naming, comments"]:::done
     C2 --> C3["03 Literals<br/>null, undefined, numbers, BigInt"]:::done
     C3 --> C4["04 Operators<br/>comparison, logical, ternary, typeof"]:::done
-    C4 --> C5["05 Increment, Decrement, Nullish<br/>++, --, ??"]:::progress
-    C5 --> TS["TypeScript"]:::planned
+    C4 --> C5["05 Increment, Decrement, Nullish<br/>++, --, ??"]:::done
+    C5 --> C6["06 if / else<br/>nested, else if ladder"]:::done
+    C6 --> C7["07 switch<br/>break, fall-through, switch (true)"]:::done
+    C7 --> C8["08 User Input<br/>prompt, readline, prompt-sync, stdin"]:::progress
+    C8 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -82,7 +101,10 @@ flowchart LR
 | 02 | Keywords and Identifiers | [02_chapter_JS_Keywrods_Identifiers](02_chapter_JS_Keywrods_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
 | 03 | Literals | [03_chapter_JS_Literals](03_chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
 | 04 | Operators | [04_chapter_JS_Operators](04_chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
-| 05 | Increment, Decrement and Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | 🟡 In progress | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
+| 05 | Increment, Decrement and Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | ✅ Done | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
+| 06 | if, else and else if | [06_Chapter_if_else_statement_Condition](06_Chapter_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
+| 07 | switch | [07_Chapter_Switch](07_Chapter_Switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
+| 08 | User Input | [08_Chapter_UserInput](08_Chapter_UserInput/) | 🟡 In progress | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
 
 ---
 
@@ -92,6 +114,8 @@ flowchart LR
 LearnJSTSPlaywright4x/
 ├── README.md
 ├── .gitignore
+├── package.json                            # One dependency: prompt-sync (chapter 08)
+├── package-lock.json
 ├── assets/images/                          # Banner and chapter cheat-sheet images used in this README
 ├── 00_chapter_Prompt_Eng/
 │   ├── 00_RICE_POT_FullForm.md             # What each RICE-POT letter means
@@ -141,26 +165,47 @@ LearnJSTSPlaywright4x/
 │   ├── 35_IQ.js                            # Chained ternary: HTTP status categories
 │   ├── 36_IQ.js                            # Chained ternary: temperature bands
 │   └── 37_TypeOf.js                        # typeof on strings and numbers
-└── 05_chapter_JS_Incre_Decr_Op/
-    ├── 38_ID_Op.js                         # Pre-increment: ++a
-    ├── 39_ID.js                            # Post-increment: a++
-    ├── 40_IQ.js                            # ++a + a
-    ├── 41_IQ.js                            # ++a + a + a++
-    ├── 42_IQ.js                            # i++ + ++i
-    ├── 43_De.js                            # Pre-decrement: --a
-    ├── 44.js                               # Post-decrement: a--
-    └── 45_Nullish.js                       # ?? : fallback only for null / undefined
+├── 05_chapter_JS_Incre_Decr_Op/
+│   ├── 38_ID_Op.js                         # Pre-increment: ++a
+│   ├── 39_ID.js                            # Post-increment: a++
+│   ├── 40_IQ.js                            # ++a + a
+│   ├── 41_IQ.js                            # ++a + a + a++
+│   ├── 42_IQ.js                            # i++ + ++i
+│   ├── 43_De.js                            # Pre-decrement: --a
+│   ├── 44.js                               # Post-decrement: a--
+│   └── 45_Nullish.js                       # ?? : fallback only for null / undefined
+├── 06_Chapter_if_else_statement_Condition/
+│   ├── 46_IF.js                            # if / else: Go Goa or No Goa
+│   ├── 47_IF_Else_Nested.js                # An if inside an if
+│   ├── 48_TO_IfElse.js                     # Same decision as a ternary and as if / else
+│   └── 49_Multiple_ifelse.js               # Interview task: grade calculator with else if
+├── 07_Chapter_Switch/
+│   ├── 50_switch.js                        # Day number to day name, break, default
+│   ├── 51_IQ.js                            # Fall-through: no break anywhere
+│   ├── 52_IQ.js                            # Same switch with break, value 10 hits default
+│   ├── 53_API_Switch.js                    # switch on an HTTP response code
+│   ├── 54_Switch_Group.js                  # Grouped cases: Chromium browsers
+│   ├── 55_IQ.js                            # Fall-through with strings
+│   ├── 56_IQ.js                            # switch (true) for score ranges
+│   ├── 57_IQ.js                            # Duplicate case labels, let inside cases
+│   └── 58.IQ.js                            # switch uses ===: 0 does not match false
+└── 08_Chapter_UserInput/
+    ├── 59_UI.js                            # prompt(): browser only
+    ├── 60_Node_UI.js                       # readline: built into Node
+    ├── 61_Prompt_sync.js                   # prompt-sync: synchronous prompt in Node
+    └── 62_FS_readFile.js                   # fs.readFileSync(0): read piped stdin
 ```
 
 ---
 
 ## Getting Started
 
-You only need [Node.js](https://nodejs.org/) 18 or newer. No `npm install` yet.
+You only need [Node.js](https://nodejs.org/) 18 or newer. Chapter 08 uses one npm package ([prompt-sync](https://www.npmjs.com/package/prompt-sync)), so run `npm install` once after cloning.
 
 ```bash
 git clone https://github.com/PramodDutta/LearnJSTSPlaywright4x.git
 cd LearnJSTSPlaywright4x
+npm install                                 # installs prompt-sync for chapter 08
 node --version                              # v18+ (tested on v22)
 node 01_chapter_JS_Basics/01_HelloWorld.js  # Hello World!
 ```
@@ -1338,7 +1383,572 @@ console.log(responsedata1);  // Pramod
 
 ---
 
+## Chapter 06: if, else and else if
+
+### 46: if and else
+
+**Concept:** `if (condition) { ... } else { ... }` runs the first block when the condition is true and the `else` block otherwise. Exactly one of the two blocks runs.
+
+**Why:** Tests branch all the time: skip a step on mobile, log in only when the session has expired, retry only after a failure.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Whenever a branch has to do something (one or more statements), not just produce a value. For a value-only choice, a ternary (lesson 28) is shorter.
+- **Q: What does it replace?** A: Nothing new if you know Java: same syntax, same braces. One difference: the condition does not have to be a boolean. JavaScript converts it, so `if (0)` and `if ("")` take the `else` branch.
+- **Q: What's the gotcha?** A: Boundaries again. With `age = 18`, `age > 18` goes to `else`. Decide whether the edge value belongs in the `if`, and use `>=` when it does.
+
+```mermaid
+flowchart TD
+    C{"age > 18"} -->|true| G["Go Goa"]
+    C -->|false| N["No Goa"]
+    G --> E["continue with the rest of the program"]
+    N --> E
+```
+
+```js
+// 06_Chapter_if_else_statement_Condition/46_IF.js (plus a falsy check)
+let age = 16;
+if (age > 18) {
+    console.log("Go Goa");
+} else {
+    console.log("No Goa");   // runs: 16 > 18 is false
+}
+
+if ("") {
+    console.log("never runs");
+} else {
+    console.log("an empty string is falsy");   // runs
+}
+```
+
+### 47: Nested if
+
+**Concept:** An `if` inside another `if` checks a second condition only after the first one has passed.
+
+**Why:** Some rules only make sense in context: "over 26?" is only worth asking for someone who already passed "over 18?".
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When the inner check depends on the outer one, for example "is the user logged in?" and then "do they have the admin role?". Two levels are fine.
+- **Q: What does it replace?** A: One long condition such as `age > 18 && age > 26`, which cannot print the `Goa Check!` step that happens in between.
+- **Q: What's the gotcha?** A: Deep nesting gets hard to read quickly. Past two levels, flatten it with an `else if` ladder (lesson 49) or early `return`s inside a function.
+
+```mermaid
+flowchart TD
+    A{"age > 18"} -->|false| N["No Goa"]
+    A -->|true| G["Goa Check!"] --> B{"age > 26"}
+    B -->|true| D["Drink and Goa"]
+    B -->|false| O["Only Goa, no Drink"]
+```
+
+```js
+// 06_Chapter_if_else_statement_Condition/47_IF_Else_Nested.js
+let age = 27;
+if (age > 18) {
+    console.log("Goa Check!");
+    if (age > 26) {
+        console.log("Drink and Goa");
+    } else {
+        console.log("Only Goa, no Drink");
+    }
+} else {
+    console.log("No Goa");
+}
+// Output: Goa Check!, Drink and Goa
+```
+
+### 48: Ternary vs if and else
+
+**Concept:** `48_TO_IfElse.js` writes the same decision twice: once as a ternary that produces a value, and once as an `if/else` that runs several statements.
+
+**Why:** Picking the right form keeps code short where it can be and readable where it has to be.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: A ternary when you need a value (`let result = age > 21 ? "Drive" : "No Able to DRIve"`); `if/else` when a branch runs more than one statement (Drive, Drink, Go goa).
+- **Q: What does it replace?** A: Neither replaces the other. A ternary is an expression (it has a value); `if/else` is a statement (it does things).
+- **Q: What's the gotcha?** A: In the file, `result` is computed but never used. Reach for a ternary only when you use its value; for side effects such as `console.log`, `if/else` is clearer.
+
+```mermaid
+flowchart LR
+    Q{"Do you need a value<br/>or an action?"} -->|"a value"| T["ternary<br/>cond ? a : b"]
+    Q -->|"one or more actions"| I["if / else"]
+```
+
+| | Ternary | `if / else` |
+|:--|:--:|:--:|
+| Produces a value | ✅ | ❌ |
+| Several statements per branch | ❌ | ✅ |
+| Assigns straight to a variable | ✅ | ❌ (assign inside each branch) |
+| Best for | Picking one of two values | Running one of two blocks |
+
+```js
+// 06_Chapter_if_else_statement_Condition/48_TO_IfElse.js
+let age = 20;
+let result = age > 21 ? "Drive" : "No Able to DRIve";   // a value
+
+if (age > 21) {                                          // actions
+    console.log("Drive");
+    console.log("Drink");
+    console.log("Go goa");
+} else {
+    console.log("No Able to DRIve");
+}
+```
+
+### 49: else if Ladder: Grade Calculator
+
+![The else if ladder: score > 90 gives A, score > 80 gives B, score > 70 gives C, else gives F; the first true check wins](assets/images/ch06-else-if-ladder.png)
+
+**Concept:** An `if / else if / else` chain checks its conditions from top to bottom and runs only the first block whose condition is true. The final `else` catches everything left over.
+
+**Why:** Mapping a number into bands (grades, HTTP status classes, SLA levels) is a classic interview task and a common helper in test code.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: More than two outcomes that depend on ranges. Validate the input first (`score > 100 || score < 0` prints "Invalid score") so the ladder only ever sees legal values.
+- **Q: What does it replace?** A: A stack of separate `if`s, which could run several blocks for one score. With `else if`, once a band matches, the rest are skipped.
+- **Q: What's the gotcha?** A: Boundaries. The spec in the file says 50 is an E, but `score > 50 && score <= 60` sends 50 to F; `score >= 50` fixes it. Testing the edges (0, 49, 50, 60, 61, 90, 91, 100) is exactly how you catch this. Also, because the ladder runs top-down, the `&& score <= 90` halves are redundant: if `score > 90` were true, the first branch would already have run.
+
+```mermaid
+flowchart TD
+    V{"score > 100 or score < 0"} -->|true| INV["Invalid score"]
+    V -->|false| A{"score > 90"}
+    A -->|true| GA["A: Excellent"]
+    A -->|false| B{"score > 80"}
+    B -->|true| GB["B: Very Good"]
+    B -->|false| C{"score > 70"}
+    C -->|true| GC["C: Good"]
+    C -->|false| D{"score > 60"}
+    D -->|true| GD["D: Average"]
+    D -->|false| E{"score >= 50"}
+    E -->|true| GE["E: Needs Improvement"]
+    E -->|false| F["F: Fail"]
+```
+
+| Score | Spec says | `49_Multiple_ifelse.js` prints |
+|:-----:|:---------:|:-------------------------------|
+| 101 | Invalid | Invalid score ✅ |
+| 100 | A | Grade A - Excellent ✅ |
+| 91 | A | Grade A - Excellent ✅ |
+| 90 | B | Grade B - Very Good ✅ |
+| 61 | D | Grade D - Average ✅ |
+| 60 | E | Grade E - Needs Improvement ✅ |
+| **50** | **E** | **Grade F - Fail ❌** |
+| 49 | F | Grade F - Fail ✅ |
+| 0 | F | Grade F - Fail ✅ |
+
+```js
+// 06_Chapter_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
+let score = 95;
+
+if (score > 100 || score < 0) {
+    console.log("Invalid score");
+} else {
+    if (score > 90) {
+        console.log(" Grade A - Excellent");
+    }
+    else if (score > 80 && score <= 90) {
+        console.log("Grade B - Very Good");
+    }
+    else if (score > 70 && score <= 80) {
+        console.log("Grade C - Good");
+    }
+    else if (score > 60 && score <= 70) {
+        console.log("Grade D - Average");
+    }
+    else if (score > 50 && score <= 60) {   // spec: 50 is an E, so use score >= 50
+        console.log("Grade E - Needs Improvement");
+    }
+    else {
+        console.log("Grade F - Fail");
+    }
+}
+```
+
+---
+
+## Chapter 07: switch
+
+### 50: switch Basics
+
+**Concept:** `switch (value)` compares one value against a list of `case`s and jumps to the first match. `break` leaves the switch, and `default` runs when nothing matches.
+
+**Why:** When one variable picks between many fixed options (day number, status code, browser name), a `switch` reads more cleanly than a long `else if` chain.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Many exact values of one variable. For ranges (`score > 90`), an `else if` ladder fits better (or `switch (true)`, lesson 56).
+- **Q: What does it replace?** A: A chain like `if (day === 1) ... else if (day === 2) ...`. Java has the same `switch`, `case`, `break` and `default`.
+- **Q: What's the gotcha?** A: All cases share one block scope, so `let a` inside `case 2` belongs to the whole switch. Declaring `let a` again in another case is `SyntaxError: Identifier 'a' has already been declared`; wrap each case body in `{ }` to give it its own scope.
+
+```mermaid
+flowchart TD
+    S{"switch (day)"} -->|"case 1"| M["Monday"]
+    S -->|"case 2"| T["Tue, then a + b = 40"]
+    S -->|"case 3 to 7"| O["Wed ... Sun"]
+    S -->|"no match"| D["default: No idea which day it is"]
+    M --> BR["break: leave the switch"]
+    T --> BR
+    O --> BR
+```
+
+```js
+// 07_Chapter_Switch/50_switch.js (excerpt)
+let day = 2;
+switch (day) {
+    case 1:
+        console.log("Monday");
+        break;
+    case 2:
+        console.log('Tue');
+        let a = 10;
+        let b = 30;
+        console.log(a + b);   // 40
+        break;
+    case 3:
+        console.log('Wed');
+        break;
+    // ... cases 4 to 7
+    default:
+        console.log("No idea which day it is");
+}
+// Output: Tue, 40
+```
+
+### 51: Fall-Through (Missing break)
+
+![switch with break runs only the matching case and exits; without break it falls through every case below, including default; switch matches with ===](assets/images/ch07-switch-break.png)
+
+**Concept:** Without `break`, a matching `case` runs its code and then keeps going into every case below it, `default` included. This is called fall-through.
+
+**Why:** It is the most common `switch` bug and a favourite interview question (`51_IQ.js`, `55_IQ.js`).
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: On purpose, only when several cases share code, and then the cases are stacked with no code between them (lesson 53). Everywhere else, end each case with `break` (or `return` inside a function).
+- **Q: What does it replace?** A: Nothing; it is how `switch` works in JavaScript, Java and C. `52_IQ.js` is the fixed version with a `break` in every case, and its `day = 10` lands on `default`.
+- **Q: What's the gotcha?** A: The cases below the match run even though their values do not match: with `day = 2` in `51_IQ.js`, Tuesday through Saturday and `default` all print. ESLint's `no-fallthrough` rule flags this.
+
+```mermaid
+flowchart TD
+    M["case 2 matches"] --> T["Tuesday"] --> W["Wednesday"] --> TH["Thursday"] --> F["Friday"] --> SA["Saturday"] --> D["default: Invalid day value"]
+    N["No break anywhere,<br/>so it keeps falling"] -.-> W
+```
+
+```js
+// 07_Chapter_Switch/55_IQ.js
+let fruit = "banana";
+switch (fruit) {
+    case "apple":
+        console.log("Apple selected");
+    case "banana":
+        console.log("Banana selected");   // match: starts here
+    case "cherry":
+        console.log("Cherry selected");   // falls through
+    case "date":
+        console.log("Date selected");     // falls through
+    default:
+        console.log("Default reached");   // falls through
+}
+// Output: Banana selected, Cherry selected, Date selected, Default reached
+```
+
+### 53: Status Codes and Grouped Cases
+
+**Concept:** A `switch` on a response code maps each code to an action (`53_API_Switch.js`), and stacking several `case` labels with no code between them makes them share one block (`54_Switch_Group.js`).
+
+**Why:** API tests branch on status codes, and cross-browser tests often treat a whole family of browsers the same way.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Grouped cases when several values need identical handling: Chrome, Edge, Brave and Opera are all Chromium, so one block covers them.
+- **Q: What does it replace?** A: `if (browser === "Chrome" || browser === "Edge" || browser === "Brave" || browser === "Opera")`.
+- **Q: What's the gotcha?** A: Matching is exact and case-sensitive: `"chrome"` does not match `case "Chrome"` and drops to `default`. Normalise first, for example `switch (browser.toLowerCase())` with lowercase cases.
+
+```mermaid
+flowchart LR
+    C["Chrome"] --> CH["Chromium Project!"]
+    E["Edge"] --> CH
+    B["Brave"] --> CH
+    O["Opera"] --> CH
+    FF["Firefox"] --> MZ["Mozilla Project!"]
+    SF["Safari"] --> AP["Apple browser"]
+    X["anything else"] --> DF["default: manual testing needed"]
+```
+
+```js
+// 07_Chapter_Switch/53_API_Switch.js
+let responseCode = 404;
+switch (responseCode) {
+    case 200:
+        console.log("200 Ok");
+        break;
+    case 404:
+        console.log("404 Not found!");        // runs
+        break;
+    default:
+        console.log("Not status code match");
+}
+
+// 07_Chapter_Switch/54_Switch_Group.js (adapted)
+let browser = "Brave";
+switch (browser) {
+    case "Chrome":
+    case "Edge":
+    case "Brave":
+    case "Opera":
+        console.log("Chromium Project!");     // runs: Brave is in the group
+        break;
+    case "Firefox":
+        console.log("Mozilla Project!");
+        break;
+    default:
+        console.log("Unknown browser: manual testing needed");
+}
+```
+
+### 56: switch (true) for Ranges
+
+**Concept:** `switch (true)` compares `true` against each `case` expression, so the first case whose condition is true runs. It turns `switch` into a range checker.
+
+**Why:** It lets you write band logic (score levels, response-time tiers) in `switch` style when a team prefers that shape.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Ordered ranges of one variable, as in `56_IQ.js`. Order the cases from highest to lowest so each case needs only a lower bound.
+- **Q: What does it replace?** A: An `else if` ladder (lesson 49). Both work; many style guides prefer the ladder because `switch (true)` surprises readers.
+- **Q: What's the gotcha?** A: Each case must evaluate to exactly `true`. A truthy value such as `1` or `"yes"` will not match, because `switch` compares with `===`.
+
+```mermaid
+flowchart TD
+    S["switch (true), testScore = 85"] --> A{"testScore >= 95"}
+    A -->|false| B{"testScore >= 85"}
+    B -->|true| E["Excellent: Above expectations"]
+    A -->|true| O["Outstanding: Top performer"]
+    B -->|false| G["... >= 70, >= 50, default"]
+```
+
+```js
+// 07_Chapter_Switch/56_IQ.js (adapted)
+let testScore = 85;
+switch (true) {
+    case (testScore >= 95):
+        console.log("Outstanding: Top performer");
+        break;
+    case (testScore >= 85):
+        console.log("Excellent: Above expectations");   // runs
+        break;
+    case (testScore >= 70):
+        console.log("Good: Meets expectations");
+        break;
+    case (testScore >= 50):
+        console.log("Needs Improvement");
+        break;
+    default:
+        console.log("Unsatisfactory: Requires training");
+}
+```
+
+### 57: switch Gotchas: Duplicate Cases, let and Strict Matching
+
+**Concept:** Two interview drills. `57_IQ.js` has two `case 10:` labels, and only the first one can ever run. `58.IQ.js` shows that `switch` matches with `===`, so `0` does not match `case false`.
+
+**Why:** Both run without any error, so only knowing the rule (or a linter) catches them.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: In interviews and code review: look for repeated case values, and for cases whose type differs from the switched value (`"1"` vs `1`).
+- **Q: What does it replace?** A: The `==` intuition. `0 == false` is `true`, but `switch` uses `===`, so `case false` is skipped and `case 0` matches.
+- **Q: What's the gotcha?** A: `57_IQ.js` names its variables `b1` and `b2` for a reason: all cases share one scope, so `let b` in both cases would be a `SyntaxError`. ESLint's `no-duplicate-case` rule catches the duplicate label.
+
+```mermaid
+flowchart LR
+    S["switch (0)"] --> C1{"0 === false ?"}
+    C1 -->|No| C2{"0 === 0 ?"}
+    C2 -->|Yes| R["0 matched"]
+```
+
+```js
+// 07_Chapter_Switch/57_IQ.js
+let x = 10;
+switch (x) {
+    case 10:
+        let b1 = 1;
+        console.log(b1);          // 1: the first matching case wins
+        break;
+    case 10:                      // duplicate: never reached
+        let b2 = 2;
+        console.log(b2);
+        break;
+    default:
+        console.log("d");
+}
+
+// 07_Chapter_Switch/58.IQ.js
+let status = 0;
+console.log(typeof status);       // number
+switch (status) {                 // === : value and type must both match
+    case false:
+        console.log("false matched");
+        break;
+    case 0:
+        console.log("0 matched");     // runs
+        break;
+}
+```
+
+---
+
+## Chapter 08: User Input
+
+![Getting user input: prompt() is browser only, readline is built into Node, prompt-sync is an npm package, fs.readFileSync(0) reads piped stdin](assets/images/ch08-user-input.png)
+
+| Method | Where it works | Waits on that line? | Install | Lesson |
+|:-------|:---------------|:-------------------:|:--------|:------:|
+| `prompt()` | Browser only | Yes | None | 59 |
+| `readline` | Node | No (callback) | None, built in | 60 |
+| `prompt-sync` | Node, interactive terminal | Yes | `npm install` | 61 |
+| `fs.readFileSync(0)` | Node, piped or typed stdin | Yes | None | 62 |
+
+### 59: prompt() in the Browser
+
+**Concept:** `prompt("Enter a number:")` opens a browser dialog and returns what the user typed as a string, or `null` if they press Cancel. `Number()` converts it before the math.
+
+**Why:** It is the quickest way to get input while learning in the browser console.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: In a browser's DevTools console or a `<script>` on a page: paste the file's code into the Console tab to try it.
+- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_Chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
+- **Q: What's the gotcha?** A: The answer is always a string or `null`. Pressing Cancel gives `null`, `Number(null)` is `0`, and the file prints "0 is Even". Typing `abc` gives `NaN`, and since `NaN % 2 === 0` is `false`, it prints "NaN is Odd".
+
+```mermaid
+sequenceDiagram
+    participant Code as 59_UI.js
+    participant Browser
+    participant User
+    Code->>Browser: prompt("Enter a number:")
+    Browser->>User: show dialog
+    User->>Browser: types 7, clicks OK
+    Browser-->>Code: "7" (a string)
+    Code->>Code: Number("7") is 7, 7 % 2 is 1
+    Code->>Browser: console.log("7 is Odd")
+```
+
+```js
+// 08_Chapter_UserInput/59_UI.js (run in a browser console, not in Node)
+let num = prompt("Enter a number:");
+num = Number(num);  // convert string to number
+
+if (num % 2 === 0) {
+    console.log(num + " is Even");
+} else {
+    console.log(num + " is Odd");
+}
+```
+
+### 60: readline in Node
+
+**Concept:** Node's built-in `readline` module asks a question in the terminal and hands the answer to a callback function. `rl.close()` ends the input so the program can exit.
+
+**Why:** It needs no install and works wherever Node runs, so it is the standard way to read input in Node scripts.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Node scripts that ask a question, such as a test-data generator that asks how many users to create.
+- **Q: What does it replace?** A: The browser's `prompt()`, which does not exist in Node.
+- **Q: What's the gotcha?** A: It is asynchronous: code written after `rl.question(...)` runs before the user answers. Put everything that needs the answer inside the callback, and call `rl.close()`, or the program sits waiting for more input.
+
+```mermaid
+sequenceDiagram
+    participant Script as 60_Node_UI.js
+    participant Terminal
+    Script->>Terminal: "Enter a number: "
+    Note over Script: code after rl.question keeps running
+    Terminal-->>Script: callback("7") after Enter
+    Script->>Terminal: "7 is Odd"
+    Script->>Script: rl.close(), program exits
+```
+
+```js
+// 08_Chapter_UserInput/60_Node_UI.js
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question("Enter a number: ", (input) => {
+    let num = Number(input);
+
+    if (num % 2 === 0) {
+        console.log(num + " is Even");
+    } else {
+        console.log(num + " is Odd");
+    }
+
+    rl.close();
+});
+```
+
+```bash
+$ echo 7 | node 08_Chapter_UserInput/60_Node_UI.js
+Enter a number: 7 is Odd
+```
+
+### 61: prompt-sync
+
+**Concept:** `prompt-sync` is a small npm package that gives Node a synchronous, browser-style `prompt()`: the program waits on that line until the user presses Enter.
+
+**Why:** Synchronous input reads top to bottom like the browser version, which is easier for beginners than `readline` callbacks.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_Chapter_UserInput/61_Prompt_sync.js`.
+- **Q: What does it replace?** A: `readline` callbacks in simple scripts, and the browser-only `prompt()`.
+- **Q: What's the gotcha?** A: It reads the keyboard straight from the terminal, so it fails when there is no terminal: piping input (`echo 42 | node 61_Prompt_sync.js`) or running it in CI throws `Error: ENXIO: no such device or address, open '/dev/tty'`.
+
+```mermaid
+flowchart LR
+    A["npm install<br/>(prompt-sync)"] --> B["require('prompt-sync')()"]
+    B --> C["prompt('Enter a number')<br/>waits for Enter"]
+    C --> D["Number(...)"]
+    D --> E["console.log(num)"]
+```
+
+```js
+// 08_Chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
+const prompt = require("prompt-sync")();
+let num = Number(prompt("Enter a number"));
+console.log(num);
+```
+
+### 62: Reading Piped Input with fs.readFileSync
+
+**Concept:** `require('fs').readFileSync(0, 'utf8')` reads everything from standard input (file descriptor `0`) in one go and returns it as a single string.
+
+**Why:** It is the simplest way to accept piped input such as `echo 15 | node file.js`, and it is how many online coding judges feed test input to JavaScript solutions.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js` or `node 08_Chapter_UserInput/62_FS_readFile.js < input.txt`.
+- **Q: What does it replace?** A: Line-by-line `readline` when you simply want all of the input at once.
+- **Q: What's the gotcha?** A: It reads until the end of the input, so when you type by hand nothing happens after Enter: press `Ctrl+D` (macOS and Linux) to finish. The string also keeps its trailing newline, so `data === "15"` is `false` until you call `data.trim()`.
+
+```mermaid
+flowchart LR
+    P["echo 15"] -->|"pipe into stdin (fd 0)"| R["readFileSync(0, 'utf8')"]
+    R --> S["'15' plus a newline"]
+    S --> O["console.log: Hi 15"]
+```
+
+```js
+// 08_Chapter_UserInput/62_FS_readFile.js
+console.log("Enter the number!");
+const data = require('fs').readFileSync(0, 'utf8');   // 0 = standard input
+console.log("Hi", data);
+
+// In the terminal: type 15, press Enter, then press Ctrl+D
+```
+
+```bash
+$ echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js
+Enter the number!
+Hi 15
+```
+
+---
+
 ## Coming Up
 
-- **Chapter 05: Increment, Decrement and Nullish** continues.
+- **Chapter 08: User Input** continues.
 - Then TypeScript, then Playwright.
