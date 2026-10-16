@@ -16,8 +16,8 @@
 // var x;
 // console.log(x);
 
-// var audi = null;
-// console.log(audi);
+var audi = null;
+console.log(audi);
 
 // --------------------------------------------------------
 // 1. undefined

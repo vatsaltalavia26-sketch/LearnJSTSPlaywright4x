@@ -66,6 +66,17 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [60: readline in Node](#60-readline-in-node)
   - [61: prompt-sync](#61-prompt-sync)
   - [62: Reading Piped Input with fs.readFileSync](#62-reading-piped-input-with-fsreadfilesync)
+- [Chapter 09: for Loop](#chapter-09-for-loop)
+  - [63: Why Loops: the for Loop](#63-why-loops-the-for-loop)
+  - [66: Loop Boundaries, Zero Runs and Infinite Loops](#66-loop-boundaries-zero-runs-and-infinite-loops)
+  - [69: if Inside a Loop](#69-if-inside-a-loop)
+- [Chapter 10: while Loop](#chapter-10-while-loop)
+  - [70: while Loop](#70-while-loop)
+  - [73: while (true) and break](#73-while-true-and-break)
+- [Chapter 11: do...while and Nested Loops](#chapter-11-dowhile-and-nested-loops)
+  - [74: do...while](#74-dowhile)
+  - [75: while vs do...while](#75-while-vs-dowhile)
+  - [76: Nested Loops](#76-nested-loops)
 - [Coming Up](#coming-up)
 
 ---
@@ -81,8 +92,11 @@ flowchart LR
     C4 --> C5["05 Increment, Decrement, Nullish<br/>++, --, ??"]:::done
     C5 --> C6["06 if / else<br/>nested, else if ladder"]:::done
     C6 --> C7["07 switch<br/>break, fall-through, switch (true)"]:::done
-    C7 --> C8["08 User Input<br/>prompt, readline, prompt-sync, stdin"]:::progress
-    C8 --> TS["TypeScript"]:::planned
+    C7 --> C8["08 User Input<br/>prompt, readline, prompt-sync, stdin"]:::done
+    C8 --> C9["09 for Loop<br/>init, condition, update"]:::done
+    C9 --> C10["10 while Loop<br/>while, while (true) + break"]:::done
+    C10 --> C11["11 do...while<br/>run once, nested loops"]:::progress
+    C11 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -102,9 +116,12 @@ flowchart LR
 | 03 | Literals | [03_chapter_JS_Literals](03_chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
 | 04 | Operators | [04_chapter_JS_Operators](04_chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
 | 05 | Increment, Decrement and Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | ✅ Done | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
-| 06 | if, else and else if | [06_Chapter_if_else_statement_Condition](06_Chapter_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
-| 07 | switch | [07_Chapter_Switch](07_Chapter_Switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
-| 08 | User Input | [08_Chapter_UserInput](08_Chapter_UserInput/) | 🟡 In progress | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
+| 06 | if, else and else if | [06_chatper_if_else_statement_Condition](06_chatper_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
+| 07 | switch | [07_chapter_switch](07_chapter_switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
+| 08 | User Input | [08_chapter_UserInput](08_chapter_UserInput/) | ✅ Done | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
+| 09 | for Loop | [09_chapter_Loops](09_chapter_Loops/) | ✅ Done | Why loops, `for (init; condition; update)`, `<` vs `<=`, zero-run and infinite loops, `if` inside a loop |
+| 10 | while Loop | [10_chapter_Loops_WHILE](10_chapter_Loops_WHILE/) | ✅ Done | `while`, retry counters, `while (true)` with `break` |
+| 11 | do...while and Nested Loops | [11_chapter_Loops_DoWhile](11_chapter_Loops_DoWhile/) | 🟡 In progress | `do...while`, `while` vs `do...while`, nested `for` loops |
 
 ---
 
@@ -174,12 +191,12 @@ LearnJSTSPlaywright4x/
 │   ├── 43_De.js                            # Pre-decrement: --a
 │   ├── 44.js                               # Post-decrement: a--
 │   └── 45_Nullish.js                       # ?? : fallback only for null / undefined
-├── 06_Chapter_if_else_statement_Condition/
+├── 06_chatper_if_else_statement_Condition/
 │   ├── 46_IF.js                            # if / else: Go Goa or No Goa
 │   ├── 47_IF_Else_Nested.js                # An if inside an if
 │   ├── 48_TO_IfElse.js                     # Same decision as a ternary and as if / else
 │   └── 49_Multiple_ifelse.js               # Interview task: grade calculator with else if
-├── 07_Chapter_Switch/
+├── 07_chapter_switch/
 │   ├── 50_switch.js                        # Day number to day name, break, default
 │   ├── 51_IQ.js                            # Fall-through: no break anywhere
 │   ├── 52_IQ.js                            # Same switch with break, value 10 hits default
@@ -189,11 +206,29 @@ LearnJSTSPlaywright4x/
 │   ├── 56_IQ.js                            # switch (true) for score ranges
 │   ├── 57_IQ.js                            # Duplicate case labels, let inside cases
 │   └── 58.IQ.js                            # switch uses ===: 0 does not match false
-└── 08_Chapter_UserInput/
-    ├── 59_UI.js                            # prompt(): browser only
-    ├── 60_Node_UI.js                       # readline: built into Node
-    ├── 61_Prompt_sync.js                   # prompt-sync: synchronous prompt in Node
-    └── 62_FS_readFile.js                   # fs.readFileSync(0): read piped stdin
+├── 08_chapter_UserInput/
+│   ├── 59_UI.js                            # prompt(): browser only
+│   ├── 60_Node_UI.js                       # readline: built into Node
+│   ├── 61_Prompt_sync.js                   # prompt-sync: synchronous prompt in Node
+│   └── 62_FS_readFile.js                   # fs.readFileSync(0): read piped stdin
+├── 09_chapter_Loops/
+│   ├── 63_Loop.js                          # Printing 1 to 10 by hand: why loops exist
+│   ├── 64_For_loop.js                      # for loop: init, condition, update (ICU)
+│   ├── 65_Foor_Loop.js                     # (commented out) any valid name works as the counter
+│   ├── 66_iq.JS                            # Count 1 to 10 with <=
+│   ├── 67_iq.js                            # (commented out) _1 as a counter, a loop that never runs
+│   ├── 68_IQ.js                            # (commented out) no condition: infinite loop
+│   └── 69_IQ.js                            # if / else inside a for loop
+├── 10_chapter_Loops_WHILE/
+│   ├── 70.js                               # while loop: ICU spread over three lines
+│   ├── 71_IQ.js                            # Retry counter: 3 attempts
+│   ├── 72.js                               # Count 1 to 15 with while
+│   └── 73_break.IQ.js                      # while (true) stopped by break
+└── 11_chapter_Loops_DoWhile/
+    ├── 74.js                               # do...while retry: body first, check after
+    ├── 75_IQ.js                            # do...while runs once even when the condition is false
+    ├── 76_Nested.js                        # Nested for loops: a 3 x 3 grid
+    └── 77_IQ.js                            # for loop false at the start: 0 runs
 ```
 
 ---
@@ -1405,7 +1440,7 @@ flowchart TD
 ```
 
 ```js
-// 06_Chapter_if_else_statement_Condition/46_IF.js (plus a falsy check)
+// 06_chatper_if_else_statement_Condition/46_IF.js (plus a falsy check)
 let age = 16;
 if (age > 18) {
     console.log("Go Goa");
@@ -1440,7 +1475,7 @@ flowchart TD
 ```
 
 ```js
-// 06_Chapter_if_else_statement_Condition/47_IF_Else_Nested.js
+// 06_chatper_if_else_statement_Condition/47_IF_Else_Nested.js
 let age = 27;
 if (age > 18) {
     console.log("Goa Check!");
@@ -1480,7 +1515,7 @@ flowchart LR
 | Best for | Picking one of two values | Running one of two blocks |
 
 ```js
-// 06_Chapter_if_else_statement_Condition/48_TO_IfElse.js
+// 06_chatper_if_else_statement_Condition/48_TO_IfElse.js
 let age = 20;
 let result = age > 21 ? "Drive" : "No Able to DRIve";   // a value
 
@@ -1504,7 +1539,7 @@ if (age > 21) {                                          // actions
 **Q&A: why use this?**
 - **Q: When do I reach for it?** A: More than two outcomes that depend on ranges. Validate the input first (`score > 100 || score < 0` prints "Invalid score") so the ladder only ever sees legal values.
 - **Q: What does it replace?** A: A stack of separate `if`s, which could run several blocks for one score. With `else if`, once a band matches, the rest are skipped.
-- **Q: What's the gotcha?** A: Boundaries. The spec in the file says 50 is an E, but `score > 50 && score <= 60` sends 50 to F; `score >= 50` fixes it. Testing the edges (0, 49, 50, 60, 61, 90, 91, 100) is exactly how you catch this. Also, because the ladder runs top-down, the `&& score <= 90` halves are redundant: if `score > 90` were true, the first branch would already have run.
+- **Q: What's the gotcha?** A: Boundaries. The spec says 50 is an E, and an earlier version of this file wrote `score > 50 && score <= 60`, which sent 50 to F. It now uses `score >= 50`. Testing the edges (0, 49, 50, 60, 61, 90, 91, 100) is exactly how you catch a bug like that. Also, because the ladder runs top-down, the `&& score <= 90` halves are redundant: if `score > 90` were true, the first branch would already have run.
 
 ```mermaid
 flowchart TD
@@ -1530,12 +1565,12 @@ flowchart TD
 | 90 | B | Grade B - Very Good ✅ |
 | 61 | D | Grade D - Average ✅ |
 | 60 | E | Grade E - Needs Improvement ✅ |
-| **50** | **E** | **Grade F - Fail ❌** |
+| 50 | E | Grade E - Needs Improvement ✅ (was F before the `>= 50` fix) |
 | 49 | F | Grade F - Fail ✅ |
 | 0 | F | Grade F - Fail ✅ |
 
 ```js
-// 06_Chapter_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
+// 06_chatper_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
 let score = 95;
 
 if (score > 100 || score < 0) {
@@ -1553,7 +1588,7 @@ if (score > 100 || score < 0) {
     else if (score > 60 && score <= 70) {
         console.log("Grade D - Average");
     }
-    else if (score > 50 && score <= 60) {   // spec: 50 is an E, so use score >= 50
+    else if (score >= 50 && score <= 60) {  // >= so that 50 is an E, as the spec says
         console.log("Grade E - Needs Improvement");
     }
     else {
@@ -1589,7 +1624,7 @@ flowchart TD
 ```
 
 ```js
-// 07_Chapter_Switch/50_switch.js (excerpt)
+// 07_chapter_switch/50_switch.js (excerpt)
 let day = 2;
 switch (day) {
     case 1:
@@ -1631,7 +1666,7 @@ flowchart TD
 ```
 
 ```js
-// 07_Chapter_Switch/55_IQ.js
+// 07_chapter_switch/55_IQ.js
 let fruit = "banana";
 switch (fruit) {
     case "apple":
@@ -1671,7 +1706,7 @@ flowchart LR
 ```
 
 ```js
-// 07_Chapter_Switch/53_API_Switch.js
+// 07_chapter_switch/53_API_Switch.js
 let responseCode = 404;
 switch (responseCode) {
     case 200:
@@ -1684,7 +1719,7 @@ switch (responseCode) {
         console.log("Not status code match");
 }
 
-// 07_Chapter_Switch/54_Switch_Group.js (adapted)
+// 07_chapter_switch/54_Switch_Group.js (adapted)
 let browser = "Brave";
 switch (browser) {
     case "Chrome":
@@ -1722,7 +1757,7 @@ flowchart TD
 ```
 
 ```js
-// 07_Chapter_Switch/56_IQ.js (adapted)
+// 07_chapter_switch/56_IQ.js (adapted)
 let testScore = 85;
 switch (true) {
     case (testScore >= 95):
@@ -1761,7 +1796,7 @@ flowchart LR
 ```
 
 ```js
-// 07_Chapter_Switch/57_IQ.js
+// 07_chapter_switch/57_IQ.js
 let x = 10;
 switch (x) {
     case 10:
@@ -1776,7 +1811,7 @@ switch (x) {
         console.log("d");
 }
 
-// 07_Chapter_Switch/58.IQ.js
+// 07_chapter_switch/58.IQ.js
 let status = 0;
 console.log(typeof status);       // number
 switch (status) {                 // === : value and type must both match
@@ -1810,7 +1845,7 @@ switch (status) {                 // === : value and type must both match
 
 **Q&A: why use this?**
 - **Q: When do I reach for it?** A: In a browser's DevTools console or a `<script>` on a page: paste the file's code into the Console tab to try it.
-- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_Chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
+- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
 - **Q: What's the gotcha?** A: The answer is always a string or `null`. Pressing Cancel gives `null`, `Number(null)` is `0`, and the file prints "0 is Even". Typing `abc` gives `NaN`, and since `NaN % 2 === 0` is `false`, it prints "NaN is Odd".
 
 ```mermaid
@@ -1827,7 +1862,7 @@ sequenceDiagram
 ```
 
 ```js
-// 08_Chapter_UserInput/59_UI.js (run in a browser console, not in Node)
+// 08_chapter_UserInput/59_UI.js (run in a browser console, not in Node)
 let num = prompt("Enter a number:");
 num = Number(num);  // convert string to number
 
@@ -1861,7 +1896,7 @@ sequenceDiagram
 ```
 
 ```js
-// 08_Chapter_UserInput/60_Node_UI.js
+// 08_chapter_UserInput/60_Node_UI.js
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -1883,7 +1918,7 @@ rl.question("Enter a number: ", (input) => {
 ```
 
 ```bash
-$ echo 7 | node 08_Chapter_UserInput/60_Node_UI.js
+$ echo 7 | node 08_chapter_UserInput/60_Node_UI.js
 Enter a number: 7 is Odd
 ```
 
@@ -1894,7 +1929,7 @@ Enter a number: 7 is Odd
 **Why:** Synchronous input reads top to bottom like the browser version, which is easier for beginners than `readline` callbacks.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_Chapter_UserInput/61_Prompt_sync.js`.
+- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_chapter_UserInput/61_Prompt_sync.js`.
 - **Q: What does it replace?** A: `readline` callbacks in simple scripts, and the browser-only `prompt()`.
 - **Q: What's the gotcha?** A: It reads the keyboard straight from the terminal, so it fails when there is no terminal: piping input (`echo 42 | node 61_Prompt_sync.js`) or running it in CI throws `Error: ENXIO: no such device or address, open '/dev/tty'`.
 
@@ -1907,7 +1942,7 @@ flowchart LR
 ```
 
 ```js
-// 08_Chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
+// 08_chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
 const prompt = require("prompt-sync")();
 let num = Number(prompt("Enter a number"));
 console.log(num);
@@ -1920,7 +1955,7 @@ console.log(num);
 **Why:** It is the simplest way to accept piped input such as `echo 15 | node file.js`, and it is how many online coding judges feed test input to JavaScript solutions.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js` or `node 08_Chapter_UserInput/62_FS_readFile.js < input.txt`.
+- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_chapter_UserInput/62_FS_readFile.js` or `node 08_chapter_UserInput/62_FS_readFile.js < input.txt`.
 - **Q: What does it replace?** A: Line-by-line `readline` when you simply want all of the input at once.
 - **Q: What's the gotcha?** A: It reads until the end of the input, so when you type by hand nothing happens after Enter: press `Ctrl+D` (macOS and Linux) to finish. The string also keeps its trailing newline, so `data === "15"` is `false` until you call `data.trim()`.
 
@@ -1932,7 +1967,7 @@ flowchart LR
 ```
 
 ```js
-// 08_Chapter_UserInput/62_FS_readFile.js
+// 08_chapter_UserInput/62_FS_readFile.js
 console.log("Enter the number!");
 const data = require('fs').readFileSync(0, 'utf8');   // 0 = standard input
 console.log("Hi", data);
@@ -1941,14 +1976,340 @@ console.log("Hi", data);
 ```
 
 ```bash
-$ echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js
+$ echo 15 | node 08_chapter_UserInput/62_FS_readFile.js
 Enter the number!
 Hi 15
 ```
 
 ---
 
+## Chapter 09: for Loop
+
+### 63: Why Loops: the for Loop
+
+![Anatomy of a for loop: let i = 0 is the init and runs once, i < 10 is the condition checked before every pass, i++ is the update after every pass](assets/images/ch09-for-loop-anatomy.png)
+
+**Concept:** A loop repeats a block of code. A `for` loop packs its three parts into one line: the init (`let i = 0`, runs once), the condition (`i < 10`, checked before every pass) and the update (`i++`, runs after every pass). The lesson calls this ICU.
+
+**Why:** Writing `console.log(1)` to `console.log(10)` by hand (`63_Loop.js`) does not scale; a loop does the same work in three lines for 10 values or 10,000.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When you know how many times to repeat: 10 rows, 3 retries, 5 form fields. In tests, checking each row of a table is the classic case.
+- **Q: What does it replace?** A: Copy-pasted lines. The syntax matches Java's `for (int i = 0; i < 10; i++)`, with `let` instead of `int`.
+- **Q: What's the gotcha?** A: `i++` or `++i` in the update makes no difference (`64_For_loop.js` uses `++i`), because nothing reads the update's value. What matters is the condition: `i < 10` starting at 0 runs 10 times, printing 0 to 9.
+
+```mermaid
+flowchart TD
+    I["Init: let i = 0 (runs once)"] --> C{"i < 10 ?"}
+    C -->|true| B["Body: console.log(i)"]
+    B --> U["Update: ++i"]
+    U --> C
+    C -->|false| E["Loop ends"]
+```
+
+```js
+// 09_chapter_Loops/63_Loop.js: the slow way
+console.log(1);
+console.log(2);
+console.log(3);
+// ... one line per number, all the way to 10
+
+// 09_chapter_Loops/64_For_loop.js: the loop way
+// ICU: INIT let i = 0, CONDITION i < 10, UPDATE ++i
+for (let i = 0; i < 10; ++i) {
+    console.log(i);   // 0 1 2 ... 9
+}
+```
+
+### 66: Loop Boundaries, Zero Runs and Infinite Loops
+
+**Concept:** Interview drills on the loop header (`65_Foor_Loop.js` to `68_IQ.js`): the counter can have any valid name, `<=` includes the end value, a condition that is false at the start runs the body zero times, and a missing condition never stops.
+
+**Why:** Off-by-one and never-ending loops are the most common loop bugs, and in test code they show up as wrong counts or hanging runs.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Every time you write a loop header: check the first value, the last value and the count. `for (let somya = 1; somya <= 10; somya++)` runs 10 times, 1 to 10.
+- **Q: What does it replace?** A: Guessing the count. The rule: start at 0 with `< n`, or start at 1 with `<= n`; both run n times.
+- **Q: What's the gotcha?** A: `for (let pramod = 0; pramod > 1; pramod++)` never runs, because `0 > 1` is already false. `for (let pramod = 0; ; pramod++)` has no condition, so it never stops, which is why `68_IQ.js` is commented out. Press `Ctrl+C` to kill a runaway loop.
+
+```mermaid
+flowchart TD
+    Q{"Is the condition true<br/>for the first value?"} -->|No| Z["0 runs (67_iq.js)"]
+    Q -->|Yes| C{"Does the update move<br/>the counter toward false?"}
+    C -->|Yes| N["Stops after n runs"]
+    C -->|"No, or no condition"| INF["Infinite loop (68_IQ.js)"]
+```
+
+| Header | Counter values | Runs |
+|:-------|:---------------|:----:|
+| `for (let i = 0; i < 10; i++)` | 0 to 9 | 10 |
+| `for (let i = 1; i <= 10; i++)` | 1 to 10 | 10 |
+| `for (let i = 0; i <= 10; i++)` | 0 to 10 | 11 |
+| `for (let i = 0; i > 1; i++)` | none | 0 |
+| `for (let i = 0; ; i++)` | 0, 1, 2, ... forever | ∞ |
+
+```js
+// 09_chapter_Loops/66_iq.JS
+for (let somya = 1; somya <= 10; somya++) {
+    console.log(somya);   // 1 2 3 ... 10
+}
+
+// 67_iq.js (switched on): _1 is a valid name; 0 to 10 with <= is 11 runs
+for (let _1 = 0; _1 <= 10; _1++) {
+    console.log(_1);      // 0 1 2 ... 10
+}
+
+// 67_iq.js (switched on): 0 > 1 is false at the start, so the body never runs
+for (let pramod = 0; pramod > 1; pramod++) {
+    console.log(pramod);  // never printed
+}
+
+// 68_IQ.js: no condition, never stops. Leave this one commented out.
+// for (let pramod = 0; ; pramod++) {
+//     console.log(pramod);
+// }
+```
+
+### 69: if Inside a Loop
+
+**Concept:** A loop body can hold any code, including an `if/else`, so every pass can make its own decision based on the counter.
+
+**Why:** Tests often loop over items and treat some of them differently: skip disabled rows, flag values over a limit.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When the action depends on the item or the counter: "for each year from 0 to 17, a gift only after 15".
+- **Q: What does it replace?** A: Two separate loops (one per case), or hand-written special cases.
+- **Q: What's the gotcha?** A: Count the outcomes before you trust the output. With `somya < 18` and `somya > 15`, only 16 and 17 pass, so the gift line prints 2 times and the other line 16 times. If 15 should count, write `somya >= 15`.
+
+```mermaid
+flowchart TD
+    L["for somya = 0 to 17"] --> C{"somya > 15"}
+    C -->|"true (16, 17)"| G["Gift from papa, iphone this year"]
+    C -->|"false (0 to 15)"| N["No Gift, iphone only barbie doll"]
+    G --> NEXT["next somya"]
+    N --> NEXT
+    NEXT --> L
+```
+
+```js
+// 09_chapter_Loops/69_IQ.js
+for (let somya = 0; somya < 18; ++somya) {
+    if (somya > 15) {
+        console.log("Gift from papa, iphone this year")   // somya = 16, 17
+    } else {
+        console.log("No Gift, iphone only barbie doll")   // somya = 0 to 15
+    }
+}
+// Output: "No Gift ..." 16 times, then "Gift from papa ..." 2 times
+```
+
+---
+
+## Chapter 10: while Loop
+
+### 70: while Loop
+
+![How a while loop runs: check attempts < 3; if true run the body and attempts++, then check again; if false exit the loop](assets/images/ch10-while-loop.png)
+
+**Concept:** `while (condition) { ... }` repeats its body as long as the condition is true. The same ICU parts are there, just spread out: the init goes before the loop, the condition in the header, the update inside the body.
+
+**Why:** When you repeat until something changes (retry until success, read until the input ends), a `while` says "keep going while this is true" directly.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Repeat-until-done logic, like the retry counter in `71_IQ.js` (`while (attempts < 3)`). Playwright's auto-waiting runs this kind of retry loop for you, which is why you rarely hand-write one in tests.
+- **Q: What does it replace?** A: A `for` loop; each can do what the other does (`70.js` shows the same count both ways). Java's `while` is identical.
+- **Q: What's the gotcha?** A: Forget the update (`i++`) and the condition never turns false: an infinite loop. In a `for` the update sits in the header where you see it; in a `while` it hides at the bottom of the body.
+
+```mermaid
+flowchart TD
+    I["let i = 0 (init, before the loop)"] --> C{"i < 10 ?"}
+    C -->|true| B["console.log(i)"]
+    B --> U["i++ (update, inside the body)"]
+    U --> C
+    C -->|false| E["Exit"]
+```
+
+| | `for` | `while` |
+|:--|:--|:--|
+| Init | In the header | Before the loop |
+| Update | In the header | Inside the body |
+| Best when | You know the count | You repeat until something changes |
+
+```js
+// 10_chapter_Loops_WHILE/70.js
+let i = 0;            // Init
+while (i < 10) {      // Condition
+    console.log(i);   // 0 1 2 ... 9
+    i++;              // Update
+}
+
+// 10_chapter_Loops_WHILE/71_IQ.js: a retry counter
+let attempts = 0;
+while (attempts < 3) {
+    console.log("Attempt", attempts);   // Attempt 0, Attempt 1, Attempt 2
+    attempts++;
+}
+```
+
+`72.js` counts the same way from 1 to 15 (`while (modi <= 15)`).
+
+### 73: while (true) and break
+
+**Concept:** `while (true)` would run forever on its own; a `break` inside the body is what ends it. Use it when the exit check fits better in the middle of the body than in the header.
+
+**Why:** "Keep going until X happens" (a matching row, a successful response, an age limit) often reads more naturally as a `break` than as a header condition.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When the stop condition is only known after some work inside the body. Always make sure at least one path reaches the `break`.
+- **Q: What does it replace?** A: A header condition: `73_break.IQ.js` does the same as `while (age <= 10) { console.log(age); age++; }`.
+- **Q: What's the gotcha?** A: `break` only leaves the innermost loop (or `switch`) it sits in. And if the variable never reaches the exit value (say `age--` instead of `age++`), it really does run forever.
+
+```mermaid
+flowchart TD
+    W["while (true)"] --> C{"age > 10 ?"}
+    C -->|true| BR["break: leave the loop"]
+    C -->|false| P["console.log(age)"]
+    P --> U["age++"]
+    U --> W
+```
+
+```js
+// 10_chapter_Loops_WHILE/73_break.IQ.js
+let age = 7;
+while (true) {
+    if (age > 10) {
+        break;              // the only way out
+    } else {
+        console.log(age);   // 7 8 9 10
+    }
+    age++;
+}
+```
+
+---
+
+## Chapter 11: do...while and Nested Loops
+
+### 74: do...while
+
+**Concept:** `do { ... } while (condition);` runs the body first and checks the condition afterwards, so the body always runs at least once.
+
+**Why:** Some work has to happen before you can decide whether to repeat it: try the action, then check whether a retry is needed.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: "Try first, then decide": a retry loop like `74.js`, or a menu that must show at least once before asking whether to show it again.
+- **Q: What does it replace?** A: A `while` loop with a copy of its body pasted above it. Java's `do...while` works the same way.
+- **Q: What's the gotcha?** A: The condition sits at the bottom, after the body, so read the last line before guessing the count. `retry < 3` with `retry` starting at 0 gives three runs (0, 1, 2), and the body runs once even when the condition is false from the start (lesson 75).
+
+```mermaid
+flowchart TD
+    S["retry = 0"] --> B["Body: Executing the code....<br/>Retrying..... retry"]
+    B --> U["retry++"]
+    U --> C{"retry < 3 ?"}
+    C -->|true| B
+    C -->|false| E["Exit"]
+```
+
+```js
+// 11_chapter_Loops_DoWhile/74.js
+let retry = 0;
+
+do {
+    console.log("Executing the code....");
+    console.log("Retrying.....", retry);   // 0, then 1, then 2
+    retry++;
+} while (retry < 3);
+```
+
+### 75: while vs do...while
+
+![while vs do...while with a = 10: while checks then runs and runs 0 times; do...while runs then checks and runs 1 time](assets/images/ch11-while-vs-do-while.png)
+
+**Concept:** Same start value (`a = 10`), same condition (`a < 10`): a `while` checks first and runs zero times, while a `do...while` runs once and then checks. `77_IQ.js` shows the same zero-run rule for a `for` loop.
+
+**Why:** "How many times does this print?" with a condition that is false from the start is a classic interview question.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `while` or `for` when zero runs is a valid outcome (an empty list); `do...while` only when the body must run at least once.
+- **Q: What does it replace?** A: Memorising outputs. The rule: `for` and `while` check at the top, `do...while` checks at the bottom.
+- **Q: What's the gotcha?** A: In `77_IQ.js`, `for (let i = 5; i < 5; i++)` never runs, so `count` stays `0`. Rewrite it as a `do...while` and `count` would be `1`.
+
+```mermaid
+flowchart LR
+    subgraph W["while"]
+        W1{"a < 10 ?<br/>10 < 10 is false"} --> W2["exit: 0 runs"]
+    end
+    subgraph D["do...while"]
+        D1["run the body: prints 10"] --> D2{"a < 10 ?<br/>11 < 10 is false"} --> D3["exit: 1 run"]
+    end
+```
+
+| Loop | Checks the condition | Start `a = 10`, condition `a < 10` |
+|:-----|:---------------------|:-----------------------------------|
+| `for` | Before each pass | 0 runs |
+| `while` | Before each pass | 0 runs |
+| `do...while` | After each pass | 1 run (prints 10) |
+
+```js
+// 11_chapter_Loops_DoWhile/75_IQ.js (with the while version switched on)
+let a = 10;
+while (a < 10) {          // checked first: false, so the body never runs
+    console.log(a);
+    a++;
+}
+
+let b = 10;
+do {
+    console.log(b);       // runs once: prints 10
+    b++;
+} while (b < 10);         // checked after: 11 < 10 is false, stop
+
+// 11_chapter_Loops_DoWhile/77_IQ.js
+let count = 0;
+for (let i = 5; i < 5; i++) {
+    count++;
+}
+console.log(count);       // 0
+```
+
+### 76: Nested Loops
+
+**Concept:** A loop inside a loop: for every pass of the outer loop, the inner loop runs all the way through. Two loops of 3 give 3 x 3 = 9 runs of the inner body.
+
+**Why:** Grids and tables have two dimensions: rows and columns, every browser on every screen size, every user on every role.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Walking the rows and cells of a table, or building a test matrix such as 3 browsers x 3 screen sizes.
+- **Q: What does it replace?** A: Writing every combination out by hand.
+- **Q: What's the gotcha?** A: The work multiplies: 100 x 100 is 10,000 runs, so watch the size of both loops. Give the counters different names (`i` outside, `j` inside); an inner `let i` would hide the outer one inside the inner body.
+
+```mermaid
+flowchart TD
+    O["outer loop: i = 0, 1, 2"] --> IN["inner loop: j = 0, 1, 2"]
+    IN --> P["console.log(i, j)"]
+    P -->|"next j"| IN
+    IN -->|"inner done: next i"| O
+    O -->|"outer done"| E["9 lines printed"]
+```
+
+| | `j = 0` | `j = 1` | `j = 2` |
+|:--|:--:|:--:|:--:|
+| **`i = 0`** | `0 0` | `0 1` | `0 2` |
+| **`i = 1`** | `1 0` | `1 1` | `1 2` |
+| **`i = 2`** | `2 0` | `2 1` | `2 2` |
+
+```js
+// 11_chapter_Loops_DoWhile/76_Nested.js
+for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+        console.log(i, j);   // 0 0, 0 1, 0 2, 1 0, ... 2 2
+    }
+}
+```
+
+---
+
 ## Coming Up
 
-- **Chapter 08: User Input** continues.
+- **Chapter 11: do...while and Nested Loops** continues.
 - Then TypeScript, then Playwright.
