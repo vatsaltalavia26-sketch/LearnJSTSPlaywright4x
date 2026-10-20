@@ -1,7 +1,5 @@
 # Learn JavaScript, TypeScript & Playwright (4x)
 
-![Learn JavaScript, TypeScript & Playwright: chapter by chapter, built for testers](assets/images/banner.png)
-
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
 ![Prompt Engineering](https://img.shields.io/badge/Prompt_Eng-RICE--POT-purple)
@@ -77,6 +75,19 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [74: do...while](#74-dowhile)
   - [75: while vs do...while](#75-while-vs-dowhile)
   - [76: Nested Loops](#76-nested-loops)
+- [Chapter 12: Arrays](#chapter-12-arrays)
+  - [78: Array Basics](#78-array-basics)
+  - [79: Array Length and Indexing](#79-array-length-and-indexing)
+  - [80: Array Bounds](#80-array-bounds)
+  - [81: Array Values](#81-array-values)
+  - [82: Creating Arrays](#82-creating-arrays)
+  - [83: Accessing and Modifying Arrays](#83-accessing-and-modifying-arrays)
+  - [84: Adding and Removing Elements](#84-adding-and-removing-elements)
+  - [85: Removing and Iterating through Arrays](#85-removing-and-iterating-through-arrays)
+  - [86: Searching Arrays](#86-searching-arrays)
+  - [87: Finding Elements](#87-finding-elements)
+  - [88: Iterating over Arrays](#88-iterating-over-arrays)
+  - [89: Transforming Arrays](#89-transforming-arrays)
 - [Coming Up](#coming-up)
 
 ---
@@ -95,8 +106,9 @@ flowchart LR
     C7 --> C8["08 User Input<br/>prompt, readline, prompt-sync, stdin"]:::done
     C8 --> C9["09 for Loop<br/>init, condition, update"]:::done
     C9 --> C10["10 while Loop<br/>while, while (true) + break"]:::done
-    C10 --> C11["11 do...while<br/>run once, nested loops"]:::progress
-    C11 --> TS["TypeScript"]:::planned
+    C10 --> C11["11 do...while<br/>run once, nested loops"]:::done
+    C11 --> C12["12 Arrays<br/>create, access, search, transform"]:::progress
+    C12 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -110,18 +122,19 @@ flowchart LR
 
 | # | Chapter | Folder | Status | What you learn |
 |:--|:--------|:-------|:------:|:---------------|
-| 00 | Prompt Engineering | [00_chapter_Prompt_Eng](00_chapter_Prompt_Eng/) | ✅ Done | RICE-POT prompts, anti-hallucination rules, the Selenium framework a prompt generated |
-| 01 | JavaScript Basics | [01_chapter_JS_Basics](01_chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic expressions |
-| 02 | Keywords and Identifiers | [02_chapter_JS_Keywrods_Identifiers](02_chapter_JS_Keywrods_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
-| 03 | Literals | [03_chapter_JS_Literals](03_chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
-| 04 | Operators | [04_chapter_JS_Operators](04_chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
-| 05 | Increment, Decrement and Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | ✅ Done | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
-| 06 | if, else and else if | [06_chatper_if_else_statement_Condition](06_chatper_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
-| 07 | switch | [07_chapter_switch](07_chapter_switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
-| 08 | User Input | [08_chapter_UserInput](08_chapter_UserInput/) | ✅ Done | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
-| 09 | for Loop | [09_chapter_Loops](09_chapter_Loops/) | ✅ Done | Why loops, `for (init; condition; update)`, `<` vs `<=`, zero-run and infinite loops, `if` inside a loop |
-| 10 | while Loop | [10_chapter_Loops_WHILE](10_chapter_Loops_WHILE/) | ✅ Done | `while`, retry counters, `while (true)` with `break` |
-| 11 | do...while and Nested Loops | [11_chapter_Loops_DoWhile](11_chapter_Loops_DoWhile/) | 🟡 In progress | `do...while`, `while` vs `do...while`, nested `for` loops |
+| 00 | Prompt Engineering | [00_Chapter_Prompt_Eng](00_Chapter_Prompt_Eng/) | ✅ Done | RICE-POT prompts, anti-hallucination rules, the Selenium framework a prompt generated |
+| 01 | JavaScript Basics | [01_Chapter_JS_Basics](01_Chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic expressions |
+| 02 | Keywords and Identifiers | [02_Chapter_JS_Keywords_Identifiers](02_Chapter_JS_Keywords_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
+| 03 | Literals | [03_Chapter_JS_Literals](03_Chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
+| 04 | Operators | [04_Chapter_JS_Operators](04_Chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
+| 05 | Increment, Decrement and Nullish | [05_Chapter_JS_INCRE_DECRE_OP](05_Chapter_JS_INCRE_DECRE_OP/) | ✅ Done | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
+| 06 | if, else and else if | [06_Chapter_if_else_statement_Condition](06_Chapter_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
+| 07 | switch | [07_Chapter_Switch](07_Chapter_Switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
+| 08 | User Input | [08_Chapter_UserInput](08_Chapter_UserInput/) | ✅ Done | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
+| 09 | for Loop | [09_Chapter_Loops](09_Chapter_Loops/) | ✅ Done | Why loops, `for (init; condition; update)`, `<` vs `<=`, zero-run and infinite loops, `if` inside a loop |
+| 10 | while Loop | [10_Chapter_Loops_While](10_Chapter_Loops_While/) | ✅ Done | `while`, retry counters, `while (true)` with `break` |
+| 11 | do...while and Nested Loops | [11_Chapter_Loops_DoWhile](11_Chapter_Loops_DoWhile/) | ✅ Done | `do...while`, `while` vs `do...while`, nested `for` loops |
+| 12 | Arrays | [12_Chapter_Arrays](12_Chapter_Arrays/) | 🟡 In progress | Creating arrays, indexing, updating, adding and removing elements, searching, iteration, `map`, and `filter` |
 
 ---
 
@@ -133,18 +146,18 @@ LearnJSTSPlaywright4x/
 ├── .gitignore
 ├── package.json                            # One dependency: prompt-sync (chapter 08)
 ├── package-lock.json
-├── assets/images/                          # Banner and chapter cheat-sheet images used in this README
-├── 00_chapter_Prompt_Eng/
-│   ├── 00_RICE_POT_FullForm.md             # What each RICE-POT letter means
+├── 00_Chapter_Prompt_Eng/
+│   ├── 00_RICE_POT_Full_Form.md            # What each RICE-POT letter means
 │   ├── 01_RICE_POT_Prompt.md               # Worked prompt: Salesforce login (Selenium + TestNG)
 │   ├── 02_Problem_Statement.md             # The objective the prompt solves
 │   ├── 03_Anti_Hallucinations.md           # Version anchors, negative constraints, self-checks
-│   ├── 04_RICE_POT_Generic_QA_Template.md  # Reusable template: test plans, cases, automation
+│   ├── 04_Generic_RICE_POT_QA_Template.md  # Reusable template: test plans, cases, automation
 │   └── Selenium_Framework/                 # The framework the prompt produced (Java 17, TestNG)
-├── 01_chapter_JS_Basics/
+├── 01_Chapter_JS_Basics/
 │   ├── 01_HelloWorld.js                    # First program: console.log
+│   ├── 02_Let_Concept.js                   # let declaration example
 │   └── 02_Math.js                          # Arithmetic expressions
-├── 02_chapter_JS_Keywrods_Identifiers/
+├── 02_Chapter_JS_Keywords_Identifiers/
 │   ├── 03_js_engine.js                     # How V8 runs a file, hot code and JIT
 │   ├── 04_letengine.js                     # Smallest program: one let declaration
 │   ├── 05_KW_IND.js                        # Keyword vs identifier: var, let, const
@@ -152,7 +165,7 @@ LearnJSTSPlaywright4x/
 │   ├── 07_IND_Rules2.js                    # Naming conventions: camelCase, PascalCase, ...
 │   ├── 08_Comments.js                      # Single-line, multi-line and JSDoc comments
 │   └── 09_IQ.js                            # Interview drill: valid vs invalid identifiers
-├── 03_chapter_JS_Literals/
+├── 03_Chapter_JS_Literals/
 │   ├── 10_Literal.js                       # A literal is the value you write: let a = 10
 │   ├── 11_Numberal.js                      # String, number, boolean, null literals + typeof
 │   ├── 12_Null_Undefined.js                # null vs undefined, typeof null is "object"
@@ -162,7 +175,7 @@ LearnJSTSPlaywright4x/
 │   ├── 16_Numbers_PART2.js                 # Numeric separators (1_000_000) and BigInt
 │   ├── 17_Special.js                       # Infinity, -Infinity, NaN
 │   └── 18_undefined.js                     # Practice: undefined vs null
-├── 04_chapter_JS_Operators/
+├── 04_Chapter_JS_Operators/
 │   ├── 19_Arch.js                          # Anatomy of an expression, JS data types
 │   ├── 20_Assigment_Op.js                  # = and reassigning a variable
 │   ├── 21_Arithematic_Op.js                # + - * / % ** and the odd/even check
@@ -182,7 +195,7 @@ LearnJSTSPlaywright4x/
 │   ├── 35_IQ.js                            # Chained ternary: HTTP status categories
 │   ├── 36_IQ.js                            # Chained ternary: temperature bands
 │   └── 37_TypeOf.js                        # typeof on strings and numbers
-├── 05_chapter_JS_Incre_Decr_Op/
+├── 05_Chapter_JS_INCRE_DECRE_OP/
 │   ├── 38_ID_Op.js                         # Pre-increment: ++a
 │   ├── 39_ID.js                            # Post-increment: a++
 │   ├── 40_IQ.js                            # ++a + a
@@ -191,12 +204,12 @@ LearnJSTSPlaywright4x/
 │   ├── 43_De.js                            # Pre-decrement: --a
 │   ├── 44.js                               # Post-decrement: a--
 │   └── 45_Nullish.js                       # ?? : fallback only for null / undefined
-├── 06_chatper_if_else_statement_Condition/
+├── 06_Chapter_if_else_statement_Condition/
 │   ├── 46_IF.js                            # if / else: Go Goa or No Goa
 │   ├── 47_IF_Else_Nested.js                # An if inside an if
 │   ├── 48_TO_IfElse.js                     # Same decision as a ternary and as if / else
 │   └── 49_Multiple_ifelse.js               # Interview task: grade calculator with else if
-├── 07_chapter_switch/
+├── 07_Chapter_Switch/
 │   ├── 50_switch.js                        # Day number to day name, break, default
 │   ├── 51_IQ.js                            # Fall-through: no break anywhere
 │   ├── 52_IQ.js                            # Same switch with break, value 10 hits default
@@ -206,12 +219,12 @@ LearnJSTSPlaywright4x/
 │   ├── 56_IQ.js                            # switch (true) for score ranges
 │   ├── 57_IQ.js                            # Duplicate case labels, let inside cases
 │   └── 58.IQ.js                            # switch uses ===: 0 does not match false
-├── 08_chapter_UserInput/
+├── 08_Chapter_UserInput/
 │   ├── 59_UI.js                            # prompt(): browser only
 │   ├── 60_Node_UI.js                       # readline: built into Node
 │   ├── 61_Prompt_sync.js                   # prompt-sync: synchronous prompt in Node
 │   └── 62_FS_readFile.js                   # fs.readFileSync(0): read piped stdin
-├── 09_chapter_Loops/
+├── 09_Chapter_Loops/
 │   ├── 63_Loop.js                          # Printing 1 to 10 by hand: why loops exist
 │   ├── 64_For_loop.js                      # for loop: init, condition, update (ICU)
 │   ├── 65_Foor_Loop.js                     # (commented out) any valid name works as the counter
@@ -219,16 +232,29 @@ LearnJSTSPlaywright4x/
 │   ├── 67_iq.js                            # (commented out) _1 as a counter, a loop that never runs
 │   ├── 68_IQ.js                            # (commented out) no condition: infinite loop
 │   └── 69_IQ.js                            # if / else inside a for loop
-├── 10_chapter_Loops_WHILE/
+├── 10_Chapter_Loops_While/
 │   ├── 70.js                               # while loop: ICU spread over three lines
 │   ├── 71_IQ.js                            # Retry counter: 3 attempts
 │   ├── 72.js                               # Count 1 to 15 with while
 │   └── 73_break.IQ.js                      # while (true) stopped by break
-└── 11_chapter_Loops_DoWhile/
-    ├── 74.js                               # do...while retry: body first, check after
-    ├── 75_IQ.js                            # do...while runs once even when the condition is false
-    ├── 76_Nested.js                        # Nested for loops: a 3 x 3 grid
-    └── 77_IQ.js                            # for loop false at the start: 0 runs
+├── 11_Chapter_Loops_DoWhile/
+│   ├── 74.js                               # do...while retry: body first, check after
+│   ├── 75_IQ.js                            # do...while runs once even when the condition is false
+│   ├── 76_Nested.js                        # Nested for loops: a 3 x 3 grid
+│   └── 77_IQ.js                            # for loop false at the start: 0 runs
+└── 12_Chapter_Arrays/
+    ├── 78_Array.js                         # Array basics, indexing, length, and at()
+    ├── 79_Arrays.js                        # Creating arrays and reading indexed values
+    ├── 80_Arrays.js                        # Length and out-of-range access
+    ├── 81_Array.js                         # Array values and mixed element types
+    ├── 82_Create.js                        # Array(), Array.of(), and Array.from()
+    ├── 83_Access_Modify.js                 # Read and update elements by index
+    ├── 84_Adding_Remove.js                 # push, pop, shift, unshift, and splice
+    ├── 85_ARRAY.js                         # Removing elements and looping through values
+    ├── 86_Searching.js                     # indexOf, lastIndexOf, and includes
+    ├── 87_Find.js                          # find, findIndex, findLast, and findLastIndex
+    ├── 88_Iterate.js                       # for, for...of, forEach, entries, and for...in
+    └── 89_Arrays_Transform.js               # map and filter
 ```
 
 ---
@@ -238,11 +264,11 @@ LearnJSTSPlaywright4x/
 You only need [Node.js](https://nodejs.org/) 18 or newer. Chapter 08 uses one npm package ([prompt-sync](https://www.npmjs.com/package/prompt-sync)), so run `npm install` once after cloning.
 
 ```bash
-git clone https://github.com/PramodDutta/LearnJSTSPlaywright4x.git
+git clone https://github.com/vatsaltalavia26-sketch/LearnJSTSPlaywright4x.git
 cd LearnJSTSPlaywright4x
 npm install                                 # installs prompt-sync for chapter 08
 node --version                              # v18+ (tested on v22)
-node 01_chapter_JS_Basics/01_HelloWorld.js  # Hello World!
+node 01_Chapter_JS_Basics/01_HelloWorld.js  # Hello World!
 ```
 
 Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
@@ -253,16 +279,15 @@ Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
 
 ### 00: RICE-POT Prompt Engineering
 
-![RICE-POT prompt framework: Role, Instructions, Context, Example, Parameters, Output, Tone feeding an LLM](assets/images/ch00-rice-pot.png)
 
 **Concept:** RICE-POT is a seven-part prompt template (**R**ole, **I**nstructions, **C**ontext, **E**xample, **P**arameters, **O**utput, **T**one) for getting production-quality test artifacts out of an LLM instead of toy snippets.
 
 **Why:** A one-line prompt like "write Selenium code" gets you outdated APIs and invented methods; RICE-POT plus explicit anti-hallucination rules pins the model to real versions, real patterns, and a fixed output shape.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Any time you ask an AI for a framework, test plan, or test cases. The [generic QA template](00_chapter_Prompt_Eng/04_RICE_POT_Generic_QA_Template.md) covers all four task types.
+- **Q: When do I reach for it?** A: Any time you ask an AI for a framework, test plan, or test cases. The [generic QA template](00_Chapter_Prompt_Eng/04_Generic_RICE_POT_QA_Template.md) covers all four task types.
 - **Q: What does it replace?** A: Ad-hoc, one-line prompts that leave the model to guess your stack, your versions, and what "done" looks like.
-- **Q: What's the gotcha?** A: A well-structured prompt can still produce invented APIs. Pin library versions and add "do NOT" rules ([03_Anti_Hallucinations.md](00_chapter_Prompt_Eng/03_Anti_Hallucinations.md)), then review the code before trusting it.
+- **Q: What's the gotcha?** A: A well-structured prompt can still produce invented APIs. Pin library versions and add "do NOT" rules ([03_Anti_Hallucinations.md](00_Chapter_Prompt_Eng/03_Anti_Hallucinations.md)), then review the code before trusting it.
 
 ```mermaid
 flowchart LR
@@ -275,7 +300,7 @@ flowchart LR
     V -->|Yes| F[Selenium_Framework/]
 ```
 
-The anti-hallucination block from [03_Anti_Hallucinations.md](00_chapter_Prompt_Eng/03_Anti_Hallucinations.md), ready to paste under any RICE-POT prompt:
+The anti-hallucination block from [03_Anti_Hallucinations.md](00_Chapter_Prompt_Eng/03_Anti_Hallucinations.md), ready to paste under any RICE-POT prompt:
 
 ```markdown
 Role: Senior SDET Automation Architect.
@@ -291,7 +316,7 @@ Constraints & Anti-Hallucination Rules:
 4. Completeness: Ensure all import statements are fully qualified and valid.
 ```
 
-The full result of this prompt lives in [Selenium_Framework/](00_chapter_Prompt_Eng/Selenium_Framework/README.md).
+The full result of this prompt lives in [Selenium_Framework/](00_Chapter_Prompt_Eng/Selenium_Framework/).
 
 ---
 
@@ -299,7 +324,6 @@ The full result of this prompt lives in [Selenium_Framework/](00_chapter_Prompt_
 
 ### 01: Hello World
 
-![How Node runs your file: HelloWorld.js goes through Node.js (V8) and prints Hello World! in the terminal](assets/images/ch01-node-runs-file.png)
 
 **Concept:** `console.log()` prints a value to the output. Run a `.js` file with `node <file>` and whatever you log appears in your terminal.
 
@@ -322,12 +346,12 @@ sequenceDiagram
 ```
 
 ```js
-// 01_chapter_JS_Basics/01_HelloWorld.js
+// 01_Chapter_JS_Basics/01_HelloWorld.js
 console.log("Hello World!");
 ```
 
 ```bash
-$ node 01_chapter_JS_Basics/01_HelloWorld.js
+$ node 01_Chapter_JS_Basics/01_HelloWorld.js
 Hello World!
 ```
 
@@ -352,13 +376,13 @@ flowchart LR
 ```
 
 ```js
-// 01_chapter_JS_Basics/02_Math.js
+// 01_Chapter_JS_Basics/02_Math.js
 console.log(1+2);
 console.log(2*2);
 ```
 
 ```bash
-$ node 01_chapter_JS_Basics/02_Math.js
+$ node 01_Chapter_JS_Basics/02_Math.js
 3
 4
 ```
@@ -399,7 +423,7 @@ flowchart LR
 ```
 
 ```js
-// 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
+// 02_Chapter_JS_Keywords_Identifiers/03_js_engine.js
 let a = 10;
 console.log(a);
 
@@ -415,7 +439,7 @@ console.log(a);
 ```
 
 ```bash
-$ node 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
+$ node 02_Chapter_JS_Keywords_Identifiers/03_js_engine.js
 10
 ```
 
@@ -423,7 +447,6 @@ $ node 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
 
 ### 05: Keywords vs Identifiers: var, let, const
 
-![Anatomy of a declaration: let is the keyword, userName the identifier, = the assignment, "Pramod" the literal](assets/images/ch02-declaration-anatomy.png)
 
 **Concept:** A keyword is a word the language owns (`var`, `let`, `const`, `if`, `class`, `return`). An identifier is the name you choose. In `let l = 10;`, `let` is the keyword, `l` is the identifier and `10` is the literal value.
 
@@ -452,7 +475,7 @@ flowchart TD
 | Use before the declaration line | `undefined` | ❌ `ReferenceError` | ❌ `ReferenceError` |
 
 ```js
-// 02_chapter_JS_Keywrods_Identifiers/05_KW_IND.js
+// 02_Chapter_JS_Keywords_Identifiers/05_KW_IND.js
 var v = 10;   // keyword: var,   identifier: v
 let l = 10;   // keyword: let,   identifier: l
 const c = 10; // keyword: const, identifier: c
@@ -485,7 +508,7 @@ flowchart TD
 ```
 
 ```js
-// 02_chapter_JS_Keywrods_Identifiers/06_KW_IND_Rules.js (excerpt)
+// 02_Chapter_JS_Keywords_Identifiers/06_KW_IND_Rules.js (excerpt)
 var a = 10;
 var $ = 10;               // $ alone is a valid name
 var _a = 23;
@@ -530,7 +553,7 @@ flowchart LR
 | Hungarian | `bActive` | Legacy code only |
 
 ```js
-// 02_chapter_JS_Keywrods_Identifiers/07_IND_Rules2.js (excerpt)
+// 02_Chapter_JS_Keywords_Identifiers/07_IND_Rules2.js (excerpt)
 let userName = "camelCase";          // 1. camelCase
 let isLoggedIn = true;
 
@@ -566,7 +589,7 @@ flowchart LR
 ```
 
 ```js
-// 02_chapter_JS_Keywrods_Identifiers/08_Comments.js
+// 02_Chapter_JS_Keywords_Identifiers/08_Comments.js
 // This is a single-line comment, it will be ignored
 // this line will not be executed
 
@@ -592,7 +615,7 @@ var g = 10; // cmd + /, ctrl + /
 **Why:** These questions check whether you know the actual rule or only the everyday cases, and the edge cases (Unicode, escapes) are where people get caught.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Before an interview, or when a reviewer asks "is that even legal?". Run `node 02_chapter_JS_Keywrods_Identifiers/09_IQ.js`: it exits silently, which proves every uncommented line is valid.
+- **Q: When do I reach for it?** A: Before an interview, or when a reviewer asks "is that even legal?". Run `node 02_Chapter_JS_Keywords_Identifiers/09_IQ.js`: it exits silently, which proves every uncommented line is valid.
 - **Q: What does it replace?** A: Memorising a list. It is the same rule as lesson 06, applied to Unicode: `café` and `变量` are valid because `é` and `变` count as letters.
 - **Q: What's the gotcha?** A: `let A = ...` declares a variable named `A`, because the escape is decoded before the name is checked. And `Function` is a built-in, not a reserved word: `let Function = "x"` runs and shadows the global. Reserved words such as `class` or `let` are the ones that fail.
 
@@ -612,7 +635,7 @@ flowchart LR
 ```
 
 ```js
-// 02_chapter_JS_Keywrods_Identifiers/09_IQ.js (excerpt)
+// 02_Chapter_JS_Keywords_Identifiers/09_IQ.js (excerpt)
 let validName = "starts with letter";
 let _private = "starts with underscore";
 let $jquery = "starts with dollar sign";
@@ -661,7 +684,7 @@ flowchart LR
 ```
 
 ```js
-// 03_chapter_JS_Literals/11_Numberal.js
+// 03_Chapter_JS_Literals/11_Numberal.js
 let age = "pramod";     // string literal
 let age2 = 'pramod';    // same string, single quotes
 let isStudent = true;   // boolean literal
@@ -681,7 +704,6 @@ console.log(typeof undefinedValue); // undefined
 
 ### 12: null vs undefined
 
-![undefined means not assigned yet, null means empty on purpose; null == undefined is true, null === undefined is false](assets/images/ch03-null-vs-undefined.png)
 
 **Concept:** `undefined` means a variable exists but nothing has been assigned to it yet, and JavaScript sets it for you. `null` means "intentionally empty", and only you (or an API) set it.
 
@@ -713,7 +735,7 @@ flowchart TD
 | `null === undefined` | `false` | `false` |
 
 ```js
-// 03_chapter_JS_Literals/12_Null_Undefined.js (excerpt)
+// 03_Chapter_JS_Literals/12_Null_Undefined.js (excerpt)
 let userName;                       // declared but not assigned
 console.log(userName);              // undefined
 console.log(typeof userName);       // undefined
@@ -758,7 +780,7 @@ flowchart LR
 | `e` | exponent (x 10ⁿ) | `1.5e3` | 1500 |
 
 ```js
-// 03_chapter_JS_Literals/15_Number.js (excerpt)
+// 03_Chapter_JS_Literals/15_Number.js (excerpt)
 let decimal = 42;
 let binary = 0b1010;  // 10 in decimal
 let octal = 0o52;     // 42 in decimal
@@ -801,7 +823,7 @@ flowchart TD
 ```
 
 ```js
-// 03_chapter_JS_Literals/16_Numbers_PART2.js
+// 03_Chapter_JS_Literals/16_Numbers_PART2.js
 let million = 1_000_000;      // same as 1000000
 let binarySep = 0b1010_0001;
 let hexSep = 0xFF_FF;
@@ -840,7 +862,7 @@ flowchart LR
 ```
 
 ```js
-// 03_chapter_JS_Literals/17_Special.js
+// 03_Chapter_JS_Literals/17_Special.js
 console.log("Infinity:", Infinity);               // Infinity
 console.log("1 / 0:", 1 / 0);                     // Infinity
 console.log("-1 / 0:", -1 / 0);                   // -Infinity
@@ -882,7 +904,7 @@ flowchart TD
 ```
 
 ```js
-// 04_chapter_JS_Operators/19_Arch.js (expanded)
+// 04_Chapter_JS_Operators/19_Arch.js (expanded)
 let a = 10 + 3;     // 2 operators: + computes 13, = stores it
 console.log(a);     // 13
 
@@ -924,7 +946,7 @@ flowchart LR
 | `**=` | `x = x ** n` | `x **= 2` | 100 |
 
 ```js
-// 04_chapter_JS_Operators/20_Assigment_Op.js
+// 04_Chapter_JS_Operators/20_Assigment_Op.js
 let x = 10;
 x = "PrrammodDutta";   // let allows a new value, even a new type
 console.log(x);        // PrrammodDutta
@@ -956,7 +978,7 @@ flowchart TD
 ```
 
 ```js
-// 04_chapter_JS_Operators/21_Arithematic_Op.js
+// 04_Chapter_JS_Operators/21_Arithematic_Op.js
 let a = 10;
 let b = 3;
 
@@ -978,7 +1000,6 @@ console.log(a ** b);  // 1000 (10^3)
 
 ### 22: Comparison Operators (Loose vs Strict)
 
-![Loose vs strict equality: 5 == "5" converts types and is true, 5 === "5" compares number vs string and is false](assets/images/ch04-loose-vs-strict.png)
 
 **Concept:** Comparison operators always return a boolean. `==` (loose) converts both sides to the same type before comparing; `===` (strict) compares both value and type with no conversion. `!=` and `!==` are their "not equal" versions, and `>`, `<`, `>=`, `<=` compare order.
 
@@ -1003,7 +1024,7 @@ flowchart TD
 | `!==` | Strict not equal | `5 !== "5"` | `true` |
 
 ```js
-// 04_chapter_JS_Operators/22_Comparsion_Op.js (excerpt)
+// 04_Chapter_JS_Operators/22_Comparsion_Op.js (excerpt)
 console.log(3 > 4);      // false
 console.log(3 < 4);      // true
 console.log(4 >= 4);     // true
@@ -1045,7 +1066,7 @@ flowchart LR
 | `false` | `false` | `false` | `false` | `true` |
 
 ```js
-// 04_chapter_JS_Operators/23_Logical_Op.js (plus short-circuit examples)
+// 04_Chapter_JS_Operators/23_Logical_Op.js (plus short-circuit examples)
 let a = true;
 let b = false;
 
@@ -1079,7 +1100,7 @@ flowchart TD
 ```
 
 ```js
-// 04_chapter_JS_Operators/24_Confusing_Comparsion.js
+// 04_Chapter_JS_Operators/24_Confusing_Comparsion.js
 // Rule of thumb:
 //   ==   → loose equality  (does type coercion, surprising)
 //   ===  → strict equality (no coercion, what you usually want)
@@ -1113,7 +1134,7 @@ flowchart LR
 ```
 
 ```js
-// 04_chapter_JS_Operators/27_String.js (plus a template literal from 32_IQ.js)
+// 04_Chapter_JS_Operators/27_String.js (plus a template literal from 32_IQ.js)
 let s = "Hi, ";
 console.log(typeof s);                   // string
 s += "Dev";                              // append to the same string
@@ -1129,7 +1150,6 @@ console.log(`What is the SLA time ? - ${sla}`);  // What is the SLA time ? - 100
 
 ### 28: Ternary Operator
 
-![Ternary operator: status === 200 ? leads to PASS when true and FAIL when false](assets/images/ch04-ternary.png)
 
 **Concept:** The ternary operator `condition ? valueIfTrue : valueIfFalse` is an `if/else` that produces a value. It is the only JavaScript operator that takes three operands.
 
@@ -1149,12 +1169,12 @@ flowchart LR
 ```
 
 ```js
-// 04_chapter_JS_Operators/28_Ternary_Op.js
+// 04_Chapter_JS_Operators/28_Ternary_Op.js
 let age = 17;
 let can_I_go = age > 18 ? "Yes" : "No";
 console.log(can_I_go);    // No
 
-// 04_chapter_JS_Operators/29_T_Op.js
+// 04_Chapter_JS_Operators/29_T_Op.js
 let actualStatusCode = 200;
 let expectedStatusCode = 200;
 let testResult = actualStatusCode === expectedStatusCode ? "✅ PASS" : "❌ FAIL";
@@ -1183,7 +1203,7 @@ flowchart TD
 ```
 
 ```js
-// 04_chapter_JS_Operators/30_IQ.js
+// 04_Chapter_JS_Operators/30_IQ.js
 let environment = "staging";
 let baseUrl = environment === "prod"
     ? "https://api.example.com"
@@ -1229,12 +1249,12 @@ flowchart TD
 ```
 
 ```js
-// 04_chapter_JS_Operators/34_Nested_Ternary.js
+// 04_Chapter_JS_Operators/34_Nested_Ternary.js
 let age = 26;
 let is_pramod_enjoy = (age > 18) ? (age > 25 ? "Goa & Drink" : "No Drink,ONly Goa") : "No Goa";
 console.log(`Pramod can Enjoy ${is_pramod_enjoy}`);  // Pramod can Enjoy Goa & Drink
 
-// 04_chapter_JS_Operators/35_IQ.js
+// 04_Chapter_JS_Operators/35_IQ.js
 let statusCode = 404;
 let category =
     statusCode < 300 ? "Success" :
@@ -1274,7 +1294,7 @@ flowchart LR
 | `[]`, `{}` | `"object"` |
 
 ```js
-// 04_chapter_JS_Operators/37_TypeOf.js (plus the commented cases)
+// 04_Chapter_JS_Operators/37_TypeOf.js (plus the commented cases)
 console.log(typeof "hello");     // string
 console.log(typeof 123);         // number
 console.log(typeof 31.4);        // number
@@ -1290,7 +1310,6 @@ console.log(typeof typeof 123);  // string
 
 ### 38: Pre vs Post Increment and Decrement
 
-![Pre vs post increment: with a = 10, let b = ++a gives b 11 and a 11; let b = a++ gives b 10 and a 11](assets/images/ch05-pre-vs-post.png)
 
 **Concept:** `++` adds 1 to a variable and `--` subtracts 1. Before the variable (`++a`, pre) it changes the value first and then hands back the new value; after the variable (`a++`, post) it hands back the old value and then changes it.
 
@@ -1319,7 +1338,7 @@ flowchart LR
 | `let b = a--;` | 10 | 9 |
 
 ```js
-// 05_chapter_JS_Incre_Decr_Op/38_ID_Op.js: pre-increment
+// 05_Chapter_JS_INCRE_DECRE_OP/38_ID_Op.js: pre-increment
 let a = 10;
 let b = ++a;          // a becomes 11, then b gets 11
 console.log(b, a);    // 11 11
@@ -1359,7 +1378,7 @@ flowchart LR
 | `i++ + ++i` (i = 1) | 1 + 3 | 4 | i = 3 |
 
 ```js
-// 05_chapter_JS_Incre_Decr_Op/40_IQ.js
+// 05_Chapter_JS_INCRE_DECRE_OP/40_IQ.js
 let a = 10;
 console.log(++a + a);        // 22  (11 + 11)
 console.log(a);              // 11
@@ -1402,7 +1421,7 @@ flowchart TD
 | `"Pramod"` | `"Pramod"` | `"Pramod"` |
 
 ```js
-// 05_chapter_JS_Incre_Decr_Op/45_Nullish.js (commented examples switched on)
+// 05_Chapter_JS_INCRE_DECRE_OP/45_Nullish.js (commented examples switched on)
 let amul = null;
 let val = amul ?? "NANDANI Milk";
 console.log(val);            // NANDANI Milk
@@ -1440,7 +1459,7 @@ flowchart TD
 ```
 
 ```js
-// 06_chatper_if_else_statement_Condition/46_IF.js (plus a falsy check)
+// 06_Chapter_if_else_statement_Condition/46_IF.js (plus a falsy check)
 let age = 16;
 if (age > 18) {
     console.log("Go Goa");
@@ -1475,7 +1494,7 @@ flowchart TD
 ```
 
 ```js
-// 06_chatper_if_else_statement_Condition/47_IF_Else_Nested.js
+// 06_Chapter_if_else_statement_Condition/47_IF_Else_Nested.js
 let age = 27;
 if (age > 18) {
     console.log("Goa Check!");
@@ -1515,7 +1534,7 @@ flowchart LR
 | Best for | Picking one of two values | Running one of two blocks |
 
 ```js
-// 06_chatper_if_else_statement_Condition/48_TO_IfElse.js
+// 06_Chapter_if_else_statement_Condition/48_TO_IfElse.js
 let age = 20;
 let result = age > 21 ? "Drive" : "No Able to DRIve";   // a value
 
@@ -1530,7 +1549,6 @@ if (age > 21) {                                          // actions
 
 ### 49: else if Ladder: Grade Calculator
 
-![The else if ladder: score > 90 gives A, score > 80 gives B, score > 70 gives C, else gives F; the first true check wins](assets/images/ch06-else-if-ladder.png)
 
 **Concept:** An `if / else if / else` chain checks its conditions from top to bottom and runs only the first block whose condition is true. The final `else` catches everything left over.
 
@@ -1570,7 +1588,7 @@ flowchart TD
 | 0 | F | Grade F - Fail ✅ |
 
 ```js
-// 06_chatper_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
+// 06_Chapter_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
 let score = 95;
 
 if (score > 100 || score < 0) {
@@ -1624,7 +1642,7 @@ flowchart TD
 ```
 
 ```js
-// 07_chapter_switch/50_switch.js (excerpt)
+// 07_Chapter_Switch/50_switch.js (excerpt)
 let day = 2;
 switch (day) {
     case 1:
@@ -1648,7 +1666,6 @@ switch (day) {
 
 ### 51: Fall-Through (Missing break)
 
-![switch with break runs only the matching case and exits; without break it falls through every case below, including default; switch matches with ===](assets/images/ch07-switch-break.png)
 
 **Concept:** Without `break`, a matching `case` runs its code and then keeps going into every case below it, `default` included. This is called fall-through.
 
@@ -1666,7 +1683,7 @@ flowchart TD
 ```
 
 ```js
-// 07_chapter_switch/55_IQ.js
+// 07_Chapter_Switch/55_IQ.js
 let fruit = "banana";
 switch (fruit) {
     case "apple":
@@ -1706,7 +1723,7 @@ flowchart LR
 ```
 
 ```js
-// 07_chapter_switch/53_API_Switch.js
+// 07_Chapter_Switch/53_API_Switch.js
 let responseCode = 404;
 switch (responseCode) {
     case 200:
@@ -1719,7 +1736,7 @@ switch (responseCode) {
         console.log("Not status code match");
 }
 
-// 07_chapter_switch/54_Switch_Group.js (adapted)
+// 07_Chapter_Switch/54_Switch_Group.js (adapted)
 let browser = "Brave";
 switch (browser) {
     case "Chrome":
@@ -1757,7 +1774,7 @@ flowchart TD
 ```
 
 ```js
-// 07_chapter_switch/56_IQ.js (adapted)
+// 07_Chapter_Switch/56_IQ.js (adapted)
 let testScore = 85;
 switch (true) {
     case (testScore >= 95):
@@ -1796,7 +1813,7 @@ flowchart LR
 ```
 
 ```js
-// 07_chapter_switch/57_IQ.js
+// 07_Chapter_Switch/57_IQ.js
 let x = 10;
 switch (x) {
     case 10:
@@ -1811,7 +1828,7 @@ switch (x) {
         console.log("d");
 }
 
-// 07_chapter_switch/58.IQ.js
+// 07_Chapter_Switch/58.IQ.js
 let status = 0;
 console.log(typeof status);       // number
 switch (status) {                 // === : value and type must both match
@@ -1828,7 +1845,6 @@ switch (status) {                 // === : value and type must both match
 
 ## Chapter 08: User Input
 
-![Getting user input: prompt() is browser only, readline is built into Node, prompt-sync is an npm package, fs.readFileSync(0) reads piped stdin](assets/images/ch08-user-input.png)
 
 | Method | Where it works | Waits on that line? | Install | Lesson |
 |:-------|:---------------|:-------------------:|:--------|:------:|
@@ -1845,7 +1861,7 @@ switch (status) {                 // === : value and type must both match
 
 **Q&A: why use this?**
 - **Q: When do I reach for it?** A: In a browser's DevTools console or a `<script>` on a page: paste the file's code into the Console tab to try it.
-- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
+- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_Chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
 - **Q: What's the gotcha?** A: The answer is always a string or `null`. Pressing Cancel gives `null`, `Number(null)` is `0`, and the file prints "0 is Even". Typing `abc` gives `NaN`, and since `NaN % 2 === 0` is `false`, it prints "NaN is Odd".
 
 ```mermaid
@@ -1862,7 +1878,7 @@ sequenceDiagram
 ```
 
 ```js
-// 08_chapter_UserInput/59_UI.js (run in a browser console, not in Node)
+// 08_Chapter_UserInput/59_UI.js (run in a browser console, not in Node)
 let num = prompt("Enter a number:");
 num = Number(num);  // convert string to number
 
@@ -1896,7 +1912,7 @@ sequenceDiagram
 ```
 
 ```js
-// 08_chapter_UserInput/60_Node_UI.js
+// 08_Chapter_UserInput/60_Node_UI.js
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -1918,7 +1934,7 @@ rl.question("Enter a number: ", (input) => {
 ```
 
 ```bash
-$ echo 7 | node 08_chapter_UserInput/60_Node_UI.js
+$ echo 7 | node 08_Chapter_UserInput/60_Node_UI.js
 Enter a number: 7 is Odd
 ```
 
@@ -1929,7 +1945,7 @@ Enter a number: 7 is Odd
 **Why:** Synchronous input reads top to bottom like the browser version, which is easier for beginners than `readline` callbacks.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_chapter_UserInput/61_Prompt_sync.js`.
+- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_Chapter_UserInput/61_Prompt_sync.js`.
 - **Q: What does it replace?** A: `readline` callbacks in simple scripts, and the browser-only `prompt()`.
 - **Q: What's the gotcha?** A: It reads the keyboard straight from the terminal, so it fails when there is no terminal: piping input (`echo 42 | node 61_Prompt_sync.js`) or running it in CI throws `Error: ENXIO: no such device or address, open '/dev/tty'`.
 
@@ -1942,7 +1958,7 @@ flowchart LR
 ```
 
 ```js
-// 08_chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
+// 08_Chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
 const prompt = require("prompt-sync")();
 let num = Number(prompt("Enter a number"));
 console.log(num);
@@ -1955,7 +1971,7 @@ console.log(num);
 **Why:** It is the simplest way to accept piped input such as `echo 15 | node file.js`, and it is how many online coding judges feed test input to JavaScript solutions.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_chapter_UserInput/62_FS_readFile.js` or `node 08_chapter_UserInput/62_FS_readFile.js < input.txt`.
+- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js` or `node 08_Chapter_UserInput/62_FS_readFile.js < input.txt`.
 - **Q: What does it replace?** A: Line-by-line `readline` when you simply want all of the input at once.
 - **Q: What's the gotcha?** A: It reads until the end of the input, so when you type by hand nothing happens after Enter: press `Ctrl+D` (macOS and Linux) to finish. The string also keeps its trailing newline, so `data === "15"` is `false` until you call `data.trim()`.
 
@@ -1967,7 +1983,7 @@ flowchart LR
 ```
 
 ```js
-// 08_chapter_UserInput/62_FS_readFile.js
+// 08_Chapter_UserInput/62_FS_readFile.js
 console.log("Enter the number!");
 const data = require('fs').readFileSync(0, 'utf8');   // 0 = standard input
 console.log("Hi", data);
@@ -1976,7 +1992,7 @@ console.log("Hi", data);
 ```
 
 ```bash
-$ echo 15 | node 08_chapter_UserInput/62_FS_readFile.js
+$ echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js
 Enter the number!
 Hi 15
 ```
@@ -1987,7 +2003,6 @@ Hi 15
 
 ### 63: Why Loops: the for Loop
 
-![Anatomy of a for loop: let i = 0 is the init and runs once, i < 10 is the condition checked before every pass, i++ is the update after every pass](assets/images/ch09-for-loop-anatomy.png)
 
 **Concept:** A loop repeats a block of code. A `for` loop packs its three parts into one line: the init (`let i = 0`, runs once), the condition (`i < 10`, checked before every pass) and the update (`i++`, runs after every pass). The lesson calls this ICU.
 
@@ -2008,13 +2023,13 @@ flowchart TD
 ```
 
 ```js
-// 09_chapter_Loops/63_Loop.js: the slow way
+// 09_Chapter_Loops/63_Loop.js: the slow way
 console.log(1);
 console.log(2);
 console.log(3);
 // ... one line per number, all the way to 10
 
-// 09_chapter_Loops/64_For_loop.js: the loop way
+// 09_Chapter_Loops/64_For_loop.js: the loop way
 // ICU: INIT let i = 0, CONDITION i < 10, UPDATE ++i
 for (let i = 0; i < 10; ++i) {
     console.log(i);   // 0 1 2 ... 9
@@ -2049,7 +2064,7 @@ flowchart TD
 | `for (let i = 0; ; i++)` | 0, 1, 2, ... forever | ∞ |
 
 ```js
-// 09_chapter_Loops/66_iq.JS
+// 09_Chapter_Loops/66_iq.JS
 for (let somya = 1; somya <= 10; somya++) {
     console.log(somya);   // 1 2 3 ... 10
 }
@@ -2092,7 +2107,7 @@ flowchart TD
 ```
 
 ```js
-// 09_chapter_Loops/69_IQ.js
+// 09_Chapter_Loops/69_IQ.js
 for (let somya = 0; somya < 18; ++somya) {
     if (somya > 15) {
         console.log("Gift from papa, iphone this year")   // somya = 16, 17
@@ -2109,7 +2124,6 @@ for (let somya = 0; somya < 18; ++somya) {
 
 ### 70: while Loop
 
-![How a while loop runs: check attempts < 3; if true run the body and attempts++, then check again; if false exit the loop](assets/images/ch10-while-loop.png)
 
 **Concept:** `while (condition) { ... }` repeats its body as long as the condition is true. The same ICU parts are there, just spread out: the init goes before the loop, the condition in the header, the update inside the body.
 
@@ -2136,14 +2150,14 @@ flowchart TD
 | Best when | You know the count | You repeat until something changes |
 
 ```js
-// 10_chapter_Loops_WHILE/70.js
+// 10_Chapter_Loops_While/70.js
 let i = 0;            // Init
 while (i < 10) {      // Condition
     console.log(i);   // 0 1 2 ... 9
     i++;              // Update
 }
 
-// 10_chapter_Loops_WHILE/71_IQ.js: a retry counter
+// 10_Chapter_Loops_While/71_IQ.js: a retry counter
 let attempts = 0;
 while (attempts < 3) {
     console.log("Attempt", attempts);   // Attempt 0, Attempt 1, Attempt 2
@@ -2174,7 +2188,7 @@ flowchart TD
 ```
 
 ```js
-// 10_chapter_Loops_WHILE/73_break.IQ.js
+// 10_Chapter_Loops_While/73_break.IQ.js
 let age = 7;
 while (true) {
     if (age > 10) {
@@ -2211,7 +2225,7 @@ flowchart TD
 ```
 
 ```js
-// 11_chapter_Loops_DoWhile/74.js
+// 11_Chapter_Loops_DoWhile/74.js
 let retry = 0;
 
 do {
@@ -2223,7 +2237,6 @@ do {
 
 ### 75: while vs do...while
 
-![while vs do...while with a = 10: while checks then runs and runs 0 times; do...while runs then checks and runs 1 time](assets/images/ch11-while-vs-do-while.png)
 
 **Concept:** Same start value (`a = 10`), same condition (`a < 10`): a `while` checks first and runs zero times, while a `do...while` runs once and then checks. `77_IQ.js` shows the same zero-run rule for a `for` loop.
 
@@ -2251,7 +2264,7 @@ flowchart LR
 | `do...while` | After each pass | 1 run (prints 10) |
 
 ```js
-// 11_chapter_Loops_DoWhile/75_IQ.js (with the while version switched on)
+// 11_Chapter_Loops_DoWhile/75_IQ.js (with the while version switched on)
 let a = 10;
 while (a < 10) {          // checked first: false, so the body never runs
     console.log(a);
@@ -2264,7 +2277,7 @@ do {
     b++;
 } while (b < 10);         // checked after: 11 < 10 is false, stop
 
-// 11_chapter_Loops_DoWhile/77_IQ.js
+// 11_Chapter_Loops_DoWhile/77_IQ.js
 let count = 0;
 for (let i = 5; i < 5; i++) {
     count++;
@@ -2299,7 +2312,7 @@ flowchart TD
 | **`i = 2`** | `2 0` | `2 1` | `2 2` |
 
 ```js
-// 11_chapter_Loops_DoWhile/76_Nested.js
+// 11_Chapter_Loops_DoWhile/76_Nested.js
 for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
         console.log(i, j);   // 0 0, 0 1, 0 2, 1 0, ... 2 2
@@ -2309,7 +2322,61 @@ for (let i = 0; i < 3; i++) {
 
 ---
 
+## Chapter 12: Arrays
+
+Chapter 12 introduces JavaScript arrays and demonstrates their use with examples inspired by browser and test-result data. Run each example from the repository root with `node <file path>`.
+
+### 78: Array Basics
+
+[Open `78_Array.js`](12_Chapter_Arrays/78_Array.js) for array literals, indexing, `length`, and `.at()` (including a negative index).
+
+### 79: Array Length and Indexing
+
+[Open `79_Arrays.js`](12_Chapter_Arrays/79_Arrays.js) for empty arrays, array length, bracket indexing, and `.at()`.
+
+### 80: Array Bounds
+
+[Open `80_Arrays.js`](12_Chapter_Arrays/80_Arrays.js) to see how out-of-range indexes behave and how that differs from reading `.length`.
+
+### 81: Array Values
+
+[Open `81_Array.js`](12_Chapter_Arrays/81_Array.js) for arrays containing strings, numbers, booleans, and `null`.
+
+### 82: Creating Arrays
+
+[Open `82_Create.js`](12_Chapter_Arrays/82_Create.js) for array literals, `Array()`, `Array.of()`, and `Array.from()`.
+
+### 83: Accessing and Modifying Arrays
+
+[Open `83_Access_Modify.js`](12_Chapter_Arrays/83_Access_Modify.js) to read values by index, use `.at()`, and replace an element.
+
+### 84: Adding and Removing Elements
+
+[Open `84_Adding_Remove.js`](12_Chapter_Arrays/84_Adding_Remove.js) for `push`, `pop`, `unshift`, `shift`, and `splice`.
+
+### 85: Removing and Iterating through Arrays
+
+[Open `85_ARRAY.js`](12_Chapter_Arrays/85_ARRAY.js) for removing elements and iterating over browser names.
+
+### 86: Searching Arrays
+
+[Open `86_Searching.js`](12_Chapter_Arrays/86_Searching.js) for `indexOf`, `lastIndexOf`, and `includes`.
+
+### 87: Finding Elements
+
+[Open `87_Find.js`](12_Chapter_Arrays/87_Find.js) for `find`, `findIndex`, `findLast`, and `findLastIndex`.
+
+### 88: Iterating over Arrays
+
+[Open `88_Iterate.js`](12_Chapter_Arrays/88_Iterate.js) for indexed loops, `for...of`, `forEach`, `entries()`, and `for...in`.
+
+### 89: Transforming Arrays
+
+[Open `89_Arrays_Transform.js`](12_Chapter_Arrays/89_Arrays_Transform.js) for transforming values with `map()` and selecting values with `filter()`.
+
+---
+
 ## Coming Up
 
-- **Chapter 11: do...while and Nested Loops** continues.
-- Then TypeScript, then Playwright.
+- **Chapter 12: Arrays** continues with more examples and practice.
+- Then TypeScript, followed by Playwright.
