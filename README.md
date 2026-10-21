@@ -1,5 +1,7 @@
 # Learn JavaScript, TypeScript & Playwright (4x)
 
+![Learn JavaScript, TypeScript & Playwright: chapter by chapter, built for testers](assets/images/banner.png)
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
 ![Prompt Engineering](https://img.shields.io/badge/Prompt_Eng-RICE--POT-purple)
@@ -76,18 +78,21 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [75: while vs do...while](#75-while-vs-dowhile)
   - [76: Nested Loops](#76-nested-loops)
 - [Chapter 12: Arrays](#chapter-12-arrays)
-  - [78: Array Basics](#78-array-basics)
-  - [79: Array Length and Indexing](#79-array-length-and-indexing)
-  - [80: Array Bounds](#80-array-bounds)
-  - [81: Array Values](#81-array-values)
+  - [78: Arrays: Index, length and at()](#78-arrays-index-length-and-at)
   - [82: Creating Arrays](#82-creating-arrays)
-  - [83: Accessing and Modifying Arrays](#83-accessing-and-modifying-arrays)
-  - [84: Adding and Removing Elements](#84-adding-and-removing-elements)
-  - [85: Removing and Iterating through Arrays](#85-removing-and-iterating-through-arrays)
-  - [86: Searching Arrays](#86-searching-arrays)
-  - [87: Finding Elements](#87-finding-elements)
-  - [88: Iterating over Arrays](#88-iterating-over-arrays)
-  - [89: Transforming Arrays](#89-transforming-arrays)
+  - [83: Accessing and Modifying](#83-accessing-and-modifying)
+  - [84: Adding and Removing Items](#84-adding-and-removing-items)
+  - [86: Searching: indexOf, includes and find](#86-searching-indexof-includes-and-find)
+  - [88: Iterating Over an Array](#88-iterating-over-an-array)
+  - [89: Transforming: map and filter](#89-transforming-map-and-filter)
+  - [90: Sorting: Text Order vs Number Order](#90-sorting-text-order-vs-number-order)
+  - [93: slice: Copy Part of an Array](#93-slice-copy-part-of-an-array)
+  - [94: Combining Arrays: concat and Spread](#94-combining-arrays-concat-and-spread)
+  - [95: Array.isArray](#95-arrayisarray)
+  - [96: every and some](#96-every-and-some)
+  - [97: Copy vs Reference](#97-copy-vs-reference)
+  - [98: Destructuring](#98-destructuring)
+  - [100: Swapping Two Variables](#100-swapping-two-variables)
 - [Coming Up](#coming-up)
 
 ---
@@ -107,7 +112,7 @@ flowchart LR
     C8 --> C9["09 for Loop<br/>init, condition, update"]:::done
     C9 --> C10["10 while Loop<br/>while, while (true) + break"]:::done
     C10 --> C11["11 do...while<br/>run once, nested loops"]:::done
-    C11 --> C12["12 Arrays<br/>create, access, search, transform"]:::progress
+    C11 --> C12["12 Arrays<br/>push/pop, find, map, sort, copy"]:::progress
     C12 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
@@ -122,19 +127,19 @@ flowchart LR
 
 | # | Chapter | Folder | Status | What you learn |
 |:--|:--------|:-------|:------:|:---------------|
-| 00 | Prompt Engineering | [00_Chapter_Prompt_Eng](00_Chapter_Prompt_Eng/) | ✅ Done | RICE-POT prompts, anti-hallucination rules, the Selenium framework a prompt generated |
-| 01 | JavaScript Basics | [01_Chapter_JS_Basics](01_Chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic expressions |
-| 02 | Keywords and Identifiers | [02_Chapter_JS_Keywords_Identifiers](02_Chapter_JS_Keywords_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
-| 03 | Literals | [03_Chapter_JS_Literals](03_Chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
-| 04 | Operators | [04_Chapter_JS_Operators](04_Chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
-| 05 | Increment, Decrement and Nullish | [05_Chapter_JS_INCRE_DECRE_OP](05_Chapter_JS_INCRE_DECRE_OP/) | ✅ Done | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
-| 06 | if, else and else if | [06_Chapter_if_else_statement_Condition](06_Chapter_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
-| 07 | switch | [07_Chapter_Switch](07_Chapter_Switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
-| 08 | User Input | [08_Chapter_UserInput](08_Chapter_UserInput/) | ✅ Done | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
-| 09 | for Loop | [09_Chapter_Loops](09_Chapter_Loops/) | ✅ Done | Why loops, `for (init; condition; update)`, `<` vs `<=`, zero-run and infinite loops, `if` inside a loop |
-| 10 | while Loop | [10_Chapter_Loops_While](10_Chapter_Loops_While/) | ✅ Done | `while`, retry counters, `while (true)` with `break` |
-| 11 | do...while and Nested Loops | [11_Chapter_Loops_DoWhile](11_Chapter_Loops_DoWhile/) | ✅ Done | `do...while`, `while` vs `do...while`, nested `for` loops |
-| 12 | Arrays | [12_Chapter_Arrays](12_Chapter_Arrays/) | 🟡 In progress | Creating arrays, indexing, updating, adding and removing elements, searching, iteration, `map`, and `filter` |
+| 00 | Prompt Engineering | [00_chapter_Prompt_Eng](00_chapter_Prompt_Eng/) | ✅ Done | RICE-POT prompts, anti-hallucination rules, the Selenium framework a prompt generated |
+| 01 | JavaScript Basics | [01_chapter_JS_Basics](01_chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic expressions |
+| 02 | Keywords and Identifiers | [02_chapter_JS_Keywrods_Identifiers](02_chapter_JS_Keywrods_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
+| 03 | Literals | [03_chapter_JS_Literals](03_chapter_JS_Literals/) | ✅ Done | `typeof`, `null` vs `undefined`, number bases, exponents, numeric separators, BigInt, `Infinity`, `NaN` |
+| 04 | Operators | [04_chapter_JS_Operators](04_chapter_JS_Operators/) | ✅ Done | Data types, assignment, arithmetic, `==` vs `===`, `&&` `\|\|` `!`, coercion traps, strings and template literals, ternary, `typeof` |
+| 05 | Increment, Decrement and Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | ✅ Done | `++a` vs `a++`, `--a` vs `a--`, step-by-step interview questions, `??` |
+| 06 | if, else and else if | [06_chatper_if_else_statement_Condition](06_chatper_if_else_statement_Condition/) | ✅ Done | `if`/`else`, nested `if`, ternary vs `if`, `else if` ladder (grade calculator) |
+| 07 | switch | [07_chapter_switch](07_chapter_switch/) | ✅ Done | `case`, `break`, `default`, fall-through, grouped cases, `switch (true)`, strict matching |
+| 08 | User Input | [08_chapter_UserInput](08_chapter_UserInput/) | ✅ Done | `prompt()` in the browser, `readline`, `prompt-sync`, reading stdin with `fs` |
+| 09 | for Loop | [09_chapter_Loops](09_chapter_Loops/) | ✅ Done | Why loops, `for (init; condition; update)`, `<` vs `<=`, zero-run and infinite loops, `if` inside a loop |
+| 10 | while Loop | [10_chapter_Loops_WHILE](10_chapter_Loops_WHILE/) | ✅ Done | `while`, retry counters, `while (true)` with `break` |
+| 11 | do...while and Nested Loops | [11_chapter_Loops_DoWhile](11_chapter_Loops_DoWhile/) | ✅ Done | `do...while`, `while` vs `do...while`, nested `for` loops |
+| 12 | Arrays | [12_chapters_Arrays](12_chapters_Arrays/) | 🟡 In progress | Index, `length`, `at()`, creating arrays, `push`/`pop`/`shift`/`unshift`/`splice`, `indexOf`/`includes`/`find`, `for...of`/`forEach`, `map`/`filter`, `sort`, `slice`, `concat` and spread, `every`/`some`, copy vs reference, destructuring |
 
 ---
 
@@ -146,18 +151,18 @@ LearnJSTSPlaywright4x/
 ├── .gitignore
 ├── package.json                            # One dependency: prompt-sync (chapter 08)
 ├── package-lock.json
-├── 00_Chapter_Prompt_Eng/
-│   ├── 00_RICE_POT_Full_Form.md            # What each RICE-POT letter means
+├── assets/images/                          # Banner and chapter cheat-sheet images used in this README
+├── 00_chapter_Prompt_Eng/
+│   ├── 00_RICE_POT_FullForm.md             # What each RICE-POT letter means
 │   ├── 01_RICE_POT_Prompt.md               # Worked prompt: Salesforce login (Selenium + TestNG)
 │   ├── 02_Problem_Statement.md             # The objective the prompt solves
 │   ├── 03_Anti_Hallucinations.md           # Version anchors, negative constraints, self-checks
-│   ├── 04_Generic_RICE_POT_QA_Template.md  # Reusable template: test plans, cases, automation
+│   ├── 04_RICE_POT_Generic_QA_Template.md  # Reusable template: test plans, cases, automation
 │   └── Selenium_Framework/                 # The framework the prompt produced (Java 17, TestNG)
-├── 01_Chapter_JS_Basics/
+├── 01_chapter_JS_Basics/
 │   ├── 01_HelloWorld.js                    # First program: console.log
-│   ├── 02_Let_Concept.js                   # let declaration example
 │   └── 02_Math.js                          # Arithmetic expressions
-├── 02_Chapter_JS_Keywords_Identifiers/
+├── 02_chapter_JS_Keywrods_Identifiers/
 │   ├── 03_js_engine.js                     # How V8 runs a file, hot code and JIT
 │   ├── 04_letengine.js                     # Smallest program: one let declaration
 │   ├── 05_KW_IND.js                        # Keyword vs identifier: var, let, const
@@ -165,7 +170,7 @@ LearnJSTSPlaywright4x/
 │   ├── 07_IND_Rules2.js                    # Naming conventions: camelCase, PascalCase, ...
 │   ├── 08_Comments.js                      # Single-line, multi-line and JSDoc comments
 │   └── 09_IQ.js                            # Interview drill: valid vs invalid identifiers
-├── 03_Chapter_JS_Literals/
+├── 03_chapter_JS_Literals/
 │   ├── 10_Literal.js                       # A literal is the value you write: let a = 10
 │   ├── 11_Numberal.js                      # String, number, boolean, null literals + typeof
 │   ├── 12_Null_Undefined.js                # null vs undefined, typeof null is "object"
@@ -175,7 +180,7 @@ LearnJSTSPlaywright4x/
 │   ├── 16_Numbers_PART2.js                 # Numeric separators (1_000_000) and BigInt
 │   ├── 17_Special.js                       # Infinity, -Infinity, NaN
 │   └── 18_undefined.js                     # Practice: undefined vs null
-├── 04_Chapter_JS_Operators/
+├── 04_chapter_JS_Operators/
 │   ├── 19_Arch.js                          # Anatomy of an expression, JS data types
 │   ├── 20_Assigment_Op.js                  # = and reassigning a variable
 │   ├── 21_Arithematic_Op.js                # + - * / % ** and the odd/even check
@@ -195,7 +200,7 @@ LearnJSTSPlaywright4x/
 │   ├── 35_IQ.js                            # Chained ternary: HTTP status categories
 │   ├── 36_IQ.js                            # Chained ternary: temperature bands
 │   └── 37_TypeOf.js                        # typeof on strings and numbers
-├── 05_Chapter_JS_INCRE_DECRE_OP/
+├── 05_chapter_JS_Incre_Decr_Op/
 │   ├── 38_ID_Op.js                         # Pre-increment: ++a
 │   ├── 39_ID.js                            # Post-increment: a++
 │   ├── 40_IQ.js                            # ++a + a
@@ -204,12 +209,12 @@ LearnJSTSPlaywright4x/
 │   ├── 43_De.js                            # Pre-decrement: --a
 │   ├── 44.js                               # Post-decrement: a--
 │   └── 45_Nullish.js                       # ?? : fallback only for null / undefined
-├── 06_Chapter_if_else_statement_Condition/
+├── 06_chatper_if_else_statement_Condition/
 │   ├── 46_IF.js                            # if / else: Go Goa or No Goa
 │   ├── 47_IF_Else_Nested.js                # An if inside an if
 │   ├── 48_TO_IfElse.js                     # Same decision as a ternary and as if / else
 │   └── 49_Multiple_ifelse.js               # Interview task: grade calculator with else if
-├── 07_Chapter_Switch/
+├── 07_chapter_switch/
 │   ├── 50_switch.js                        # Day number to day name, break, default
 │   ├── 51_IQ.js                            # Fall-through: no break anywhere
 │   ├── 52_IQ.js                            # Same switch with break, value 10 hits default
@@ -219,12 +224,12 @@ LearnJSTSPlaywright4x/
 │   ├── 56_IQ.js                            # switch (true) for score ranges
 │   ├── 57_IQ.js                            # Duplicate case labels, let inside cases
 │   └── 58.IQ.js                            # switch uses ===: 0 does not match false
-├── 08_Chapter_UserInput/
+├── 08_chapter_UserInput/
 │   ├── 59_UI.js                            # prompt(): browser only
 │   ├── 60_Node_UI.js                       # readline: built into Node
 │   ├── 61_Prompt_sync.js                   # prompt-sync: synchronous prompt in Node
 │   └── 62_FS_readFile.js                   # fs.readFileSync(0): read piped stdin
-├── 09_Chapter_Loops/
+├── 09_chapter_Loops/
 │   ├── 63_Loop.js                          # Printing 1 to 10 by hand: why loops exist
 │   ├── 64_For_loop.js                      # for loop: init, condition, update (ICU)
 │   ├── 65_Foor_Loop.js                     # (commented out) any valid name works as the counter
@@ -232,29 +237,42 @@ LearnJSTSPlaywright4x/
 │   ├── 67_iq.js                            # (commented out) _1 as a counter, a loop that never runs
 │   ├── 68_IQ.js                            # (commented out) no condition: infinite loop
 │   └── 69_IQ.js                            # if / else inside a for loop
-├── 10_Chapter_Loops_While/
+├── 10_chapter_Loops_WHILE/
 │   ├── 70.js                               # while loop: ICU spread over three lines
 │   ├── 71_IQ.js                            # Retry counter: 3 attempts
 │   ├── 72.js                               # Count 1 to 15 with while
 │   └── 73_break.IQ.js                      # while (true) stopped by break
-├── 11_Chapter_Loops_DoWhile/
+├── 11_chapter_Loops_DoWhile/
 │   ├── 74.js                               # do...while retry: body first, check after
 │   ├── 75_IQ.js                            # do...while runs once even when the condition is false
 │   ├── 76_Nested.js                        # Nested for loops: a 3 x 3 grid
 │   └── 77_IQ.js                            # for loop false at the start: 0 runs
-└── 12_Chapter_Arrays/
-    ├── 78_Array.js                         # Array basics, indexing, length, and at()
-    ├── 79_Arrays.js                        # Creating arrays and reading indexed values
-    ├── 80_Arrays.js                        # Length and out-of-range access
-    ├── 81_Array.js                         # Array values and mixed element types
-    ├── 82_Create.js                        # Array(), Array.of(), and Array.from()
-    ├── 83_Access_Modify.js                 # Read and update elements by index
-    ├── 84_Adding_Remove.js                 # push, pop, shift, unshift, and splice
-    ├── 85_ARRAY.js                         # Removing elements and looping through values
-    ├── 86_Searching.js                     # indexOf, lastIndexOf, and includes
-    ├── 87_Find.js                          # find, findIndex, findLast, and findLastIndex
-    ├── 88_Iterate.js                       # for, for...of, forEach, entries, and for...in
-    └── 89_Arrays_Transform.js               # map and filter
+└── 12_chapters_Arrays/
+    ├── 78_Array.js                         # Index, at(-1), length
+    ├── 79_Arrays.js                        # typeof [] is "object", [-1] vs at(-1)
+    ├── 80_Arrays.js                        # Out-of-range index gives undefined
+    ├── 81_Array.js                         # Arrays can mix types
+    ├── 82_Create.js                        # Literal, new Array, Array.of, Array.from
+    ├── 83_Access_Modify.js                 # Read and change items by index
+    ├── 84_Adding_Remove.js                 # push, pop, unshift, shift, splice
+    ├── 85_ARRAY.js                         # pop, shift, then loop and check each item
+    ├── 86_Searching.js                     # indexOf, lastIndexOf, includes
+    ├── 87_Find.js                          # find, findIndex, findLast, findLastIndex
+    ├── 88_Iterate.js                       # for, for...of, forEach, entries(), for...in
+    ├── 89_Arrays_Transform.js              # map and filter
+    ├── 90_Array_Sorting.js                 # sort() on strings
+    ├── 91_Array_Sorting.js                 # sort() on numbers: compared as text
+    ├── 91_Lexicographic_Explain.md         # Note: what lexicographic (dictionary) order means
+    ├── 92_Array_Normal_Sorting.js          # Compare functions: a - b, b - a, localeCompare
+    ├── 93_Array_Slicing.js                 # slice(start, end), negative indexes
+    ├── 93_Slice_Explain.md                 # Note: why slice(-3, -5) is empty
+    ├── 94_Array_Concat.js                  # concat and the spread operator
+    ├── 95_ARRAY_Check.js                   # Array.isArray
+    ├── 96_Array_Transform.js               # every vs some
+    ├── 97_Array_Copy.js                    # Copy (spread, slice) vs reference (=)
+    ├── 98_Array_Destructing.js             # Destructuring into variables
+    ├── 99.js                               # Rest element and skipping items
+    └── 100_Swap.js                         # Swap two variables with destructuring
 ```
 
 ---
@@ -264,11 +282,11 @@ LearnJSTSPlaywright4x/
 You only need [Node.js](https://nodejs.org/) 18 or newer. Chapter 08 uses one npm package ([prompt-sync](https://www.npmjs.com/package/prompt-sync)), so run `npm install` once after cloning.
 
 ```bash
-git clone https://github.com/vatsaltalavia26-sketch/LearnJSTSPlaywright4x.git
+git clone https://github.com/PramodDutta/LearnJSTSPlaywright4x.git
 cd LearnJSTSPlaywright4x
 npm install                                 # installs prompt-sync for chapter 08
 node --version                              # v18+ (tested on v22)
-node 01_Chapter_JS_Basics/01_HelloWorld.js  # Hello World!
+node 01_chapter_JS_Basics/01_HelloWorld.js  # Hello World!
 ```
 
 Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
@@ -279,15 +297,16 @@ Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
 
 ### 00: RICE-POT Prompt Engineering
 
+![RICE-POT prompt framework: Role, Instructions, Context, Example, Parameters, Output, Tone feeding an LLM](assets/images/ch00-rice-pot.png)
 
 **Concept:** RICE-POT is a seven-part prompt template (**R**ole, **I**nstructions, **C**ontext, **E**xample, **P**arameters, **O**utput, **T**one) for getting production-quality test artifacts out of an LLM instead of toy snippets.
 
 **Why:** A one-line prompt like "write Selenium code" gets you outdated APIs and invented methods; RICE-POT plus explicit anti-hallucination rules pins the model to real versions, real patterns, and a fixed output shape.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Any time you ask an AI for a framework, test plan, or test cases. The [generic QA template](00_Chapter_Prompt_Eng/04_Generic_RICE_POT_QA_Template.md) covers all four task types.
+- **Q: When do I reach for it?** A: Any time you ask an AI for a framework, test plan, or test cases. The [generic QA template](00_chapter_Prompt_Eng/04_RICE_POT_Generic_QA_Template.md) covers all four task types.
 - **Q: What does it replace?** A: Ad-hoc, one-line prompts that leave the model to guess your stack, your versions, and what "done" looks like.
-- **Q: What's the gotcha?** A: A well-structured prompt can still produce invented APIs. Pin library versions and add "do NOT" rules ([03_Anti_Hallucinations.md](00_Chapter_Prompt_Eng/03_Anti_Hallucinations.md)), then review the code before trusting it.
+- **Q: What's the gotcha?** A: A well-structured prompt can still produce invented APIs. Pin library versions and add "do NOT" rules ([03_Anti_Hallucinations.md](00_chapter_Prompt_Eng/03_Anti_Hallucinations.md)), then review the code before trusting it.
 
 ```mermaid
 flowchart LR
@@ -300,7 +319,7 @@ flowchart LR
     V -->|Yes| F[Selenium_Framework/]
 ```
 
-The anti-hallucination block from [03_Anti_Hallucinations.md](00_Chapter_Prompt_Eng/03_Anti_Hallucinations.md), ready to paste under any RICE-POT prompt:
+The anti-hallucination block from [03_Anti_Hallucinations.md](00_chapter_Prompt_Eng/03_Anti_Hallucinations.md), ready to paste under any RICE-POT prompt:
 
 ```markdown
 Role: Senior SDET Automation Architect.
@@ -316,7 +335,7 @@ Constraints & Anti-Hallucination Rules:
 4. Completeness: Ensure all import statements are fully qualified and valid.
 ```
 
-The full result of this prompt lives in [Selenium_Framework/](00_Chapter_Prompt_Eng/Selenium_Framework/).
+The full result of this prompt lives in [Selenium_Framework/](00_chapter_Prompt_Eng/Selenium_Framework/README.md).
 
 ---
 
@@ -324,6 +343,7 @@ The full result of this prompt lives in [Selenium_Framework/](00_Chapter_Prompt_
 
 ### 01: Hello World
 
+![How Node runs your file: HelloWorld.js goes through Node.js (V8) and prints Hello World! in the terminal](assets/images/ch01-node-runs-file.png)
 
 **Concept:** `console.log()` prints a value to the output. Run a `.js` file with `node <file>` and whatever you log appears in your terminal.
 
@@ -346,12 +366,12 @@ sequenceDiagram
 ```
 
 ```js
-// 01_Chapter_JS_Basics/01_HelloWorld.js
+// 01_chapter_JS_Basics/01_HelloWorld.js
 console.log("Hello World!");
 ```
 
 ```bash
-$ node 01_Chapter_JS_Basics/01_HelloWorld.js
+$ node 01_chapter_JS_Basics/01_HelloWorld.js
 Hello World!
 ```
 
@@ -376,13 +396,13 @@ flowchart LR
 ```
 
 ```js
-// 01_Chapter_JS_Basics/02_Math.js
+// 01_chapter_JS_Basics/02_Math.js
 console.log(1+2);
 console.log(2*2);
 ```
 
 ```bash
-$ node 01_Chapter_JS_Basics/02_Math.js
+$ node 01_chapter_JS_Basics/02_Math.js
 3
 4
 ```
@@ -423,7 +443,7 @@ flowchart LR
 ```
 
 ```js
-// 02_Chapter_JS_Keywords_Identifiers/03_js_engine.js
+// 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
 let a = 10;
 console.log(a);
 
@@ -439,7 +459,7 @@ console.log(a);
 ```
 
 ```bash
-$ node 02_Chapter_JS_Keywords_Identifiers/03_js_engine.js
+$ node 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
 10
 ```
 
@@ -447,6 +467,7 @@ $ node 02_Chapter_JS_Keywords_Identifiers/03_js_engine.js
 
 ### 05: Keywords vs Identifiers: var, let, const
 
+![Anatomy of a declaration: let is the keyword, userName the identifier, = the assignment, "Pramod" the literal](assets/images/ch02-declaration-anatomy.png)
 
 **Concept:** A keyword is a word the language owns (`var`, `let`, `const`, `if`, `class`, `return`). An identifier is the name you choose. In `let l = 10;`, `let` is the keyword, `l` is the identifier and `10` is the literal value.
 
@@ -475,7 +496,7 @@ flowchart TD
 | Use before the declaration line | `undefined` | ❌ `ReferenceError` | ❌ `ReferenceError` |
 
 ```js
-// 02_Chapter_JS_Keywords_Identifiers/05_KW_IND.js
+// 02_chapter_JS_Keywrods_Identifiers/05_KW_IND.js
 var v = 10;   // keyword: var,   identifier: v
 let l = 10;   // keyword: let,   identifier: l
 const c = 10; // keyword: const, identifier: c
@@ -508,7 +529,7 @@ flowchart TD
 ```
 
 ```js
-// 02_Chapter_JS_Keywords_Identifiers/06_KW_IND_Rules.js (excerpt)
+// 02_chapter_JS_Keywrods_Identifiers/06_KW_IND_Rules.js (excerpt)
 var a = 10;
 var $ = 10;               // $ alone is a valid name
 var _a = 23;
@@ -553,7 +574,7 @@ flowchart LR
 | Hungarian | `bActive` | Legacy code only |
 
 ```js
-// 02_Chapter_JS_Keywords_Identifiers/07_IND_Rules2.js (excerpt)
+// 02_chapter_JS_Keywrods_Identifiers/07_IND_Rules2.js (excerpt)
 let userName = "camelCase";          // 1. camelCase
 let isLoggedIn = true;
 
@@ -589,7 +610,7 @@ flowchart LR
 ```
 
 ```js
-// 02_Chapter_JS_Keywords_Identifiers/08_Comments.js
+// 02_chapter_JS_Keywrods_Identifiers/08_Comments.js
 // This is a single-line comment, it will be ignored
 // this line will not be executed
 
@@ -615,7 +636,7 @@ var g = 10; // cmd + /, ctrl + /
 **Why:** These questions check whether you know the actual rule or only the everyday cases, and the edge cases (Unicode, escapes) are where people get caught.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Before an interview, or when a reviewer asks "is that even legal?". Run `node 02_Chapter_JS_Keywords_Identifiers/09_IQ.js`: it exits silently, which proves every uncommented line is valid.
+- **Q: When do I reach for it?** A: Before an interview, or when a reviewer asks "is that even legal?". Run `node 02_chapter_JS_Keywrods_Identifiers/09_IQ.js`: it exits silently, which proves every uncommented line is valid.
 - **Q: What does it replace?** A: Memorising a list. It is the same rule as lesson 06, applied to Unicode: `café` and `变量` are valid because `é` and `变` count as letters.
 - **Q: What's the gotcha?** A: `let A = ...` declares a variable named `A`, because the escape is decoded before the name is checked. And `Function` is a built-in, not a reserved word: `let Function = "x"` runs and shadows the global. Reserved words such as `class` or `let` are the ones that fail.
 
@@ -635,7 +656,7 @@ flowchart LR
 ```
 
 ```js
-// 02_Chapter_JS_Keywords_Identifiers/09_IQ.js (excerpt)
+// 02_chapter_JS_Keywrods_Identifiers/09_IQ.js (excerpt)
 let validName = "starts with letter";
 let _private = "starts with underscore";
 let $jquery = "starts with dollar sign";
@@ -684,7 +705,7 @@ flowchart LR
 ```
 
 ```js
-// 03_Chapter_JS_Literals/11_Numberal.js
+// 03_chapter_JS_Literals/11_Numberal.js
 let age = "pramod";     // string literal
 let age2 = 'pramod';    // same string, single quotes
 let isStudent = true;   // boolean literal
@@ -704,6 +725,7 @@ console.log(typeof undefinedValue); // undefined
 
 ### 12: null vs undefined
 
+![undefined means not assigned yet, null means empty on purpose; null == undefined is true, null === undefined is false](assets/images/ch03-null-vs-undefined.png)
 
 **Concept:** `undefined` means a variable exists but nothing has been assigned to it yet, and JavaScript sets it for you. `null` means "intentionally empty", and only you (or an API) set it.
 
@@ -735,7 +757,7 @@ flowchart TD
 | `null === undefined` | `false` | `false` |
 
 ```js
-// 03_Chapter_JS_Literals/12_Null_Undefined.js (excerpt)
+// 03_chapter_JS_Literals/12_Null_Undefined.js (excerpt)
 let userName;                       // declared but not assigned
 console.log(userName);              // undefined
 console.log(typeof userName);       // undefined
@@ -780,7 +802,7 @@ flowchart LR
 | `e` | exponent (x 10ⁿ) | `1.5e3` | 1500 |
 
 ```js
-// 03_Chapter_JS_Literals/15_Number.js (excerpt)
+// 03_chapter_JS_Literals/15_Number.js (excerpt)
 let decimal = 42;
 let binary = 0b1010;  // 10 in decimal
 let octal = 0o52;     // 42 in decimal
@@ -823,7 +845,7 @@ flowchart TD
 ```
 
 ```js
-// 03_Chapter_JS_Literals/16_Numbers_PART2.js
+// 03_chapter_JS_Literals/16_Numbers_PART2.js
 let million = 1_000_000;      // same as 1000000
 let binarySep = 0b1010_0001;
 let hexSep = 0xFF_FF;
@@ -862,7 +884,7 @@ flowchart LR
 ```
 
 ```js
-// 03_Chapter_JS_Literals/17_Special.js
+// 03_chapter_JS_Literals/17_Special.js
 console.log("Infinity:", Infinity);               // Infinity
 console.log("1 / 0:", 1 / 0);                     // Infinity
 console.log("-1 / 0:", -1 / 0);                   // -Infinity
@@ -904,7 +926,7 @@ flowchart TD
 ```
 
 ```js
-// 04_Chapter_JS_Operators/19_Arch.js (expanded)
+// 04_chapter_JS_Operators/19_Arch.js (expanded)
 let a = 10 + 3;     // 2 operators: + computes 13, = stores it
 console.log(a);     // 13
 
@@ -946,7 +968,7 @@ flowchart LR
 | `**=` | `x = x ** n` | `x **= 2` | 100 |
 
 ```js
-// 04_Chapter_JS_Operators/20_Assigment_Op.js
+// 04_chapter_JS_Operators/20_Assigment_Op.js
 let x = 10;
 x = "PrrammodDutta";   // let allows a new value, even a new type
 console.log(x);        // PrrammodDutta
@@ -978,7 +1000,7 @@ flowchart TD
 ```
 
 ```js
-// 04_Chapter_JS_Operators/21_Arithematic_Op.js
+// 04_chapter_JS_Operators/21_Arithematic_Op.js
 let a = 10;
 let b = 3;
 
@@ -1000,6 +1022,7 @@ console.log(a ** b);  // 1000 (10^3)
 
 ### 22: Comparison Operators (Loose vs Strict)
 
+![Loose vs strict equality: 5 == "5" converts types and is true, 5 === "5" compares number vs string and is false](assets/images/ch04-loose-vs-strict.png)
 
 **Concept:** Comparison operators always return a boolean. `==` (loose) converts both sides to the same type before comparing; `===` (strict) compares both value and type with no conversion. `!=` and `!==` are their "not equal" versions, and `>`, `<`, `>=`, `<=` compare order.
 
@@ -1024,7 +1047,7 @@ flowchart TD
 | `!==` | Strict not equal | `5 !== "5"` | `true` |
 
 ```js
-// 04_Chapter_JS_Operators/22_Comparsion_Op.js (excerpt)
+// 04_chapter_JS_Operators/22_Comparsion_Op.js (excerpt)
 console.log(3 > 4);      // false
 console.log(3 < 4);      // true
 console.log(4 >= 4);     // true
@@ -1066,7 +1089,7 @@ flowchart LR
 | `false` | `false` | `false` | `false` | `true` |
 
 ```js
-// 04_Chapter_JS_Operators/23_Logical_Op.js (plus short-circuit examples)
+// 04_chapter_JS_Operators/23_Logical_Op.js (plus short-circuit examples)
 let a = true;
 let b = false;
 
@@ -1100,7 +1123,7 @@ flowchart TD
 ```
 
 ```js
-// 04_Chapter_JS_Operators/24_Confusing_Comparsion.js
+// 04_chapter_JS_Operators/24_Confusing_Comparsion.js
 // Rule of thumb:
 //   ==   → loose equality  (does type coercion, surprising)
 //   ===  → strict equality (no coercion, what you usually want)
@@ -1134,7 +1157,7 @@ flowchart LR
 ```
 
 ```js
-// 04_Chapter_JS_Operators/27_String.js (plus a template literal from 32_IQ.js)
+// 04_chapter_JS_Operators/27_String.js (plus a template literal from 32_IQ.js)
 let s = "Hi, ";
 console.log(typeof s);                   // string
 s += "Dev";                              // append to the same string
@@ -1150,6 +1173,7 @@ console.log(`What is the SLA time ? - ${sla}`);  // What is the SLA time ? - 100
 
 ### 28: Ternary Operator
 
+![Ternary operator: status === 200 ? leads to PASS when true and FAIL when false](assets/images/ch04-ternary.png)
 
 **Concept:** The ternary operator `condition ? valueIfTrue : valueIfFalse` is an `if/else` that produces a value. It is the only JavaScript operator that takes three operands.
 
@@ -1169,12 +1193,12 @@ flowchart LR
 ```
 
 ```js
-// 04_Chapter_JS_Operators/28_Ternary_Op.js
+// 04_chapter_JS_Operators/28_Ternary_Op.js
 let age = 17;
 let can_I_go = age > 18 ? "Yes" : "No";
 console.log(can_I_go);    // No
 
-// 04_Chapter_JS_Operators/29_T_Op.js
+// 04_chapter_JS_Operators/29_T_Op.js
 let actualStatusCode = 200;
 let expectedStatusCode = 200;
 let testResult = actualStatusCode === expectedStatusCode ? "✅ PASS" : "❌ FAIL";
@@ -1203,7 +1227,7 @@ flowchart TD
 ```
 
 ```js
-// 04_Chapter_JS_Operators/30_IQ.js
+// 04_chapter_JS_Operators/30_IQ.js
 let environment = "staging";
 let baseUrl = environment === "prod"
     ? "https://api.example.com"
@@ -1249,12 +1273,12 @@ flowchart TD
 ```
 
 ```js
-// 04_Chapter_JS_Operators/34_Nested_Ternary.js
+// 04_chapter_JS_Operators/34_Nested_Ternary.js
 let age = 26;
 let is_pramod_enjoy = (age > 18) ? (age > 25 ? "Goa & Drink" : "No Drink,ONly Goa") : "No Goa";
 console.log(`Pramod can Enjoy ${is_pramod_enjoy}`);  // Pramod can Enjoy Goa & Drink
 
-// 04_Chapter_JS_Operators/35_IQ.js
+// 04_chapter_JS_Operators/35_IQ.js
 let statusCode = 404;
 let category =
     statusCode < 300 ? "Success" :
@@ -1294,7 +1318,7 @@ flowchart LR
 | `[]`, `{}` | `"object"` |
 
 ```js
-// 04_Chapter_JS_Operators/37_TypeOf.js (plus the commented cases)
+// 04_chapter_JS_Operators/37_TypeOf.js (plus the commented cases)
 console.log(typeof "hello");     // string
 console.log(typeof 123);         // number
 console.log(typeof 31.4);        // number
@@ -1310,6 +1334,7 @@ console.log(typeof typeof 123);  // string
 
 ### 38: Pre vs Post Increment and Decrement
 
+![Pre vs post increment: with a = 10, let b = ++a gives b 11 and a 11; let b = a++ gives b 10 and a 11](assets/images/ch05-pre-vs-post.png)
 
 **Concept:** `++` adds 1 to a variable and `--` subtracts 1. Before the variable (`++a`, pre) it changes the value first and then hands back the new value; after the variable (`a++`, post) it hands back the old value and then changes it.
 
@@ -1338,7 +1363,7 @@ flowchart LR
 | `let b = a--;` | 10 | 9 |
 
 ```js
-// 05_Chapter_JS_INCRE_DECRE_OP/38_ID_Op.js: pre-increment
+// 05_chapter_JS_Incre_Decr_Op/38_ID_Op.js: pre-increment
 let a = 10;
 let b = ++a;          // a becomes 11, then b gets 11
 console.log(b, a);    // 11 11
@@ -1378,7 +1403,7 @@ flowchart LR
 | `i++ + ++i` (i = 1) | 1 + 3 | 4 | i = 3 |
 
 ```js
-// 05_Chapter_JS_INCRE_DECRE_OP/40_IQ.js
+// 05_chapter_JS_Incre_Decr_Op/40_IQ.js
 let a = 10;
 console.log(++a + a);        // 22  (11 + 11)
 console.log(a);              // 11
@@ -1421,7 +1446,7 @@ flowchart TD
 | `"Pramod"` | `"Pramod"` | `"Pramod"` |
 
 ```js
-// 05_Chapter_JS_INCRE_DECRE_OP/45_Nullish.js (commented examples switched on)
+// 05_chapter_JS_Incre_Decr_Op/45_Nullish.js (commented examples switched on)
 let amul = null;
 let val = amul ?? "NANDANI Milk";
 console.log(val);            // NANDANI Milk
@@ -1459,7 +1484,7 @@ flowchart TD
 ```
 
 ```js
-// 06_Chapter_if_else_statement_Condition/46_IF.js (plus a falsy check)
+// 06_chatper_if_else_statement_Condition/46_IF.js (plus a falsy check)
 let age = 16;
 if (age > 18) {
     console.log("Go Goa");
@@ -1494,7 +1519,7 @@ flowchart TD
 ```
 
 ```js
-// 06_Chapter_if_else_statement_Condition/47_IF_Else_Nested.js
+// 06_chatper_if_else_statement_Condition/47_IF_Else_Nested.js
 let age = 27;
 if (age > 18) {
     console.log("Goa Check!");
@@ -1534,7 +1559,7 @@ flowchart LR
 | Best for | Picking one of two values | Running one of two blocks |
 
 ```js
-// 06_Chapter_if_else_statement_Condition/48_TO_IfElse.js
+// 06_chatper_if_else_statement_Condition/48_TO_IfElse.js
 let age = 20;
 let result = age > 21 ? "Drive" : "No Able to DRIve";   // a value
 
@@ -1549,6 +1574,7 @@ if (age > 21) {                                          // actions
 
 ### 49: else if Ladder: Grade Calculator
 
+![The else if ladder: score > 90 gives A, score > 80 gives B, score > 70 gives C, else gives F; the first true check wins](assets/images/ch06-else-if-ladder.png)
 
 **Concept:** An `if / else if / else` chain checks its conditions from top to bottom and runs only the first block whose condition is true. The final `else` catches everything left over.
 
@@ -1588,7 +1614,7 @@ flowchart TD
 | 0 | F | Grade F - Fail ✅ |
 
 ```js
-// 06_Chapter_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
+// 06_chatper_if_else_statement_Condition/49_Multiple_ifelse.js (code part)
 let score = 95;
 
 if (score > 100 || score < 0) {
@@ -1642,7 +1668,7 @@ flowchart TD
 ```
 
 ```js
-// 07_Chapter_Switch/50_switch.js (excerpt)
+// 07_chapter_switch/50_switch.js (excerpt)
 let day = 2;
 switch (day) {
     case 1:
@@ -1666,6 +1692,7 @@ switch (day) {
 
 ### 51: Fall-Through (Missing break)
 
+![switch with break runs only the matching case and exits; without break it falls through every case below, including default; switch matches with ===](assets/images/ch07-switch-break.png)
 
 **Concept:** Without `break`, a matching `case` runs its code and then keeps going into every case below it, `default` included. This is called fall-through.
 
@@ -1683,7 +1710,7 @@ flowchart TD
 ```
 
 ```js
-// 07_Chapter_Switch/55_IQ.js
+// 07_chapter_switch/55_IQ.js
 let fruit = "banana";
 switch (fruit) {
     case "apple":
@@ -1723,7 +1750,7 @@ flowchart LR
 ```
 
 ```js
-// 07_Chapter_Switch/53_API_Switch.js
+// 07_chapter_switch/53_API_Switch.js
 let responseCode = 404;
 switch (responseCode) {
     case 200:
@@ -1736,7 +1763,7 @@ switch (responseCode) {
         console.log("Not status code match");
 }
 
-// 07_Chapter_Switch/54_Switch_Group.js (adapted)
+// 07_chapter_switch/54_Switch_Group.js (adapted)
 let browser = "Brave";
 switch (browser) {
     case "Chrome":
@@ -1774,7 +1801,7 @@ flowchart TD
 ```
 
 ```js
-// 07_Chapter_Switch/56_IQ.js (adapted)
+// 07_chapter_switch/56_IQ.js (adapted)
 let testScore = 85;
 switch (true) {
     case (testScore >= 95):
@@ -1813,7 +1840,7 @@ flowchart LR
 ```
 
 ```js
-// 07_Chapter_Switch/57_IQ.js
+// 07_chapter_switch/57_IQ.js
 let x = 10;
 switch (x) {
     case 10:
@@ -1828,7 +1855,7 @@ switch (x) {
         console.log("d");
 }
 
-// 07_Chapter_Switch/58.IQ.js
+// 07_chapter_switch/58.IQ.js
 let status = 0;
 console.log(typeof status);       // number
 switch (status) {                 // === : value and type must both match
@@ -1845,6 +1872,7 @@ switch (status) {                 // === : value and type must both match
 
 ## Chapter 08: User Input
 
+![Getting user input: prompt() is browser only, readline is built into Node, prompt-sync is an npm package, fs.readFileSync(0) reads piped stdin](assets/images/ch08-user-input.png)
 
 | Method | Where it works | Waits on that line? | Install | Lesson |
 |:-------|:---------------|:-------------------:|:--------|:------:|
@@ -1861,7 +1889,7 @@ switch (status) {                 // === : value and type must both match
 
 **Q&A: why use this?**
 - **Q: When do I reach for it?** A: In a browser's DevTools console or a `<script>` on a page: paste the file's code into the Console tab to try it.
-- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_Chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
+- **Q: What does it replace?** A: Java's `Scanner(System.in)`, but only in browsers. In Node, `node 08_chapter_UserInput/59_UI.js` fails with `ReferenceError: prompt is not defined`.
 - **Q: What's the gotcha?** A: The answer is always a string or `null`. Pressing Cancel gives `null`, `Number(null)` is `0`, and the file prints "0 is Even". Typing `abc` gives `NaN`, and since `NaN % 2 === 0` is `false`, it prints "NaN is Odd".
 
 ```mermaid
@@ -1878,7 +1906,7 @@ sequenceDiagram
 ```
 
 ```js
-// 08_Chapter_UserInput/59_UI.js (run in a browser console, not in Node)
+// 08_chapter_UserInput/59_UI.js (run in a browser console, not in Node)
 let num = prompt("Enter a number:");
 num = Number(num);  // convert string to number
 
@@ -1912,7 +1940,7 @@ sequenceDiagram
 ```
 
 ```js
-// 08_Chapter_UserInput/60_Node_UI.js
+// 08_chapter_UserInput/60_Node_UI.js
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -1934,7 +1962,7 @@ rl.question("Enter a number: ", (input) => {
 ```
 
 ```bash
-$ echo 7 | node 08_Chapter_UserInput/60_Node_UI.js
+$ echo 7 | node 08_chapter_UserInput/60_Node_UI.js
 Enter a number: 7 is Odd
 ```
 
@@ -1945,7 +1973,7 @@ Enter a number: 7 is Odd
 **Why:** Synchronous input reads top to bottom like the browser version, which is easier for beginners than `readline` callbacks.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_Chapter_UserInput/61_Prompt_sync.js`.
+- **Q: When do I reach for it?** A: Interactive practice scripts in your own terminal. Run `npm install` once (the repo's `package.json` lists `prompt-sync`), then `node 08_chapter_UserInput/61_Prompt_sync.js`.
 - **Q: What does it replace?** A: `readline` callbacks in simple scripts, and the browser-only `prompt()`.
 - **Q: What's the gotcha?** A: It reads the keyboard straight from the terminal, so it fails when there is no terminal: piping input (`echo 42 | node 61_Prompt_sync.js`) or running it in CI throws `Error: ENXIO: no such device or address, open '/dev/tty'`.
 
@@ -1958,7 +1986,7 @@ flowchart LR
 ```
 
 ```js
-// 08_Chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
+// 08_chapter_UserInput/61_Prompt_sync.js (needs npm install, run in a terminal)
 const prompt = require("prompt-sync")();
 let num = Number(prompt("Enter a number"));
 console.log(num);
@@ -1971,7 +1999,7 @@ console.log(num);
 **Why:** It is the simplest way to accept piped input such as `echo 15 | node file.js`, and it is how many online coding judges feed test input to JavaScript solutions.
 
 **Q&A: why use this?**
-- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js` or `node 08_Chapter_UserInput/62_FS_readFile.js < input.txt`.
+- **Q: When do I reach for it?** A: Scripts that receive input from a pipe or a file: `echo 15 | node 08_chapter_UserInput/62_FS_readFile.js` or `node 08_chapter_UserInput/62_FS_readFile.js < input.txt`.
 - **Q: What does it replace?** A: Line-by-line `readline` when you simply want all of the input at once.
 - **Q: What's the gotcha?** A: It reads until the end of the input, so when you type by hand nothing happens after Enter: press `Ctrl+D` (macOS and Linux) to finish. The string also keeps its trailing newline, so `data === "15"` is `false` until you call `data.trim()`.
 
@@ -1983,7 +2011,7 @@ flowchart LR
 ```
 
 ```js
-// 08_Chapter_UserInput/62_FS_readFile.js
+// 08_chapter_UserInput/62_FS_readFile.js
 console.log("Enter the number!");
 const data = require('fs').readFileSync(0, 'utf8');   // 0 = standard input
 console.log("Hi", data);
@@ -1992,7 +2020,7 @@ console.log("Hi", data);
 ```
 
 ```bash
-$ echo 15 | node 08_Chapter_UserInput/62_FS_readFile.js
+$ echo 15 | node 08_chapter_UserInput/62_FS_readFile.js
 Enter the number!
 Hi 15
 ```
@@ -2003,6 +2031,7 @@ Hi 15
 
 ### 63: Why Loops: the for Loop
 
+![Anatomy of a for loop: let i = 0 is the init and runs once, i < 10 is the condition checked before every pass, i++ is the update after every pass](assets/images/ch09-for-loop-anatomy.png)
 
 **Concept:** A loop repeats a block of code. A `for` loop packs its three parts into one line: the init (`let i = 0`, runs once), the condition (`i < 10`, checked before every pass) and the update (`i++`, runs after every pass). The lesson calls this ICU.
 
@@ -2023,13 +2052,13 @@ flowchart TD
 ```
 
 ```js
-// 09_Chapter_Loops/63_Loop.js: the slow way
+// 09_chapter_Loops/63_Loop.js: the slow way
 console.log(1);
 console.log(2);
 console.log(3);
 // ... one line per number, all the way to 10
 
-// 09_Chapter_Loops/64_For_loop.js: the loop way
+// 09_chapter_Loops/64_For_loop.js: the loop way
 // ICU: INIT let i = 0, CONDITION i < 10, UPDATE ++i
 for (let i = 0; i < 10; ++i) {
     console.log(i);   // 0 1 2 ... 9
@@ -2064,7 +2093,7 @@ flowchart TD
 | `for (let i = 0; ; i++)` | 0, 1, 2, ... forever | ∞ |
 
 ```js
-// 09_Chapter_Loops/66_iq.JS
+// 09_chapter_Loops/66_iq.JS
 for (let somya = 1; somya <= 10; somya++) {
     console.log(somya);   // 1 2 3 ... 10
 }
@@ -2107,7 +2136,7 @@ flowchart TD
 ```
 
 ```js
-// 09_Chapter_Loops/69_IQ.js
+// 09_chapter_Loops/69_IQ.js
 for (let somya = 0; somya < 18; ++somya) {
     if (somya > 15) {
         console.log("Gift from papa, iphone this year")   // somya = 16, 17
@@ -2124,6 +2153,7 @@ for (let somya = 0; somya < 18; ++somya) {
 
 ### 70: while Loop
 
+![How a while loop runs: check attempts < 3; if true run the body and attempts++, then check again; if false exit the loop](assets/images/ch10-while-loop.png)
 
 **Concept:** `while (condition) { ... }` repeats its body as long as the condition is true. The same ICU parts are there, just spread out: the init goes before the loop, the condition in the header, the update inside the body.
 
@@ -2150,14 +2180,14 @@ flowchart TD
 | Best when | You know the count | You repeat until something changes |
 
 ```js
-// 10_Chapter_Loops_While/70.js
+// 10_chapter_Loops_WHILE/70.js
 let i = 0;            // Init
 while (i < 10) {      // Condition
     console.log(i);   // 0 1 2 ... 9
     i++;              // Update
 }
 
-// 10_Chapter_Loops_While/71_IQ.js: a retry counter
+// 10_chapter_Loops_WHILE/71_IQ.js: a retry counter
 let attempts = 0;
 while (attempts < 3) {
     console.log("Attempt", attempts);   // Attempt 0, Attempt 1, Attempt 2
@@ -2188,7 +2218,7 @@ flowchart TD
 ```
 
 ```js
-// 10_Chapter_Loops_While/73_break.IQ.js
+// 10_chapter_Loops_WHILE/73_break.IQ.js
 let age = 7;
 while (true) {
     if (age > 10) {
@@ -2225,7 +2255,7 @@ flowchart TD
 ```
 
 ```js
-// 11_Chapter_Loops_DoWhile/74.js
+// 11_chapter_Loops_DoWhile/74.js
 let retry = 0;
 
 do {
@@ -2237,6 +2267,7 @@ do {
 
 ### 75: while vs do...while
 
+![while vs do...while with a = 10: while checks then runs and runs 0 times; do...while runs then checks and runs 1 time](assets/images/ch11-while-vs-do-while.png)
 
 **Concept:** Same start value (`a = 10`), same condition (`a < 10`): a `while` checks first and runs zero times, while a `do...while` runs once and then checks. `77_IQ.js` shows the same zero-run rule for a `for` loop.
 
@@ -2264,7 +2295,7 @@ flowchart LR
 | `do...while` | After each pass | 1 run (prints 10) |
 
 ```js
-// 11_Chapter_Loops_DoWhile/75_IQ.js (with the while version switched on)
+// 11_chapter_Loops_DoWhile/75_IQ.js (with the while version switched on)
 let a = 10;
 while (a < 10) {          // checked first: false, so the body never runs
     console.log(a);
@@ -2277,7 +2308,7 @@ do {
     b++;
 } while (b < 10);         // checked after: 11 < 10 is false, stop
 
-// 11_Chapter_Loops_DoWhile/77_IQ.js
+// 11_chapter_Loops_DoWhile/77_IQ.js
 let count = 0;
 for (let i = 5; i < 5; i++) {
     count++;
@@ -2312,7 +2343,7 @@ flowchart TD
 | **`i = 2`** | `2 0` | `2 1` | `2 2` |
 
 ```js
-// 11_Chapter_Loops_DoWhile/76_Nested.js
+// 11_chapter_Loops_DoWhile/76_Nested.js
 for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
         console.log(i, j);   // 0 0, 0 1, 0 2, 1 0, ... 2 2
@@ -2324,59 +2355,637 @@ for (let i = 0; i < 3; i++) {
 
 ## Chapter 12: Arrays
 
-Chapter 12 introduces JavaScript arrays and demonstrates their use with examples inspired by browser and test-result data. Run each example from the repository root with `node <file path>`.
+### 78: Arrays: Index, length and at()
 
-### 78: Array Basics
+**Concept:** An array is an ordered list of values in square brackets: `["chrome", "firefox", "webkit"]`. Items are numbered from 0, `length` says how many there are, and `at(-1)` counts from the end.
 
-[Open `78_Array.js`](12_Chapter_Arrays/78_Array.js) for array literals, indexing, `length`, and `.at()` (including a negative index).
+**Why:** Test data is full of lists (browsers to run on, rows in a table, expected error messages), and an array holds a whole list in one variable.
 
-### 79: Array Length and Indexing
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Any group of related values. `["chrome", "firefox", "webkit"]` is exactly the set of browsers Playwright runs tests on.
+- **Q: What does it replace?** A: Separate variables (`browser1`, `browser2`, ...) and Java arrays. Unlike Java, a JavaScript array has no fixed size and can mix types: `[1, "hello", true, null]` in `81_Array.js`.
+- **Q: What's the gotcha?** A: Brackets do not count from the end: `browsers[-1]` is `undefined`, not the last item; use `browsers.at(-1)`. Reading past the end (`arr[4]` on a 4-item array) also gives `undefined`, with no error. And `typeof []` is `"object"`, so check with `Array.isArray()`.
 
-[Open `79_Arrays.js`](12_Chapter_Arrays/79_Arrays.js) for empty arrays, array length, bracket indexing, and `.at()`.
+```mermaid
+flowchart LR
+    subgraph ARR["browsers, length 3"]
+        A0["[0] chrome<br/>at(-3)"] --- A1["[1] firefox<br/>at(-2)"] --- A2["[2] webkit<br/>at(-1)"]
+    end
+```
 
-### 80: Array Bounds
+```js
+// 12_chapters_Arrays/78_Array.js
+const browsers = ["chrome", "firefox", "webkit"];
+console.log(browsers[0]);          // chrome
+console.log(browsers.at(-1));      // webkit  (negative index)
+console.log(browsers.length);      // 3
 
-[Open `80_Arrays.js`](12_Chapter_Arrays/80_Arrays.js) to see how out-of-range indexes behave and how that differs from reading `.length`.
-
-### 81: Array Values
-
-[Open `81_Array.js`](12_Chapter_Arrays/81_Array.js) for arrays containing strings, numbers, booleans, and `null`.
+// 79_Arrays.js and 80_Arrays.js
+console.log(typeof []);            // object
+console.log(browsers[-1]);         // undefined: brackets don't count from the end
+let arr = [10, 20, 30, 40];
+console.log(arr[4]);               // undefined: index 4 is past the end
+```
 
 ### 82: Creating Arrays
 
-[Open `82_Create.js`](12_Chapter_Arrays/82_Create.js) for array literals, `Array()`, `Array.of()`, and `Array.from()`.
+**Concept:** The literal `[...]` is the everyday way to make an array. `new Array(...)`, `Array.of(...)` and `Array.from(...)` exist for special cases.
 
-### 83: Accessing and Modifying Arrays
+**Why:** You will meet all four in other people's code, and one of them has a trap.
 
-[Open `83_Access_Modify.js`](12_Chapter_Arrays/83_Access_Modify.js) to read values by index, use `.at()`, and replace an element.
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `[]` almost always. `Array.from("hello")` splits a string (or anything iterable) into an array, and `Array.from({ length: 3 }, (_, i) => i)` builds `[0, 1, 2]`.
+- **Q: What does it replace?** A: Java's `new String[3]` and `Arrays.asList(...)`.
+- **Q: What's the gotcha?** A: `new Array(3)` does not make `[3]`. A single number means "length", so you get three empty slots (`[ <3 empty items> ]`). With several numbers, `new Array(1, 2, 3)` does make `[1, 2, 3]`. `Array.of(3)` always means `[3]`.
 
-### 84: Adding and Removing Elements
+```mermaid
+flowchart TD
+    Q{"What are you starting from?"} -->|"values you already know"| L["[1, 2, 3]<br/>(literal)"]
+    Q -->|"a string or other iterable"| F["Array.from('hello')"]
+    Q -->|"one number, as a value"| O["Array.of(3)"]
+    Q -->|"a number of empty slots"| N["new Array(3)"]:::warn
 
-[Open `84_Adding_Remove.js`](12_Chapter_Arrays/84_Adding_Remove.js) for `push`, `pop`, `unshift`, `shift`, and `splice`.
+    classDef warn fill:#fef3c7,stroke:#d97706,color:#78350f
+```
 
-### 85: Removing and Iterating through Arrays
+| Code | Result |
+|:-----|:-------|
+| `["Chrome", "Firefox", "Safari"]` | `["Chrome", "Firefox", "Safari"]` |
+| `new Array(3)` | `[ <3 empty items> ]`, length 3 |
+| `new Array(1, 2, 3)` | `[1, 2, 3]` |
+| `Array.of(3)` | `[3]` |
+| `Array.of(10, 20, 30, 40, 50)` | `[10, 20, 30, 40, 50]` |
+| `Array.from("hello")` | `["h", "e", "l", "l", "o"]` |
 
-[Open `85_ARRAY.js`](12_Chapter_Arrays/85_ARRAY.js) for removing elements and iterating over browser names.
+```js
+// 12_chapters_Arrays/82_Create.js (with console.log added)
+let browsers = ["Chrome", "Firefox", "Safari"];
 
-### 86: Searching Arrays
+let scores = new Array(3);          // [ <3 empty items> ]
+scores[0] = "1";
+console.log(scores);                // [ '1', <2 empty items> ]
 
-[Open `86_Searching.js`](12_Chapter_Arrays/86_Searching.js) for `indexOf`, `lastIndexOf`, and `includes`.
+let scores2 = new Array(1, 2, 3);   // [1, 2, 3]
+let test = Array.of(10, 20, 30, 40, 50);
+console.log(test.length);           // 5
 
-### 87: Finding Elements
+let chars = Array.from("hello");
+console.log(chars);                 // [ 'h', 'e', 'l', 'l', 'o' ]
+```
 
-[Open `87_Find.js`](12_Chapter_Arrays/87_Find.js) for `find`, `findIndex`, `findLast`, and `findLastIndex`.
+### 83: Accessing and Modifying
 
-### 88: Iterating over Arrays
+**Concept:** Read an item with `arr[i]` (or `arr.at(i)`), and change it by assigning to the same index: `statuses[1] = "blocked"`.
 
-[Open `88_Iterate.js`](12_Chapter_Arrays/88_Iterate.js) for indexed loops, `for...of`, `forEach`, `entries()`, and `for...in`.
+**Why:** Updating one entry in a list, such as a test status or a cell value, is everyday work.
 
-### 89: Transforming Arrays
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When you know the position. `at(-1)` and `at(-2)` read from the end without working out `length - 1`.
+- **Q: What does it replace?** A: `statuses[statuses.length - 1]` for the last item.
+- **Q: What's the gotcha?** A: `const` does not freeze an array. With `const statuses = [...]`, `statuses[1] = "blocked"` works; only reassigning (`statuses = []`) throws. And `at(-4)` on a 3-item array is `undefined`, not an error.
 
-[Open `89_Arrays_Transform.js`](12_Chapter_Arrays/89_Arrays_Transform.js) for transforming values with `map()` and selecting values with `filter()`.
+```mermaid
+flowchart LR
+    B["['pass', 'fail', 'skip']"] -->|"statuses[1] = 'blocked'"| A["['pass', 'blocked', 'skip']"]
+    A --> L["length is still 3"]
+```
+
+```js
+// 12_chapters_Arrays/83_Access_Modify.js
+let statuses = ["pass", "fail", "skip"];
+
+console.log(statuses[0]);        // pass
+console.log(statuses[2]);        // skip
+
+console.log(statuses.at(-1));    // skip
+console.log(statuses.at(-2));    // fail
+console.log(statuses.at(-4));    // undefined
+
+// Modify
+statuses[1] = "blocked";
+console.log(statuses);           // [ 'pass', 'blocked', 'skip' ]
+console.log(statuses.length);    // 3
+```
+
+### 84: Adding and Removing Items
+
+![Add and remove items: unshift adds to the start, shift removes from the start, push adds to the end, pop removes from the end, splice adds or removes anywhere](assets/images/ch12-array-add-remove.png)
+
+**Concept:** `push` and `pop` add and remove at the end, `unshift` and `shift` add and remove at the start, and `splice(start, deleteCount, ...items)` removes and/or inserts anywhere. All five change the original array.
+
+**Why:** Test data changes while a test runs: queue up pages to visit, drop a browser that is not supported, insert an extra step.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `push` and `pop` for most list building, `shift` to take the next item from a queue, `splice` for anything in the middle.
+- **Q: What does it replace?** A: Java's `ArrayList` methods `add(item)`, `remove(index)` and `add(index, item)`.
+- **Q: What's the gotcha?** A: Watch the return values. `push` and `unshift` return the new length, not the array; `pop` and `shift` return the removed item (`85_ARRAY.js` keeps `browser.shift()` as `removed`); `splice` returns an array of what it removed. All of them change the array in place.
+
+```mermaid
+flowchart LR
+    A["[1, 2, 3, 5, 6]"] -->|"splice(2, 1)<br/>remove 1 at index 2"| B["[1, 2, 5, 6]"]
+    B -->|"splice(2, 0, 99)<br/>insert at index 2"| C["[1, 2, 99, 5, 6]"]
+    C -->|"splice(1, 2, 10, 20)<br/>replace 2 from index 1"| D["[1, 10, 20, 5, 6]"]
+```
+
+| Method | Where | Returns | On `[1, 2, 3]` |
+|:-------|:------|:--------|:---------------|
+| `push(4)` | End, add | New length (`4`) | `[1, 2, 3, 4]` |
+| `pop()` | End, remove | Removed item (`3`) | `[1, 2]` |
+| `unshift(0)` | Start, add | New length (`4`) | `[0, 1, 2, 3]` |
+| `shift()` | Start, remove | Removed item (`1`) | `[2, 3]` |
+| `splice(1, 1)` | Anywhere | Removed items (`[2]`) | `[1, 3]` |
+| `splice(1, 0, 99)` | Anywhere | `[]` | `[1, 99, 2, 3]` |
+
+```js
+// 12_chapters_Arrays/84_Adding_Remove.js (excerpt)
+let arr = [1, 2, 3];
+
+arr.push(4);              // add to END              [1, 2, 3, 4]
+arr.pop();                // remove from END         [1, 2, 3]
+arr.push(5, 6);           //                         [1, 2, 3, 5, 6]
+arr.unshift(0);           // add to BEGINNING        [0, 1, 2, 3, 5, 6]
+arr.shift();              // remove from BEGINNING   [1, 2, 3, 5, 6]
+
+arr.splice(2, 1);         // remove 1 item at index 2       [1, 2, 5, 6]
+arr.splice(2, 0, 99);     // insert 99 at index 2           [1, 2, 99, 5, 6]
+arr.splice(1, 2, 10, 20); // replace 2 items from index 1   [1, 10, 20, 5, 6]
+console.log(arr);         // [ 1, 10, 20, 5, 6 ]
+```
+
+`85_ARRAY.js` combines these: it pops and shifts a browser list, then loops over what is left and flags `"opera"`.
+
+### 86: Searching: indexOf, includes and find
+
+**Concept:** `indexOf` and `lastIndexOf` return the position of a value (or `-1`), and `includes` answers yes or no. `find` and `findIndex` search with a rule instead of an exact value: `n => n > 20` is a short arrow function that takes an item and returns `true` or `false`.
+
+**Why:** Assertions often ask "is this value in the list?" or "which row matches?", and these methods answer without a hand-written loop.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `includes` for yes/no checks (`results.includes("error")`), `indexOf` when you need the position, `find` when the match is a rule (`n > 20`) rather than a fixed value. `findLast` and `findLastIndex` search from the end.
+- **Q: What does it replace?** A: A `for` loop with a flag variable and a `break`.
+- **Q: What's the gotcha?** A: Each method says "not found" differently: `indexOf` and `findIndex` return `-1`, `find` returns `undefined`. So never write `if (results.indexOf("fail"))`: a match at position 0 is falsy and a miss (`-1`) is truthy. Also, `indexOf` cannot find `NaN`, but `includes` can.
+
+```mermaid
+flowchart TD
+    Q{"What do you need?"} -->|"yes or no"| I["includes(value)"]
+    Q -->|"position of a value"| X["indexOf / lastIndexOf"]
+    Q -->|"first item matching a rule"| F["find / findIndex"]
+    Q -->|"last item matching a rule"| FL["findLast / findLastIndex"]
+```
+
+| Method | Looks for | Found | Not found |
+|:-------|:----------|:------|:----------|
+| `indexOf(v)` | Exact value, from the start | First index | `-1` |
+| `lastIndexOf(v)` | Exact value, from the end | Last index | `-1` |
+| `includes(v)` | Exact value | `true` | `false` |
+| `find(fn)` | First item where `fn` is true | The item | `undefined` |
+| `findIndex(fn)` | First item where `fn` is true | Its index | `-1` |
+| `findLast(fn)`, `findLastIndex(fn)` | Same, from the end | Item, index | `undefined`, `-1` |
+
+```js
+// 12_chapters_Arrays/86_Searching.js (with console.log added)
+let results = ["pass", "fail", "pass", "error", "fail"];
+console.log(results.indexOf("fail"));       // 1
+console.log(results.indexOf("skip"));       // -1
+console.log(results.lastIndexOf("fail"));   // 4 (searches from the end)
+console.log(results.includes("error"));     // true
+
+// 12_chapters_Arrays/87_Find.js
+let nums = [10, 25, 30, 45];
+console.log(nums.find(temp => temp > 20));      // 25
+console.log(nums.findIndex(n => n > 20));       // 1
+console.log(nums.findLast(n => n > 20));        // 45
+console.log(nums.findLastIndex(n => n > 20));   // 3
+```
+
+### 88: Iterating Over an Array
+
+**Concept:** Five ways to walk through an array: a classic `for` loop with an index, `for...of` for the values, `forEach` with a callback, `for...of` over `entries()` for index and value together, and `for...in`, which gives the indexes.
+
+**Why:** Checking every row, every link or every result is the most common thing a test does with a list.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `for...of` by default (cleanest for values); the classic `for` when you need the index or want to skip around; `entries()` when you want both.
+- **Q: What does it replace?** A: Java's enhanced `for (String t : tests)`, which is JavaScript's `for...of`.
+- **Q: What's the gotcha?** A: `for...in` gives the index as a string (`"0"`, `"1"`), not the value, and is meant for objects; use `for...of` for arrays. And `forEach` cannot be stopped with `break` and does not wait for `await`, which matters in Playwright tests: use `for...of` with `await` inside.
+
+```mermaid
+flowchart LR
+    A["tests = ['login', 'checkout', 'search']"] --> F1["for...of<br/>'login', 'checkout', 'search'"]
+    A --> F2["for...in<br/>'0', '1', '2' (strings)"]
+    A --> F3["entries()<br/>[0, 'login'], [1, 'checkout'], ..."]
+```
+
+| Loop | Gives you | `break` works? |
+|:-----|:----------|:--------------:|
+| `for (let i = 0; i < a.length; i++)` | Index (then `a[i]`) | ✅ |
+| `for (const v of a)` | Value | ✅ |
+| `a.forEach((v, i) => ...)` | Value and index | ❌ |
+| `for (const [i, v] of a.entries())` | Index and value | ✅ |
+| `for (const i in a)` | Index, as a string | ✅ (avoid for arrays) |
+
+```js
+// 12_chapters_Arrays/88_Iterate.js (excerpt)
+let tests = ["login", "checkout", "search"];
+
+for (let i = 0; i < tests.length; i++) {
+    console.log(i, tests[i]);            // 0 login, 1 checkout, 2 search
+}
+
+for (let test of tests) {
+    console.log(test);                   // login, checkout, search
+}
+
+tests.forEach((test, index) => {
+    console.log(`${index}: ${test}`);    // 0: login, 1: checkout, 2: search
+});
+
+for (let [i, test] of tests.entries()) {
+    console.log(i, test);                // 0 login, 1 checkout, 2 search
+}
+
+let students = ["methis", "senthil", "ajay", "rahul"];
+for (let student in students) {
+    console.log(student, " -> ", students[student]);   // 0 -> methis, ...
+}
+```
+
+### 89: Transforming: map and filter
+
+![map vs filter: map turns 45, 82, 91, 60, 73 into Fail, Pass, Pass, Fail, Pass; filter keeps only 82, 91, 73; both return a new array](assets/images/ch12-map-vs-filter.png)
+
+**Concept:** `map` builds a new array by transforming every item; `filter` builds a new array that keeps only the items that pass a test. Neither changes the original array.
+
+**Why:** Turning raw data into what you assert on (scores into Pass/Fail, all rows into the failing ones) becomes a one-liner instead of a loop.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `map` when you need one output per input (labels, prices with tax, the text of every row); `filter` when you need a subset (failed tests, visible items).
+- **Q: What does it replace?** A: A `for` loop that pushes into a new array, and Java's `stream().map(...)` and `stream().filter(...)`.
+- **Q: What's the gotcha?** A: Keep the rules in sync. `89_Arrays_Transform.js` uses `> 70` in `map` but `>= 70` in `filter`, so a score of exactly 70 would be labelled "Fail" by one and counted as passing by the other.
+
+```mermaid
+flowchart LR
+    S["scores<br/>[45, 82, 91, 60, 73]"] -->|"map(i => i > 70 ? 'Pass' : 'Fail')"| G["['Fail', 'Pass', 'Pass', 'Fail', 'Pass']"]
+    S -->|"filter(s => s >= 70)"| P["[82, 91, 73]"]
+```
+
+| | `map` | `filter` |
+|:--|:--|:--|
+| Output length | Same as the input | Same or shorter |
+| Output items | New values | Original items that passed |
+| Callback returns | The new value | `true` (keep) or `false` (drop) |
+
+```js
+// 12_chapters_Arrays/89_Arrays_Transform.js (plus a check on the original)
+let scores = [45, 82, 91, 60, 73];
+
+let grades = scores.map(i => i > 70 ? "Pass" : "Fail");
+console.log(grades);    // [ 'Fail', 'Pass', 'Pass', 'Fail', 'Pass' ]
+
+let passing = scores.filter(s => s >= 70);
+console.log(passing);   // [ 82, 91, 73 ]
+
+console.log(scores);    // [ 45, 82, 91, 60, 73 ] (unchanged)
+```
+
+### 90: Sorting: Text Order vs Number Order
+
+![sort() with no compare function turns 10, 1, 21, 2 into 1, 10, 2, 21 because it compares text; with (a, b) => a - b it gives 1, 2, 10, 21; sort() changes the original array](assets/images/ch12-sort-text-vs-numbers.png)
+
+**Concept:** `sort()` puts an array in order and changes the original array. With no arguments it compares items as text, in lexicographic (dictionary) order, even when they are numbers; pass a compare function to sort numbers or to use your own rule.
+
+**Why:** "Is this column sorted?" is a common test, and the default sort gives the wrong answer for numbers.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `sort()` alone for plain lowercase words; `(a, b) => a - b` for numbers smallest first; `(a, b) => b - a` for largest first; `(a, b) => a.localeCompare(b)` for text that should ignore case the way people expect.
+- **Q: What does it replace?** A: Java's `Collections.sort()`, which sorts numbers as numbers by default. JavaScript's default does not.
+- **Q: What's the gotcha?** A: `[10, 1, 21, 2].sort()` gives `[1, 10, 2, 21]`: as text, `"10"` comes before `"2"`. It also changes the array in place and returns that same array; use `toSorted()` (Node 20+) when you need to keep the original.
+
+```mermaid
+flowchart TD
+    Q{"Compare function passed?"} -->|No| T["Turn every item into a string,<br/>compare character codes"]
+    T --> R1["[1, 10, 2, 21]"]
+    Q -->|"Yes: (a, b) => a - b"| N["Negative: a first<br/>Positive: b first<br/>0: keep the order"]
+    N --> R2["[1, 2, 10, 21]"]
+```
+
+| Compare function | `[10, 1, 21, 2]` becomes |
+|:-----------------|:-------------------------|
+| None | `[1, 10, 2, 21]` |
+| `(a, b) => a - b` | `[1, 2, 10, 21]` |
+| `(a, b) => b - a` | `[21, 10, 2, 1]` |
+
+```js
+// 12_chapters_Arrays/90_Array_Sorting.js
+let fruits = ["banana", "apple", "cherry"];
+fruits.sort();
+console.log(fruits);              // [ 'apple', 'banana', 'cherry' ]
+
+// 12_chapters_Arrays/91_Array_Sorting.js
+let nums = [10, 1, 21, 2];
+nums.sort();
+console.log(nums);                // [ 1, 10, 2, 21 ]  compared as text
+console.log([11, -11].sort());    // [ -11, 11 ]  "-" (code 45) comes before "1" (code 49)
+
+// 12_chapters_Arrays/92_Array_Normal_Sorting.js
+nums.sort((a, b) => a - b);
+console.log(nums);                // [ 1, 2, 10, 21 ]  ascending
+nums.sort((a, b) => b - a);
+console.log(nums);                // [ 21, 10, 2, 1 ]  descending
+
+let names = ["banana", "Apple", "cherry"];
+console.log(names.sort((a, b) => a.localeCompare(b)));   // [ 'Apple', 'banana', 'cherry' ]
+```
+
+`91_Array_Sorting.js` calls the default "Natural Sorting". Natural sorting usually means the number-aware order people expect (`file2` before `file10`); the default `sort()` is plain lexicographic order. [91_Lexicographic_Explain.md](12_chapters_Arrays/91_Lexicographic_Explain.md) walks through it character by character.
+
+### 93: slice: Copy Part of an Array
+
+**Concept:** `slice(start, end)` returns a new array with the items from `start` up to, but not including, `end`. Leave out `end` to go to the last item; negative numbers count from the end. The original array is not changed.
+
+**Why:** Taking the first N results, the last few log lines or one page of rows is everyday test work, and `slice` does it without touching the source data.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `arr.slice(0, 3)` for the first three items, `arr.slice(-2)` for the last two, `arr.slice()` for a copy of the whole array.
+- **Q: What does it replace?** A: A `for` loop that pushes a range of items, and Java's `Arrays.copyOfRange(arr, from, to)`.
+- **Q: What's the gotcha?** A: `slice` (copies, original untouched) and `splice` (lesson 84, changes the original) are easy to mix up. And the start has to land before the end: `arr.slice(-3, -5)` is `slice(2, 0)`, which returns `[]`. [93_Slice_Explain.md](12_chapters_Arrays/93_Slice_Explain.md) walks through that one.
+
+```mermaid
+flowchart LR
+    A["arr.slice(-3, -5)<br/>arr has 5 items"] --> B["-3 becomes 5 + (-3) = 2<br/>-5 becomes 5 + (-5) = 0"]
+    B --> C["slice(2, 0)<br/>start is after end"]
+    C --> D["[ ] empty array"]
+```
+
+| Call on `[1, 2, 3, 4, 5]` | Same as | Result |
+|:--------------------------|:--------|:-------|
+| `arr.slice(1, 3)` | | `[2, 3]` |
+| `arr.slice(2)` | `slice(2, 5)` | `[3, 4, 5]` |
+| `arr.slice(-2)` | `slice(3)` | `[4, 5]` |
+| `arr.slice(-3)` | `slice(2)` | `[3, 4, 5]` |
+| `arr.slice(0)` | Whole array | `[1, 2, 3, 4, 5]` |
+| `arr.slice(-3, -5)` | `slice(2, 0)` | `[]` |
+
+```js
+// 12_chapters_Arrays/93_Array_Slicing.js (commented examples switched on)
+let arr = [1, 2, 3, 4, 5];
+
+console.log(arr.slice(1, 3));    // [ 2, 3 ]  index 1 up to (not including) 3
+console.log(arr.slice(2));       // [ 3, 4, 5 ]  from index 2 to the end
+console.log(arr.slice(-2));      // [ 4, 5 ]  the last two
+console.log(arr.slice(-3));      // [ 3, 4, 5 ]
+console.log(arr.slice(0));       // [ 1, 2, 3, 4, 5 ]  a full copy
+console.log(arr.slice(-5));      // [ 1, 2, 3, 4, 5 ]
+console.log(arr.slice(-3, -5));  // []  start (2) is after end (0)
+console.log(arr);                // [ 1, 2, 3, 4, 5 ]  unchanged
+```
+
+### 94: Combining Arrays: concat and Spread
+
+**Concept:** `a.concat(b)` returns a new array with the items of `a` followed by the items of `b`. The spread operator `...` does the same inside an array literal: `[...a, ...b]`.
+
+**Why:** Test data often arrives in pieces (default users plus extra users, smoke tests plus regression tests) that you need as one list.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Spread is the modern default because it can also slot items in between: `[...a, 99, ...b]`. `concat` reads well at the end of a method chain.
+- **Q: What does it replace?** A: Looping over `b` and pushing each item into `a`, which also changes `a`. In Java, `list.addAll(other)`.
+- **Q: What's the gotcha?** A: Neither one changes `a` or `b`, so `a.concat(b);` on its own line does nothing useful unless you store the result. And `concat` unpacks array arguments one level only: `[1].concat([2], [3, [4]])` is `[1, 2, 3, [4]]`.
+
+```mermaid
+flowchart LR
+    A["a = [1, 2]"] --> C["a.concat(b)<br/>or [...a, ...b]"]
+    B["b = [3, 4]"] --> C
+    C --> R["[1, 2, 3, 4]<br/>a new array"]
+    A -.->|"unchanged"| A2["a is still [1, 2]"]
+```
+
+```js
+// 12_chapters_Arrays/94_Array_Concat.js (plus two extra checks)
+let a = [1, 2];
+let b = [3, 4];
+let c = a.concat(b);
+console.log(c);                 // [ 1, 2, 3, 4 ]
+
+// spread (modern way)
+let d = [...a, ...b];
+console.log(d);                 // [ 1, 2, 3, 4 ]
+
+console.log([...a, 99, ...b]);  // [ 1, 2, 99, 3, 4 ]
+console.log(a);                 // [ 1, 2 ]  unchanged
+```
+
+### 95: Array.isArray
+
+**Concept:** `Array.isArray(value)` returns `true` only for real arrays. It is the reliable check, because `typeof` answers `"object"` for arrays, plain objects and `null` alike.
+
+**Why:** Data from an API or a page can be a list, a single value or `null`, and code that loops over it needs to know which one it got.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Before looping over data you did not create, such as a JSON field that is sometimes a list and sometimes a single item.
+- **Q: What does it replace?** A: `typeof value === "object"`, which cannot tell an array from an object or `null`. In Java you would use `instanceof`.
+- **Q: What's the gotcha?** A: Array-like values are not arrays. A string, an object with a `length` (`{ length: 0 }`) or the `NodeList` that `document.querySelectorAll()` returns in a browser all give `false`. Convert them with `Array.from()` (lesson 82) when you need array methods.
+
+```mermaid
+flowchart TD
+    V["some value"] --> T{"typeof value"}
+    T -->|"'object'"| AMB["could be an array,<br/>an object or null"]
+    V --> I{"Array.isArray(value)"}
+    I -->|true| ARR["definitely an array"]
+    I -->|false| NOT["not an array"]
+```
+
+| Value | `typeof` | `Array.isArray` |
+|:------|:---------|:---------------:|
+| `[1, 2, 3]` | `"object"` | `true` |
+| `{ a: 1 }` | `"object"` | `false` |
+| `null` | `"object"` | `false` |
+| `"a"` | `"string"` | `false` |
+
+```js
+// 12_chapters_Arrays/95_ARRAY_Check.js (plus typeof for comparison)
+let result = Array.isArray([1, 2, 3]);
+let result1 = Array.isArray("a");
+console.log(result);              // true
+console.log(result1);             // false
+
+console.log(typeof [1, 2, 3]);    // object
+console.log(typeof { a: 1 });     // object: typeof can't tell them apart
+```
+
+### 96: every and some
+
+**Concept:** `every(fn)` returns `true` only if every item passes the test; `some(fn)` returns `true` if at least one item passes. Both stop as soon as the answer is known.
+
+**Why:** They turn "did all the tests pass?" and "did any test fail?" into one readable line.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: `every` for "all must pass" checks (`scores.every(s => s >= 70)`), `some` for "any match" checks (`scores.some(s => s < 70)`).
+- **Q: What does it replace?** A: A loop with a boolean flag and a `break`. Think of them as the `&&` and `||` of arrays (lesson 23).
+- **Q: What's the gotcha?** A: Empty arrays: `[].every(...)` is `true` (nothing failed) and `[].some(...)` is `false` (nothing matched). So an assertion like `results.every(r => r === "pass")` passes when `results` is empty; check the length too.
+
+```mermaid
+flowchart LR
+    subgraph EV["every(i => i >= 70): all must pass"]
+        E1["[80, 90, 85]: true"]
+        E2["[80, 60, 85]: false, 60 fails"]
+    end
+    subgraph SO["some(s => s < 70): one is enough"]
+        S1["[80, 60, 85]: true, 60 matches"]
+        S2["[80, 90, 85]: false"]
+    end
+```
+
+| | `every` | `some` |
+|:--|:--|:--|
+| Returns `true` when | All items pass | At least one item passes |
+| Stops early on | The first fail | The first pass |
+| Empty array | `true` | `false` |
+
+```js
+// 12_chapters_Arrays/96_Array_Transform.js (commented examples switched on)
+// every: ALL must pass
+console.log([80, 90, 85].every(i => i >= 70));   // true
+console.log([80, 60, 85].every(i => i >= 70));   // false (60 fails)
+
+// some: AT LEAST ONE must pass
+console.log([80, 60, 85].some(s => s < 70));     // true (60 matches)
+console.log([80, 90, 85].some(s => s < 70));     // false
+
+// empty arrays
+console.log([].every(s => s >= 70));             // true
+console.log([].some(s => s < 70));               // false
+```
+
+### 97: Copy vs Reference
+
+![Copy vs reference: let ref = original gives one array two names, so a change through one shows in both; let copy = [...original] makes a second array, so changes stay separate; nested arrays need structuredClone()](assets/images/ch12-copy-vs-reference.png)
+
+**Concept:** `let b = a` does not copy an array; it gives the same array a second name, so a change made through either name shows up in both. `[...a]` and `a.slice()` make a new array (a shallow copy), and `structuredClone(a)` makes a deep copy that duplicates nested arrays too.
+
+**Why:** Tests that share setup data break in confusing ways when one test changes an array that another test is still using.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Copy before you change data you did not create: `const expected = [...defaults]; expected.push("extra");`.
+- **Q: What does it replace?** A: Nothing new if you know Java: assigning an array there also copies only the reference, and `Arrays.copyOf` makes the copy.
+- **Q: What's the gotcha?** A: In `97_Array_Copy.js`, `let deep_copy_array = original` is labelled "Deep copy", but it is no copy at all, which is why `original` gets the `91` too. Spread and `slice()` are shallow: a nested array inside is still shared. Use `structuredClone()` for a real deep copy.
+
+```mermaid
+flowchart LR
+    subgraph REF["let ref = original"]
+        O1["original"] --> ARR1["[1, 2, 3]"]
+        R1["ref"] --> ARR1
+    end
+    subgraph CP["let copy = [...original]"]
+        O2["original"] --> ARR2["[1, 2, 3]"]
+        C2["copy"] --> ARR3["[1, 2, 3], a new array"]
+    end
+```
+
+| Code | New array? | Nested arrays |
+|:-----|:----------:|:--------------|
+| `let b = a` | ❌ Same array | Shared |
+| `let b = [...a]` | ✅ | Shared (shallow copy) |
+| `let b = a.slice()` | ✅ | Shared (shallow copy) |
+| `let b = structuredClone(a)` | ✅ | Copied (deep copy) |
+
+```js
+// 12_chapters_Arrays/97_Array_Copy.js (adapted, plus a nested example)
+let original = [1, 2, 3];
+let copy1 = [...original];      // new array
+let copy2 = original.slice();   // new array
+copy2.push(92);
+copy1.push(93);
+console.log(original);          // [ 1, 2, 3 ]  untouched
+console.log(copy1);             // [ 1, 2, 3, 93 ]
+console.log(copy2);             // [ 1, 2, 3, 92 ]
+
+let same = original;            // NOT a copy: a second name for the same array
+same.push(91);
+console.log(original);          // [ 1, 2, 3, 91 ]  changed too
+
+let nested = [[1], 2];
+let shallow = [...nested];
+let deep = structuredClone(nested);
+shallow[0].push(99);
+console.log(nested);            // [ [ 1, 99 ], 2 ]  the inner array was shared
+console.log(deep);              // [ [ 1 ], 2 ]      the deep copy is unaffected
+```
+
+### 98: Destructuring
+
+**Concept:** Array destructuring unpacks items into variables by position: `let [first, second, third] = [10, 20, 30]`. A `...rest` element collects whatever is left, and an empty slot (`[, , thirdOnly]`) skips an item.
+
+**Why:** Functions and APIs often hand back small arrays (a pair, a row), and destructuring names the parts in one line.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Splitting a short array into named values, taking the first item and the rest (`let [head, ...tail] = list`), or ignoring items you do not need.
+- **Q: What does it replace?** A: `let first = arr[0]; let second = arr[1]; ...`. Java has no equivalent.
+- **Q: What's the gotcha?** A: Missing items become `undefined` unless you give a default (`let [x = 5] = []` gives `5`), and the rest element must come last: `let [...rest, last] = arr` is `SyntaxError: Rest element must be last element`.
+
+```mermaid
+flowchart LR
+    A["[10, 20, 30, 40, 50]"] --> A1["a = 10"]
+    A --> B1["b = 20"]
+    A --> R1["rest = [30, 40, 50]"]
+```
+
+```js
+// 12_chapters_Arrays/98_Array_Destructing.js
+let [first, second, third] = [10, 20, 30];
+console.log(first, second, third);   // 10 20 30
+
+// 12_chapters_Arrays/99.js
+let [a, b, ...rest] = [10, 20, 30, 40, 50];
+console.log(a);          // 10
+console.log(b);          // 20
+console.log(rest);       // [ 30, 40, 50 ]
+
+let [, , thirdOnly] = [10, 20, 30];
+console.log(thirdOnly);  // 30
+
+let [x = 5, y = 6] = [1];
+console.log(x, y);       // 1 6  (y falls back to its default)
+```
+
+### 100: Swapping Two Variables
+
+**Concept:** `[p, q] = [q, p]` swaps two variables in one line: the right side builds a temporary array of the current values, and destructuring writes them back in the opposite order.
+
+**Why:** Swaps show up in sorting algorithms and interview questions, and the classic version needs a third, temporary variable.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Whenever two values need to trade places, including two items in an array: `[arr[0], arr[1]] = [arr[1], arr[0]]`.
+- **Q: What does it replace?** A: The three-step swap with a temporary variable, `let temp = p; p = q; q = temp;`, which is also how Java does it.
+- **Q: What's the gotcha?** A: Mind the semicolon on the line before. Without it, `let p = 1, q = 2` followed by `[p, q] = [q, p]` on the next line is read as one statement and throws `ReferenceError: Cannot access 'q' before initialization`. `100_Swap.js` has the semicolon, so it works.
+
+```mermaid
+flowchart LR
+    S["p = 1, q = 2"] --> R["right side: [q, p]<br/>builds [2, 1]"]
+    R --> L["left side: [p, q] = [2, 1]<br/>p = 2, q = 1"]
+```
+
+```js
+// 12_chapters_Arrays/100_Swap.js (plus the old way and an array swap)
+let p = 1, q = 2;
+[p, q] = [q, p];
+console.log(p, q);   // 2 1
+
+// the old way, with a temporary variable
+let x = 1, y = 2;
+let temp = x;
+x = y;
+y = temp;
+console.log(x, y);   // 2 1
+
+// swapping two items in an array
+let arr = ["a", "b"];
+[arr[0], arr[1]] = [arr[1], arr[0]];
+console.log(arr);    // [ 'b', 'a' ]
+```
 
 ---
 
 ## Coming Up
 
-- **Chapter 12: Arrays** continues with more examples and practice.
-- Then TypeScript, followed by Playwright.
+- **Chapter 12: Arrays** continues.
+- Then TypeScript, then Playwright.
