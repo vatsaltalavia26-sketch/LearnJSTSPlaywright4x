@@ -6,6 +6,6 @@ console.log(nums);
 
 let fruits = ['apple','banana',"cherry"];
 fruits.sort((a, b) => a.localeCompare(b))
-
+console.log(fruits);
 
 // arrow Functions

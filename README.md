@@ -93,6 +93,18 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [97: Copy vs Reference](#97-copy-vs-reference)
   - [98: Destructuring](#98-destructuring)
   - [100: Swapping Two Variables](#100-swapping-two-variables)
+- [Chapter 13: Functions](#chapter-13-functions)
+  - [101: Defining and Calling a Function](#101-defining-and-calling-a-function)
+  - [102: The Four Types of Functions](#102-the-four-types-of-functions)
+  - [106: Declarations, Expressions and Arrow Functions](#106-declarations-expressions-and-arrow-functions)
+  - [112: One Check, Three Syntaxes](#112-one-check-three-syntaxes)
+  - [113: IIFE: Run a Function Immediately](#113-iife-run-a-function-immediately)
+  - [114: Rest Parameters and Spread Arguments](#114-rest-parameters-and-spread-arguments)
+  - [115: return](#115-return)
+- [Chapter 14: var, let, const: Scope, Hoisting and TDZ](#chapter-14-var-let-const-scope-hoisting-and-tdz)
+  - [117: var Is Function-Scoped](#117-var-is-function-scoped)
+  - [119: let Is Block-Scoped](#119-let-is-block-scoped)
+  - [120: const](#120-const)
 - [Coming Up](#coming-up)
 
 ---
@@ -112,8 +124,10 @@ flowchart LR
     C8 --> C9["09 for Loop<br/>init, condition, update"]:::done
     C9 --> C10["10 while Loop<br/>while, while (true) + break"]:::done
     C10 --> C11["11 do...while<br/>run once, nested loops"]:::done
-    C11 --> C12["12 Arrays<br/>push/pop, find, map, sort, copy"]:::progress
-    C12 --> TS["TypeScript"]:::planned
+    C11 --> C12["12 Arrays<br/>push/pop, find, map, sort, copy"]:::done
+    C12 --> C13["13 Functions<br/>4 types, arrow, IIFE, rest, return"]:::done
+    C13 --> C14["14 var, let, const<br/>scope, hoisting, TDZ"]:::progress
+    C14 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -139,7 +153,9 @@ flowchart LR
 | 09 | for Loop | [09_chapter_Loops](09_chapter_Loops/) | ✅ Done | Why loops, `for (init; condition; update)`, `<` vs `<=`, zero-run and infinite loops, `if` inside a loop |
 | 10 | while Loop | [10_chapter_Loops_WHILE](10_chapter_Loops_WHILE/) | ✅ Done | `while`, retry counters, `while (true)` with `break` |
 | 11 | do...while and Nested Loops | [11_chapter_Loops_DoWhile](11_chapter_Loops_DoWhile/) | ✅ Done | `do...while`, `while` vs `do...while`, nested `for` loops |
-| 12 | Arrays | [12_chapters_Arrays](12_chapters_Arrays/) | 🟡 In progress | Index, `length`, `at()`, creating arrays, `push`/`pop`/`shift`/`unshift`/`splice`, `indexOf`/`includes`/`find`, `for...of`/`forEach`, `map`/`filter`, `sort`, `slice`, `concat` and spread, `every`/`some`, copy vs reference, destructuring |
+| 12 | Arrays | [12_chapters_Arrays](12_chapters_Arrays/) | ✅ Done | Index, `length`, `at()`, creating arrays, `push`/`pop`/`shift`/`unshift`/`splice`, `indexOf`/`includes`/`find`, `for...of`/`forEach`, `map`/`filter`, `sort`, `slice`, `concat` and spread, `every`/`some`, copy vs reference, destructuring |
+| 13 | Functions | [13_chapter_Functions](13_chapter_Functions/) | ✅ Done | Defining and calling, the 4 function types, expressions and arrow functions, IIFE, rest and spread, `return` |
+| 14 | var, let, const: Scope, Hoisting and TDZ | [14_chapter_Var_Let_Const_Hoisting_TDZ](14_chapter_Var_Let_Const_Hoisting_TDZ/) | 🟡 In progress | Function scope vs block scope, shadowing, `const` |
 
 ---
 
@@ -247,32 +263,54 @@ LearnJSTSPlaywright4x/
 │   ├── 75_IQ.js                            # do...while runs once even when the condition is false
 │   ├── 76_Nested.js                        # Nested for loops: a 3 x 3 grid
 │   └── 77_IQ.js                            # for loop false at the start: 0 runs
-└── 12_chapters_Arrays/
-    ├── 78_Array.js                         # Index, at(-1), length
-    ├── 79_Arrays.js                        # typeof [] is "object", [-1] vs at(-1)
-    ├── 80_Arrays.js                        # Out-of-range index gives undefined
-    ├── 81_Array.js                         # Arrays can mix types
-    ├── 82_Create.js                        # Literal, new Array, Array.of, Array.from
-    ├── 83_Access_Modify.js                 # Read and change items by index
-    ├── 84_Adding_Remove.js                 # push, pop, unshift, shift, splice
-    ├── 85_ARRAY.js                         # pop, shift, then loop and check each item
-    ├── 86_Searching.js                     # indexOf, lastIndexOf, includes
-    ├── 87_Find.js                          # find, findIndex, findLast, findLastIndex
-    ├── 88_Iterate.js                       # for, for...of, forEach, entries(), for...in
-    ├── 89_Arrays_Transform.js              # map and filter
-    ├── 90_Array_Sorting.js                 # sort() on strings
-    ├── 91_Array_Sorting.js                 # sort() on numbers: compared as text
-    ├── 91_Lexicographic_Explain.md         # Note: what lexicographic (dictionary) order means
-    ├── 92_Array_Normal_Sorting.js          # Compare functions: a - b, b - a, localeCompare
-    ├── 93_Array_Slicing.js                 # slice(start, end), negative indexes
-    ├── 93_Slice_Explain.md                 # Note: why slice(-3, -5) is empty
-    ├── 94_Array_Concat.js                  # concat and the spread operator
-    ├── 95_ARRAY_Check.js                   # Array.isArray
-    ├── 96_Array_Transform.js               # every vs some
-    ├── 97_Array_Copy.js                    # Copy (spread, slice) vs reference (=)
-    ├── 98_Array_Destructing.js             # Destructuring into variables
-    ├── 99.js                               # Rest element and skipping items
-    └── 100_Swap.js                         # Swap two variables with destructuring
+├── 12_chapters_Arrays/
+│   ├── 78_Array.js                         # Index, at(-1), length
+│   ├── 79_Arrays.js                        # typeof [] is "object", [-1] vs at(-1)
+│   ├── 80_Arrays.js                        # Out-of-range index gives undefined
+│   ├── 81_Array.js                         # Arrays can mix types
+│   ├── 82_Create.js                        # Literal, new Array, Array.of, Array.from
+│   ├── 83_Access_Modify.js                 # Read and change items by index
+│   ├── 84_Adding_Remove.js                 # push, pop, unshift, shift, splice
+│   ├── 85_ARRAY.js                         # pop, shift, then loop and check each item
+│   ├── 86_Searching.js                     # indexOf, lastIndexOf, includes
+│   ├── 87_Find.js                          # find, findIndex, findLast, findLastIndex
+│   ├── 88_Iterate.js                       # for, for...of, forEach, entries(), for...in
+│   ├── 89_Arrays_Transform.js              # map and filter
+│   ├── 90_Array_Sorting.js                 # sort() on strings
+│   ├── 91_Array_Sorting.js                 # sort() on numbers: compared as text
+│   ├── 91_Lexicographic_Explain.md         # Note: what lexicographic (dictionary) order means
+│   ├── 92_Array_Normal_Sorting.js          # Compare functions: a - b, b - a, localeCompare
+│   ├── 93_Array_Slicing.js                 # slice(start, end), negative indexes
+│   ├── 93_Slice_Explain.md                 # Note: why slice(-3, -5) is empty
+│   ├── 94_Array_Concat.js                  # concat and the spread operator
+│   ├── 95_ARRAY_Check.js                   # Array.isArray
+│   ├── 96_Array_Transform.js               # every vs some
+│   ├── 97_Array_Copy.js                    # Copy (spread, slice) vs reference (=)
+│   ├── 98_Array_Destructing.js             # Destructuring into variables
+│   ├── 99.js                               # Rest element and skipping items
+│   └── 100_Swap.js                         # Swap two variables with destructuring
+├── 13_chapter_Functions/
+│   ├── 101_Fn.js                           # Define a function, then call it
+│   ├── 102_Type1_Fn.js                     # Type 1: no input, no return
+│   ├── 103_Type2_Fn.js                     # Type 2: no input, returns a value
+│   ├── 104_Type3_Fn.js                     # Type 3: takes input, no return
+│   ├── 105_Type4_Fn.js                     # Type 4: takes input, returns a value
+│   ├── 106_Template_Literal.js             # Returning a template literal
+│   ├── 107_Fn_Exp.js                       # Function expression (anonymous function)
+│   ├── 108_Fn_Arrow.js                     # Turning a function into an arrow function
+│   ├── 109_Arrow.js                        # One-line arrow function
+│   ├── 110_Arrow_Multiple.js               # Multi-line arrow function with if
+│   ├── 110_Fn.js                           # doubleMe as a function and as an arrow
+│   ├── 112_Fn_REAL.js                      # Status code check in all three syntaxes
+│   ├── 113_Fn.js                           # IIFE: runs as soon as it is defined
+│   ├── 114_Spread_As_Argument_Fn.js        # Rest parameters (...codes) and spread arguments
+│   ├── 115_Fn_Return.js                    # Several return paths: status code categories
+│   └── 116_Return_Fn.js                    # No return statement: undefined
+└── 14_chapter_Var_Let_Const_Hoisting_TDZ/
+    ├── 117.js                              # var, let and const side by side
+    ├── 118_var_let_const.js                # var is function-scoped: the if block overwrites it
+    ├── 119_let.js                          # let is block-scoped: each block keeps its own b
+    └── 120_Const.js                        # const cannot be reassigned
 ```
 
 ---
@@ -2985,7 +3023,428 @@ console.log(arr);    // [ 'b', 'a' ]
 
 ---
 
+## Chapter 13: Functions
+
+### 101: Defining and Calling a Function
+
+**Concept:** A function is a named block of code you write once and run whenever you call it. `function greet() { ... }` defines it; `greet()` calls it.
+
+**Why:** Test code repeats the same steps (open the browser, log in, check a status) again and again, and a function lets you write each step once and reuse it.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: As soon as you copy-paste the same lines a second time. In Playwright, helpers like `login(page)` are plain functions.
+- **Q: What does it replace?** A: Java methods, minus the class: a JavaScript function can live on its own at the top of a file, with no `public static void`.
+- **Q: What's the gotcha?** A: The parentheses are what run it. `greet()` calls the function; `greet` without `()` is only a reference to it, so nothing happens (the same trap as `fruits.sort` without `()`).
+
+```mermaid
+sequenceDiagram
+    participant Script as 101_Fn.js
+    participant greet
+    Script->>greet: greet()
+    greet->>greet: console.log("Hi")
+    greet-->>Script: done, carry on with the next line
+```
+
+```js
+// 13_chapter_Functions/101_Fn.js (plus one line without the parentheses)
+// Fn definition
+function greet() {
+    console.log("Hi");
+}
+
+// Fn calling
+greet();   // Hi
+greet;     // no () so nothing runs: this is only a reference
+```
+
+### 102: The Four Types of Functions
+
+![4 types of functions: greet() takes no input and returns nothing, sayHello() returns a value, greetByName(name) uses its input, sum(a, b) takes input and returns a result](assets/images/ch13-function-types.png)
+
+**Concept:** Functions come in four shapes, depending on two questions: does it take input (parameters), and does it give back a value (`return`)? Lessons 102 to 105 show one of each.
+
+**Why:** Knowing which shape you need decides how you call the function and whether you store its result.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Type 1 (`openBrowser()`) for actions, Type 2 (`sayHello()`) for fixed values, Type 3 (`greetByName(name)`) for actions on some input, Type 4 (`sumOfTwoNumbers(a, b)`) for calculations you want to store or assert on.
+- **Q: What does it replace?** A: Java's `void` methods (types 1 and 3) and methods with a return type (types 2 and 4). JavaScript does not declare a return type; a function without `return` gives back `undefined`.
+- **Q: What's the gotcha?** A: Storing the result of a function that does not return gives `undefined`: `let msg = greet()` in `102_Type1_Fn.js` prints `undefined`. Missing arguments are `undefined` too, so `sumOfTwoNumbers(4)` returns `NaN` (4 + undefined); give a default (`function sum(a, b = 0)`) when an argument is optional.
+
+```mermaid
+flowchart TD
+    Q1{"Takes input?"} -->|No| Q2{"Returns a value?"}
+    Q1 -->|Yes| Q3{"Returns a value?"}
+    Q2 -->|No| T1["Type 1: greet()"]
+    Q2 -->|Yes| T2["Type 2: sayHello()"]
+    Q3 -->|No| T3["Type 3: greetByName(name)"]
+    Q3 -->|Yes| T4["Type 4: sumOfTwoNumbers(a, b)"]
+```
+
+| Type | Input | Returns | Lesson | Example |
+|:----:|:-----:|:--------|:-------|:--------|
+| 1 | No | No (`undefined`) | `102_Type1_Fn.js` | `greet()`, `openBrowser()` |
+| 2 | No | Yes | `103_Type2_Fn.js` | `sayHello()` gives `"Hello"` |
+| 3 | Yes | No (`undefined`) | `104_Type3_Fn.js` | `greetByName("Pramod")` |
+| 4 | Yes | Yes | `105_Type4_Fn.js` | `sumOfTwoNumbers(4, 5)` gives `9` |
+
+```js
+// Type 1: 13_chapter_Functions/102_Type1_Fn.js
+function openBrowser() {
+    console.log("Open Browser");
+}
+openBrowser();                     // Open Browser
+console.log(openBrowser());        // Open Browser, then undefined
+
+// Type 2: 103_Type2_Fn.js
+function sayHello() {
+    return "Hello";
+}
+console.log(sayHello());           // Hello
+
+// Type 3: 104_Type3_Fn.js
+function greetByName(name) {
+    console.log("Hi", name);
+}
+greetByName("Pramod");             // Hi Pramod
+
+// Type 4: 105_Type4_Fn.js
+function sumOfTwoNumbers(a, b) {
+    return a + b;
+}
+let c = sumOfTwoNumbers(4, 5);
+console.log(c);                    // 9
+console.log(sumOfTwoNumbers(4));   // NaN: b is undefined
+```
+
+### 106: Declarations, Expressions and Arrow Functions
+
+![Three ways to write a function: a declaration can be called before it is defined, an expression must be defined before you call it, an arrow function is the short form with a one-line return](assets/images/ch13-three-syntaxes.png)
+
+**Concept:** The same function can be written three ways: a declaration (`function greet(name) { ... }`), a function expression stored in a variable (`const greet1 = function (name) { ... }`), or an arrow function (`const greet2 = (name) => ...`). A one-line arrow function returns its expression automatically.
+
+**Why:** Modern code, and almost every Playwright test (`test('...', async ({ page }) => { ... })`), uses arrow functions, so you need to read all three forms.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Declarations for named helpers at the top of a file; arrow functions for short callbacks (`scores.map(s => s * 2)`) and test bodies. Add `{ }` and an explicit `return` once the body needs more than one line (`110_Arrow_Multiple.js`).
+- **Q: What does it replace?** A: Java lambdas (`(a) -> a * 2`) are the closest match to arrow functions. `108_Fn_Arrow.js` gives the recipe: drop `function`, drop `return` and the braces, and add `=>`.
+- **Q: What's the gotcha?** A: Only declarations are hoisted. `greet()` works above `function greet()`, but calling `greet1()` above `const greet1 = function ...` throws `ReferenceError: Cannot access 'greet1' before initialization`. And a one-line arrow that returns an object needs parentheses: `() => ({ a: 1 })`; without them, `() => { a: 1 }` returns `undefined`.
+
+```mermaid
+flowchart LR
+    D["Declaration<br/>function greet(name) { return ... }"] -->|"store it in a variable"| E["Expression<br/>const greet1 = function (name) { ... }"]
+    E -->|"drop function, return and { }, add =>"| A["Arrow<br/>const greet2 = (name) => ..."]
+```
+
+| | Declaration | Expression | Arrow |
+|:--|:--|:--|:--|
+| Syntax | `function greet(name) { }` | `const greet = function (name) { }` | `const greet = (name) => ...` |
+| Callable above its line (hoisted) | ✅ | ❌ | ❌ |
+| One-line automatic return | ❌ | ❌ | ✅ |
+| Typical use | Named helpers | Functions stored or passed around | Callbacks and test bodies |
+
+```js
+// 13_chapter_Functions/106_Template_Literal.js: a declaration
+function greet(name) {
+    return `Hello, ${name}`;
+}
+
+// 107_Fn_Exp.js: an anonymous function stored in a variable
+const greet1 = function (name) {
+    return `Hello, ${name}`;
+};
+
+// 108_Fn_Arrow.js and 109_Arrow.js: an arrow function, one-line automatic return
+const greet2 = (name) => `Hello, ${name}`;
+
+console.log(greet("Alice"), "|", greet1("Amit"), "|", greet2("Meeti"));   // Hello, Alice | Hello, Amit | Hello, Meeti
+
+// 110_Arrow_Multiple.js: several lines need { } and return
+const getResult = (score) => {
+    if (score > 70) return "Pass";
+    return "fail";
+};
+console.log(getResult(78), getResult(43));   // Pass fail
+
+// 110_Fn.js: the same function both ways
+function doubleMe(a) { return a * 2; }
+const doubleMeA = (a) => a * 2;
+console.log(doubleMe(2), doubleMeA(2));      // 4 4
+```
+
+### 112: One Check, Three Syntaxes
+
+**Concept:** `112_Fn_REAL.js` writes one realistic test helper, a status-code check, three times: as a declaration, a function expression and an arrow function. All three behave the same when called.
+
+**Why:** API tests check response codes constantly, and a small helper keeps that check in one place.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: For any check you repeat across tests: status codes, response times, required fields. Pick one syntax per codebase and stay consistent.
+- **Q: What does it replace?** A: Copying `if (status >= 200 && ...)` into every test.
+- **Q: What's the gotcha?** A: The range is off by one. `status <= 300` treats 300 as fine, but 300 is a redirect: success (2xx) is 200 to 299, so write `status < 300`, as `115_Fn_Return.js` does. Also, the helper only logs; returning `true` or `false` would let a test assert on it.
+
+```mermaid
+flowchart LR
+    S["status"] --> C{"status >= 200<br/>and status < 300"}
+    C -->|true| OK["Request is fine!"]
+    C -->|false| N["not a success"]
+```
+
+```js
+// 13_chapter_Functions/112_Fn_REAL.js (the arrow version, plus a version a test can assert on)
+const validateStatusCode_Arrow = (status) => {
+    if (status >= 200 && status <= 300) {   // note: 300 is a redirect, not a success
+        console.log("Request is fine!");
+    }
+};
+validateStatusCode_Arrow(200);   // Request is fine!
+validateStatusCode_Arrow(300);   // Request is fine!  (it should not be)
+
+// returns true or false instead of logging
+const isSuccess = (status) => status >= 200 && status < 300;
+console.log(isSuccess(200), isSuccess(300), isSuccess(404));   // true false false
+```
+
+### 113: IIFE: Run a Function Immediately
+
+**Concept:** An IIFE (Immediately Invoked Function Expression) is a function wrapped in parentheses and called straight away: `(() => { ... })();`. It runs once, right where it is written, and needs no name.
+
+**Why:** It runs one-time setup code in its own private scope, so its variables do not leak into the rest of the file.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: One-off setup blocks, and running async code in a plain Node script: `(async () => { await ... })();` is a common way to drive Playwright from a script outside the test runner.
+- **Q: What does it replace?** A: Defining a named function only to call it once (`function name1() { ... } name1();`, the commented code in `113_Fn.js`).
+- **Q: What's the gotcha?** A: Put a semicolon at the end of the line before it. `let x = 1` followed by `(() => { ... })()` on the next line is read as `1(...)` and throws `TypeError: 1 is not a function`.
+
+```mermaid
+flowchart LR
+    A["(() => { ... })<br/>wrap the function"] -->|"now it is an expression"| B["();<br/>call it straight away"]
+    B --> C["runs once:<br/>Setup complete"]
+```
+
+```js
+// 13_chapter_Functions/113_Fn.js (commented examples switched on)
+function name1() {
+    console.log("Hi");
+}
+name1();                          // the normal way: define, then call
+
+(function () {
+    console.log("Anonymous Fn");
+})();                             // an IIFE written with function
+
+(() => {
+    console.log("Setup complete");
+})();                             // an IIFE written with an arrow
+```
+
+### 114: Rest Parameters and Spread Arguments
+
+**Concept:** `...` means two opposite things. In a function definition, `...codes` is a rest parameter that collects any number of arguments into one array. In a call, `add(...num)` spreads an array out into separate arguments.
+
+**Why:** Test helpers often take "any number of" things (status codes, tags, users), and spreading lets you pass an array you already have.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Rest when the caller may pass 1, 3 or 10 values (`hasError(...codes)`); spread when your data is already in an array but the function wants separate arguments.
+- **Q: What does it replace?** A: Java varargs (`int... codes`) for rest; for spread, writing `add(num[0], num[1], num[2])` by hand.
+- **Q: What's the gotcha?** A: Extra spread values are silently ignored: `add(...[1, 2, 3, 5])` uses only the first three and returns `6`. A rest parameter must come last (`function h(...a, b)` is a `SyntaxError`). And in the file, `hasError(...responseCodes)` computes `true` but never prints or stores it.
+
+```mermaid
+flowchart LR
+    subgraph SP["spread, in a call"]
+        A["num = [1, 2, 3]"] -->|"add(...num)"| B["add(1, 2, 3)"]
+    end
+    subgraph RE["rest, in a definition"]
+        C["hasError(200, 201, 404)"] -->|"...codes"| D["codes = [200, 201, 404]"]
+    end
+```
+
+```js
+// 13_chapter_Functions/114_Spread_As_Argument_Fn.js (commented example switched on)
+function add(a, b, c) {
+    return a + b + c;
+}
+let num = [1, 2, 3, 5];
+console.log(add(...num));                 // 6: spread fills a, b, c and the 5 is ignored
+
+function hasError(...codes) {             // rest: every argument lands in one array
+    return codes.some(c => c >= 400);
+}
+let responseCodes = [200, 201, 404];
+console.log(hasError(...responseCodes));  // true (404)
+console.log(hasError(200, 201));          // false
+```
+
+### 115: return
+
+**Concept:** `return` ends the function and hands a value back to the caller. A function can have several `return`s on different paths (`115_Fn_Return.js`); a function with no `return` hands back `undefined` (`116_Return_Fn.js`).
+
+**Why:** Returning a value, instead of only logging it, is what lets a test store, compare and assert on the result.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Whenever the caller needs the answer: `expect(getStatus(404)).toBe("client error")`. An early `return` also replaces deep `else` nesting.
+- **Q: What does it replace?** A: Java's `return`, without declaring a return type.
+- **Q: What's the gotcha?** A: Keep the value on the same line as `return`. A `return` followed by a line break returns `undefined`, because JavaScript inserts a semicolon right after `return`. And code after a `return` never runs.
+
+```mermaid
+flowchart TD
+    C["getStatus(code)"] --> A{"200 to 299?"}
+    A -->|yes| R1["return 'Success'"]
+    A -->|no| B{"400 to 499?"}
+    B -->|yes| R2["return 'client error'"]
+    B -->|no| D{"500 or more?"}
+    D -->|yes| R3["return 'server error'"]
+    D -->|no| R4["return 'unknown'"]
+```
+
+```js
+// 13_chapter_Functions/115_Fn_Return.js (plus one extra call)
+function getStatus(code) {
+    if (code >= 200 && code < 300) {
+        return "Success";
+    } else if (code >= 400 && code < 500) {
+        return "client error";
+    } else if (code >= 500) {
+        return "server error";
+    } else {
+        return "unknown";
+    }
+}
+console.log(getStatus(200));   // Success
+console.log(getStatus(404));   // client error
+console.log(getStatus(500));   // server error
+console.log(getStatus(302));   // unknown
+
+// 116_Return_Fn.js: no return statement
+function logTest(name) {
+    console.log(`Running: ${name}`);
+}
+console.log(logTest("open Browser!!"));   // Running: open Browser!!, then undefined
+```
+
+---
+
+## Chapter 14: var, let, const: Scope, Hoisting and TDZ
+
+### 117: var Is Function-Scoped
+
+**Concept:** A `var` belongs to the whole function it is declared in (or to the whole file, outside any function). Blocks such as `if` and `for` do not create a new `var`, so `var a` inside an `if` overwrites the function's `a` (`118_var_let_const.js`).
+
+**Why:** This is the main reason modern code avoids `var`: values change in places you did not expect.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Only when reading older code. `117.js` shows that all three keywords look the same for a simple value; the difference is scope.
+- **Q: What does it replace?** A: Nothing in new code: `let` and `const` replaced `var` in ES6 (2015).
+- **Q: What's the gotcha?** A: `var` is hoisted: it exists from the top of its function with the value `undefined`, so `console.log(v); var v = 1;` prints `undefined` instead of throwing an error. And a `for (var i = 0; ...)` counter is still there after the loop ends (`i` is 3).
+
+```mermaid
+flowchart TD
+    G["file: var a = 10"] --> F["printHello(): var a = 20<br/>a new a, only inside the function"]
+    F --> I["if block: var a = 30<br/>the SAME a as the function's"]
+    I --> AF["after the if: a is 30"]
+    G --> OUT["outside the function: a is still 10"]
+```
+
+```js
+// 14_chapter_Var_Let_Const_Hoisting_TDZ/118_var_let_const.js (plus a final check)
+var a = 10;
+console.log(a);          // 10
+function printHello() {
+    console.log("Hello TheTestingAcademy");
+    var a = 20;          // a new a, scoped to this function
+    console.log(a);      // 20
+    if (true) {
+        var a = 30;      // NOT a new a: overwrites the function's a
+        console.log(a);  // 30
+    }
+    console.log(a);      // 30: the if block leaked
+}
+printHello();
+console.log(a);          // 10: the file-level a was never touched
+```
+
+### 119: let Is Block-Scoped
+
+![var vs let scope: var a = 30 inside an if block leaks out to the function, so after the if a is 30; let b = 5 stays inside the if block, so after the if b is still 30; prefer let and const](assets/images/ch14-var-vs-let-scope.png)
+
+**Concept:** A `let` belongs to the nearest `{ }` block. Declaring `let b` again inside an inner block creates a separate variable that shadows the outer one, and the outer value is back once the block ends.
+
+**Why:** Block scope keeps each variable where it is used, so a change inside an `if` or a loop cannot leak out and break the code below it.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: For every variable that gets reassigned (counters, running totals, retry attempts). Use `const` for the rest.
+- **Q: What does it replace?** A: `var`. It matches how local variables work in Java blocks.
+- **Q: What's the gotcha?** A: A `let` cannot be used before its line. From the start of the block until the declaration runs, it is in the temporal dead zone (TDZ), so `console.log(t); let t = 1;` throws `ReferenceError: Cannot access 't' before initialization`. Declaring the same name twice in the same block is a `SyntaxError`.
+
+```mermaid
+flowchart TD
+    G["file: let b = 20"] --> F["printHello(): let b = 30"]
+    F --> I["if block: let b = 5<br/>a separate b"]
+    I --> AF["after the if: b is 30 again"]
+```
+
+| | `var` | `let` | `const` |
+|:--|:--:|:--:|:--:|
+| Scope | Function | Block | Block |
+| Used before its line | `undefined` (hoisted) | `ReferenceError` (TDZ) | `ReferenceError` (TDZ) |
+| Declared twice in the same scope | Allowed | `SyntaxError` | `SyntaxError` |
+| Reassigned | ✅ | ✅ | ❌ `TypeError` |
+
+```js
+// 14_chapter_Var_Let_Const_Hoisting_TDZ/119_let.js
+let b = 20;                    // Global scope
+console.log(b);                // 20
+
+function printHello() {
+    console.log("Hello TheTestingAcademy!");
+    let b = 30;                // Local scope
+    console.log(b);            // 30
+    if (true) {
+        let b = 5;             // a separate b, only inside this block
+        console.log(b);        // 5
+    }
+    console.log("let ->", b);  // let -> 30
+}
+
+printHello();
+```
+
+### 120: const
+
+**Concept:** `const` declares a variable that cannot be reassigned, and it must get its value on the same line. `pi = 3.14159` after `const pi = 3.14` throws `TypeError: Assignment to constant variable.`
+
+**Why:** Values that should never change (URLs, timeouts, expected titles) are safer as `const`, because an accidental reassignment fails loudly instead of silently changing a test.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: By default, for anything you do not plan to reassign: `const BASE_URL = "https://..."`, `const page = await browser.newPage()`.
+- **Q: What does it replace?** A: Java's `final`.
+- **Q: What's the gotcha?** A: `const` freezes the variable, not the value: `const o = { n: 1 }; o.n = 2;` works, and so does `push` on a `const` array. And `const p;` with no value is `SyntaxError: Missing initializer in const declaration`.
+
+```mermaid
+flowchart LR
+    C["const pi = 3.14"] --> R{"pi = 3.14159"}
+    R -->|"reassign"| E["TypeError: Assignment<br/>to constant variable."]
+    C --> M{"change inside an<br/>object or array"}
+    M -->|"o.n = 2, arr.push(4)"| OK["allowed"]
+```
+
+```js
+// 14_chapter_Var_Let_Const_Hoisting_TDZ/120_Const.js (plus two checks)
+const pi = 3.14;
+console.log(pi);           // 3.14
+// pi = 3.14159;           TypeError: Assignment to constant variable.
+
+const config = { timeout: 30000 };
+config.timeout = 60000;    // allowed: the object itself can change
+console.log(config);       // { timeout: 60000 }
+
+const browsers = ["chrome"];
+browsers.push("firefox");  // allowed: the array itself can change
+console.log(browsers);     // [ 'chrome', 'firefox' ]
+```
+
+---
+
 ## Coming Up
 
-- **Chapter 12: Arrays** continues.
+- **Chapter 14: var, let, const** continues with hoisting and the temporal dead zone (TDZ).
 - Then TypeScript, then Playwright.
