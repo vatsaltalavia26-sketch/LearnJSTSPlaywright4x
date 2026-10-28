@@ -97,6 +97,7 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [101: Defining and Calling a Function](#101-defining-and-calling-a-function)
   - [102: The Four Types of Functions](#102-the-four-types-of-functions)
   - [106: Declarations, Expressions and Arrow Functions](#106-declarations-expressions-and-arrow-functions)
+  - [109: One-Line Arrow Function](#109-one-line-arrow-function)
   - [112: One Check, Three Syntaxes](#112-one-check-three-syntaxes)
   - [113: IIFE: Run a Function Immediately](#113-iife-run-a-function-immediately)
   - [114: Rest Parameters and Spread Arguments](#114-rest-parameters-and-spread-arguments)
@@ -3169,6 +3170,14 @@ console.log(getResult(78), getResult(43));   // Pass fail
 function doubleMe(a) { return a * 2; }
 const doubleMeA = (a) => a * 2;
 console.log(doubleMe(2), doubleMeA(2));      // 4 4
+```
+
+### 109: One-Line Arrow Function
+
+**Concept:** `109_Arrow.js` shows that an arrow function with a single expression returns its value automatically, so you can omit both the braces and `return`.
+
+```js
+const greet2 = (name) => `Hello, ${name}`;
 ```
 
 ### 112: One Check, Three Syntaxes
