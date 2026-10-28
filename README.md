@@ -106,6 +106,19 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [117: var Is Function-Scoped](#117-var-is-function-scoped)
   - [119: let Is Block-Scoped](#119-let-is-block-scoped)
   - [120: const](#120-const)
+  - [121: var Hoisting](#121-var-hoisting)
+  - [122: let Hoisting and the TDZ](#122-let-hoisting-and-the-tdz)
+  - [123: Function-Scoped var Hoisting](#123-function-scoped-var-hoisting)
+  - [124: var Inside a Block](#124-var-inside-a-block)
+  - [125: let in the Temporal Dead Zone](#125-let-in-the-temporal-dead-zone)
+  - [126: Redeclaring var](#126-redeclaring-var)
+  - [127: typeof an Undeclared Name](#127-typeof-an-undeclared-name)
+- [Chapter 15: Function Closures](#chapter-15-function-closures)
+  - [128: A Function Remembers Its Outer Scope](#128-a-function-remembers-its-outer-scope)
+- [Chapter 16: Strings](#chapter-16-strings)
+  - [129: String Basics](#129-string-basics)
+  - [130: String Properties and Access](#130-string-properties-and-access)
+  - [131: Searching Strings](#131-searching-strings)
 - [Coming Up](#coming-up)
 
 ---
@@ -128,7 +141,9 @@ flowchart LR
     C11 --> C12["12 Arrays<br/>push/pop, find, map, sort, copy"]:::done
     C12 --> C13["13 Functions<br/>4 types, arrow, IIFE, rest, return"]:::done
     C13 --> C14["14 var, let, const<br/>scope, hoisting, TDZ"]:::progress
-    C14 --> TS["TypeScript"]:::planned
+    C14 --> C15["15 Function Closures<br/>functions retain outer scope"]:::progress
+    C15 --> C16["16 Strings<br/>properties, access, searching"]:::progress
+    C16 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -156,7 +171,9 @@ flowchart LR
 | 11 | do...while and Nested Loops | [11_chapter_Loops_DoWhile](11_chapter_Loops_DoWhile/) | ✅ Done | `do...while`, `while` vs `do...while`, nested `for` loops |
 | 12 | Arrays | [12_chapters_Arrays](12_chapters_Arrays/) | ✅ Done | Index, `length`, `at()`, creating arrays, `push`/`pop`/`shift`/`unshift`/`splice`, `indexOf`/`includes`/`find`, `for...of`/`forEach`, `map`/`filter`, `sort`, `slice`, `concat` and spread, `every`/`some`, copy vs reference, destructuring |
 | 13 | Functions | [13_chapter_Functions](13_chapter_Functions/) | ✅ Done | Defining and calling, the 4 function types, expressions and arrow functions, IIFE, rest and spread, `return` |
-| 14 | var, let, const: Scope, Hoisting and TDZ | [14_chapter_Var_Let_Const_Hoisting_TDZ](14_chapter_Var_Let_Const_Hoisting_TDZ/) | 🟡 In progress | Function scope vs block scope, shadowing, `const` |
+| 14 | var, let, const: Scope, Hoisting and TDZ | [14_chapter_Var_Let_Const_Hoisting_TDZ](14_chapter_Var_Let_Const_Hoisting_TDZ/) | 🟡 In progress | Function scope vs block scope, shadowing, hoisting and the temporal dead zone |
+| 15 | Function Closures | [15_Chapter_Function_Closure](15_Chapter_Function_Closure/) | 🟡 In progress | Closures retain access to variables from their outer function scope |
+| 16 | Strings | [16_Chapter_String](16_Chapter_String/) | 🟡 In progress | String literals, template strings, properties, character access and search methods |
 
 ---
 
@@ -301,17 +318,30 @@ LearnJSTSPlaywright4x/
 │   ├── 108_Fn_Arrow.js                     # Turning a function into an arrow function
 │   ├── 109_Arrow.js                        # One-line arrow function
 │   ├── 110_Arrow_Multiple.js               # Multi-line arrow function with if
-│   ├── 110_Fn.js                           # doubleMe as a function and as an arrow
+│   ├── 111_Fn.js                           # doubleMe as a function and as an arrow
 │   ├── 112_Fn_REAL.js                      # Status code check in all three syntaxes
 │   ├── 113_Fn.js                           # IIFE: runs as soon as it is defined
 │   ├── 114_Spread_As_Argument_Fn.js        # Rest parameters (...codes) and spread arguments
 │   ├── 115_Fn_Return.js                    # Several return paths: status code categories
 │   └── 116_Return_Fn.js                    # No return statement: undefined
-└── 14_chapter_Var_Let_Const_Hoisting_TDZ/
-    ├── 117.js                              # var, let and const side by side
-    ├── 118_var_let_const.js                # var is function-scoped: the if block overwrites it
-    ├── 119_let.js                          # let is block-scoped: each block keeps its own b
-    └── 120_Const.js                        # const cannot be reassigned
+├── 14_chapter_Var_Let_Const_Hoisting_TDZ/
+│   ├── 117.js                              # var, let and const side by side
+│   ├── 118_var_let_const.js                # var is function-scoped: the if block overwrites it
+│   ├── 119_let.js                          # let is block-scoped: each block keeps its own b
+│   ├── 120_Const.js                        # const cannot be reassigned
+│   ├── 121_Var_Hoisting.js                 # var is hoisted and initialized as undefined
+│   ├── 122_Let_Hoisting.js                 # let is hoisted but unavailable in the TDZ
+│   ├── 123_Fn_Hoisting.js                  # var declarations are function-scoped and hoisted
+│   ├── 124_Let_TDZ.js                      # var redeclaration and function/block behavior
+│   ├── 125_let_tds.js                      # accessing let before initialization throws
+│   ├── 126_Var.js                          # var allows redeclaration in the same scope
+│   └── 127_TDZ_TypeOf.js                   # typeof an undeclared name returns "undefined"
+├── 15_Chapter_Function_Closure/
+│   └── 128_Closure.js                      # an inner function retains its outer scope
+└── 16_Chapter_String/
+    ├── 129_String.js                       # quotes, template literals and string conversion
+    ├── 130_String_Fn.js                    # length, indexing, at and character codes
+    └── 131_String_Search.js                # includes, startsWith, endsWith and indexOf
 ```
 
 ---
@@ -3166,7 +3196,7 @@ const getResult = (score) => {
 };
 console.log(getResult(78), getResult(43));   // Pass fail
 
-// 110_Fn.js: the same function both ways
+// 111_Fn.js: the same function both ways
 function doubleMe(a) { return a * 2; }
 const doubleMeA = (a) => a * 2;
 console.log(doubleMe(2), doubleMeA(2));      // 4 4
@@ -3451,9 +3481,79 @@ browsers.push("firefox");  // allowed: the array itself can change
 console.log(browsers);     // [ 'chrome', 'firefox' ]
 ```
 
+### 121: var Hoisting
+
+**Concept:** A `var` declaration is hoisted to the top of its scope and initialized to `undefined`; its assignment remains at the original line. `121_Var_Hoisting.js` logs the variable before and after the assignment.
+
+```js
+console.log(greeting); // undefined
+var greeting = "Hello";
+console.log(greeting); // Hello
+```
+
+### 122: let Hoisting and the TDZ
+
+**Concept:** A `let` binding is created when its block starts, but it cannot be accessed before its declaration. Accessing it during this temporal dead zone throws a `ReferenceError`.
+
+### 123: Function-Scoped var Hoisting
+
+**Concept:** A `var` declaration inside a function is hoisted to the top of that function, not just to the top of a nested block.
+
+### 124: var Inside a Block
+
+**Concept:** A `var` declared in an `if` block is not block-scoped. It refers to the function- or global-scoped binding and can overwrite its value.
+
+### 125: let in the Temporal Dead Zone
+
+**Concept:** `125_let_tds.js` demonstrates that reading a `let` binding before its declaration produces `ReferenceError: Cannot access 'a' before initialization`.
+
+### 126: Redeclaring var
+
+**Concept:** Unlike `let` and `const`, `var` allows the same variable to be declared more than once in the same scope. The last assignment determines its value.
+
+### 127: typeof an Undeclared Name
+
+**Concept:** `typeof` is a special case: it returns the string `"undefined"` when given an undeclared identifier instead of throwing a `ReferenceError`.
+
+---
+
+## Chapter 15: Function Closures
+
+### 128: A Function Remembers Its Outer Scope
+
+**Concept:** A closure is created when a function retains access to variables from the scope where it was defined, even after that outer function has returned. In `128_Closure.js`, `installBrowser` still reads `name` after `startBrowser()` has completed.
+
+```js
+function startBrowser() {
+    let name = "edge";
+    return function installBrowser() {
+        console.log(name);
+    };
+}
+
+const runTest = startBrowser();
+runTest(); // edge
+```
+
+---
+
+## Chapter 16: Strings
+
+### 129: String Basics
+
+**Concept:** JavaScript strings can use single quotes, double quotes or backticks. Template literals interpolate expressions with `${...}` and support multiline text; `String(value)` converts other values to strings.
+
+### 130: String Properties and Access
+
+**Concept:** Strings expose their character count through `.length` and support bracket indexing, `.at()` (including negative indexes), `.charAt()` and `.charCodeAt()`.
+
+### 131: Searching Strings
+
+**Concept:** `.includes()`, `.startsWith()` and `.endsWith()` check for text, while `.indexOf()` and `.lastIndexOf()` return matching positions or `-1`.
+
 ---
 
 ## Coming Up
 
-- **Chapter 14: var, let, const** continues with hoisting and the temporal dead zone (TDZ).
-- Then TypeScript, then Playwright.
+- **Chapter 14: var, let, const** continues with scope, hoisting and the temporal dead zone (TDZ).
+- Chapters 15 and 16 introduce closures and strings. Then TypeScript, then Playwright.
