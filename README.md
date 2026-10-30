@@ -119,6 +119,15 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [129: String Basics](#129-string-basics)
   - [130: String Properties and Access](#130-string-properties-and-access)
   - [131: Searching Strings](#131-searching-strings)
+- [Chapter 17: Objects](#chapter-17-objects)
+  - [132: Object Properties](#132-object-properties)
+  - [133: Object References](#133-object-references)
+  - [134: Object Methods and this](#134-object-methods-and-this)
+  - [135: Accessing and Updating Properties](#135-accessing-and-updating-properties)
+  - [136: Object Basics](#136-object-basics)
+  - [137: Updating and Deleting Properties](#137-updating-and-deleting-properties)
+  - [138: Value vs Reference](#138-value-vs-reference)
+  - [139: Shallow vs Deep Copy](#139-shallow-vs-deep-copy)
 - [Coming Up](#coming-up)
 
 ---
@@ -143,7 +152,8 @@ flowchart LR
     C13 --> C14["14 var, let, const<br/>scope, hoisting, TDZ"]:::progress
     C14 --> C15["15 Function Closures<br/>functions retain outer scope"]:::progress
     C15 --> C16["16 Strings<br/>properties, access, searching"]:::progress
-    C16 --> TS["TypeScript"]:::planned
+    C16 --> C17["17 Objects<br/>properties, methods, references, copying"]:::progress
+    C17 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -174,6 +184,7 @@ flowchart LR
 | 14 | var, let, const: Scope, Hoisting and TDZ | [14_chapter_Var_Let_Const_Hoisting_TDZ](14_chapter_Var_Let_Const_Hoisting_TDZ/) | 🟡 In progress | Function scope vs block scope, shadowing, hoisting and the temporal dead zone |
 | 15 | Function Closures | [15_Chapter_Function_Closure](15_Chapter_Function_Closure/) | 🟡 In progress | Closures retain access to variables from their outer function scope |
 | 16 | Strings | [16_Chapter_String](16_Chapter_String/) | 🟡 In progress | String literals, template strings, properties, character access and search methods |
+| 17 | Objects | [17_Chapter_Objects](17_Chapter_Objects/) | 🟡 In progress | Object literals, property access and updates, methods, references, and shallow vs deep copies |
 
 ---
 
@@ -186,6 +197,10 @@ LearnJSTSPlaywright4x/
 ├── package.json                            # One dependency: prompt-sync (chapter 08)
 ├── package-lock.json
 ├── assets/images/                          # Banner and chapter cheat-sheet images used in this README
+├── 00_Learning/
+│   ├── chatAt_vs_At_string.md              # Note: charAt() vs at()
+│   ├── object_reference_copy_eli5.md       # Visual guide: object references and copies
+│   └── rarely_needed_string_methods.md     # Note: uncommon and legacy string methods
 ├── 00_chapter_Prompt_Eng/
 │   ├── 00_RICE_POT_FullForm.md             # What each RICE-POT letter means
 │   ├── 01_RICE_POT_Prompt.md               # Worked prompt: Salesforce login (Selenium + TestNG)
@@ -338,10 +353,19 @@ LearnJSTSPlaywright4x/
 │   └── 127_TDZ_TypeOf.js                   # typeof an undeclared name returns "undefined"
 ├── 15_Chapter_Function_Closure/
 │   └── 128_Closure.js                      # an inner function retains its outer scope
-└── 16_Chapter_String/
-    ├── 129_String.js                       # quotes, template literals and string conversion
-    ├── 130_String_Fn.js                    # length, indexing, at and character codes
-    └── 131_String_Search.js                # includes, startsWith, endsWith and indexOf
+├── 16_Chapter_String/
+│   ├── 129_String.js                       # quotes, template literals and string conversion
+│   ├── 130_String_Fn.js                    # length, indexing, at and character codes
+│   └── 131_String_Search.js                 # includes, startsWith, endsWith and indexOf
+└── 17_Chapter_Objects/
+    ├── 132_Objects.js                      # object literals, dot/bracket access and case-sensitive keys
+    ├── 133_Object_Copy.js                  # assigning an object copies its reference
+    ├── 134.js                              # object method and this
+    ├── 135.js                              # reading and updating object properties
+    ├── 136_Normal.js                       # object properties and access
+    ├── 137_Config.js                       # add, update and delete configuration properties
+    ├── 138_Call_By_Ref_By_Value.js         # primitive value copies vs shared object references
+    └── 139_Shallow_Copy_Deep_Copy.js       # spread shallow copy vs structuredClone deep copy
 ```
 
 ---
@@ -3551,9 +3575,47 @@ runTest(); // edge
 
 **Concept:** `.includes()`, `.startsWith()` and `.endsWith()` check for text, while `.indexOf()` and `.lastIndexOf()` return matching positions or `-1`.
 
+**More string notes:** [charAt() vs at()](00_Learning/chatAt_vs_At_string.md) and [rarely needed string methods](00_Learning/rarely_needed_string_methods.md).
+
+---
+
+## Chapter 17: Objects
+
+### 132: Object Properties
+
+**Concept:** Create objects with object literals and read properties with dot or bracket notation. Property names are case-sensitive.
+
+### 133: Object References
+
+**Concept:** Assigning an object to another variable copies its reference, so both variables access the same object. See the [visual guide to object references and copies](00_Learning/object_reference_copy_eli5.md).
+
+### 134: Object Methods and this
+
+**Concept:** Methods are functions stored on objects; `this` lets a method access the object’s properties.
+
+### 135: Accessing and Updating Properties
+
+**Concept:** Read properties with dot or bracket notation, add new properties, and update existing values.
+
+### 136: Object Basics
+
+**Concept:** Practice declaring an object, inspecting it, and reading its properties.
+
+### 137: Updating and Deleting Properties
+
+**Concept:** Add and update configuration properties, then remove a property with `delete`.
+
+### 138: Value vs Reference
+
+**Concept:** Assigning a primitive copies its value, while assigning an object copies a reference to the same object.
+
+### 139: Shallow vs Deep Copy
+
+**Concept:** Object spread creates a shallow copy whose nested objects are still shared. `structuredClone()` creates a deep copy for supported values.
+
 ---
 
 ## Coming Up
 
 - **Chapter 14: var, let, const** continues with scope, hoisting and the temporal dead zone (TDZ).
-- Chapters 15 and 16 introduce closures and strings. Then TypeScript, then Playwright.
+- Chapters 15-17 cover closures, strings and objects. Then TypeScript, then Playwright.
