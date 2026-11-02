@@ -128,6 +128,14 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [137: Updating and Deleting Properties](#137-updating-and-deleting-properties)
   - [138: Value vs Reference](#138-value-vs-reference)
   - [139: Shallow vs Deep Copy](#139-shallow-vs-deep-copy)
+- [Chapter 18: Multidimensional Arrays](#chapter-18-multidimensional-arrays)
+  - [140: One-Dimensional Arrays](#140-one-dimensional-arrays)
+  - [141: Two-Dimensional Arrays](#141-two-dimensional-arrays)
+  - [142: Iterating Through a Matrix](#142-iterating-through-a-matrix)
+  - [143: Transforming Rows with Array Methods](#143-transforming-rows-with-array-methods)
+  - [144: Increasing Triangle Pattern](#144-increasing-triangle-pattern)
+  - [145: Decreasing Triangle Pattern](#145-decreasing-triangle-pattern)
+  - [146: Pyramid Pattern](#146-pyramid-pattern)
 - [Coming Up](#coming-up)
 
 ---
@@ -153,7 +161,8 @@ flowchart LR
     C14 --> C15["15 Function Closures<br/>functions retain outer scope"]:::progress
     C15 --> C16["16 Strings<br/>properties, access, searching"]:::progress
     C16 --> C17["17 Objects<br/>properties, methods, references, copying"]:::progress
-    C17 --> TS["TypeScript"]:::planned
+    C17 --> C18["18 Multidimensional Arrays<br/>nested arrays, traversal, patterns"]:::progress
+    C18 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -185,6 +194,7 @@ flowchart LR
 | 15 | Function Closures | [15_Chapter_Function_Closure](15_Chapter_Function_Closure/) | 🟡 In progress | Closures retain access to variables from their outer function scope |
 | 16 | Strings | [16_Chapter_String](16_Chapter_String/) | 🟡 In progress | String literals, template strings, properties, character access and search methods |
 | 17 | Objects | [17_Chapter_Objects](17_Chapter_Objects/) | 🟡 In progress | Object literals, property access and updates, methods, references, and shallow vs deep copies |
+| 18 | Multidimensional Arrays | [18_Multi_Dimensions_Array](18_Multi_Dimensions_Array/) | 🟡 In progress | Nested arrays, two-dimensional matrices, row transformations, and nested-loop patterns |
 
 ---
 
@@ -357,15 +367,23 @@ LearnJSTSPlaywright4x/
 │   ├── 129_String.js                       # quotes, template literals and string conversion
 │   ├── 130_String_Fn.js                    # length, indexing, at and character codes
 │   └── 131_String_Search.js                 # includes, startsWith, endsWith and indexOf
-└── 17_Chapter_Objects/
-    ├── 132_Objects.js                      # object literals, dot/bracket access and case-sensitive keys
-    ├── 133_Object_Copy.js                  # assigning an object copies its reference
-    ├── 134.js                              # object method and this
-    ├── 135.js                              # reading and updating object properties
-    ├── 136_Normal.js                       # object properties and access
-    ├── 137_Config.js                       # add, update and delete configuration properties
-    ├── 138_Call_By_Ref_By_Value.js         # primitive value copies vs shared object references
-    └── 139_Shallow_Copy_Deep_Copy.js       # spread shallow copy vs structuredClone deep copy
+├── 17_Chapter_Objects/
+│   ├── 132_Objects.js                      # object literals, dot/bracket access and case-sensitive keys
+│   ├── 133_Object_Copy.js                  # assigning an object copies its reference
+│   ├── 134.js                              # object method and this
+│   ├── 135.js                              # reading and updating object properties
+│   ├── 136_Normal.js                       # object properties and access
+│   ├── 137_Config.js                       # add, update and delete configuration properties
+│   ├── 138_Call_By_Ref_By_Value.js         # primitive value copies vs shared object references
+│   └── 139_Shallow_Copy_Deep_Copy.js       # spread shallow copy vs structuredClone deep copy
+└── 18_Multi_Dimensions_Array/
+    ├── 140_MDArrays.js                     # one-dimensional array example
+    ├── 141_2D.js                           # create, access and update a two-dimensional array
+    ├── 142_REAL_Exmaple.js                 # nested-loop traversal of a test-results matrix
+    ├── 143_array_Fn.js                     # calculate totals for each row with map and reduce
+    ├── 144_Right_Hand_Pattern.js           # increasing left-aligned triangle with nested loops
+    ├── 145_Left_Hand_Triablge_Pattern.js   # decreasing left-aligned triangle
+    └── 146_Pyamid_Pattern.js               # centered pyramid using spaces and stars
 ```
 
 ---
@@ -3615,7 +3633,39 @@ runTest(); // edge
 
 ---
 
+## Chapter 18: Multidimensional Arrays
+
+### 140: One-Dimensional Arrays
+
+**Concept:** Begin with a one-dimensional array and see how it stores a list of values.
+
+### 141: Two-Dimensional Arrays
+
+**Concept:** Represent rows and columns with nested arrays, access a cell with two indexes, and inspect row and column lengths.
+
+### 142: Iterating Through a Matrix
+
+**Concept:** Use nested loops to visit each value in a matrix of test names, results, and status codes.
+
+### 143: Transforming Rows with Array Methods
+
+**Concept:** Combine `map()` and `reduce()` to calculate a total for each row of a numeric matrix.
+
+### 144: Increasing Triangle Pattern
+
+**Concept:** Use nested loops to print rows with an increasing number of stars.
+
+### 145: Decreasing Triangle Pattern
+
+**Concept:** Count down through nested loops to print a left-aligned triangle with decreasing row lengths.
+
+### 146: Pyramid Pattern
+
+**Concept:** Build a centered star pyramid by adding leading spaces and an increasing number of stars on each row.
+
+---
+
 ## Coming Up
 
 - **Chapter 14: var, let, const** continues with scope, hoisting and the temporal dead zone (TDZ).
-- Chapters 15-17 cover closures, strings and objects. Then TypeScript, then Playwright.
+- Chapters 15-18 cover closures, strings, objects, and multidimensional arrays. Then TypeScript, then Playwright.
