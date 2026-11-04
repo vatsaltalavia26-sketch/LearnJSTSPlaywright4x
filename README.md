@@ -136,6 +136,25 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [144: Increasing Triangle Pattern](#144-increasing-triangle-pattern)
   - [145: Decreasing Triangle Pattern](#145-decreasing-triangle-pattern)
   - [146: Pyramid Pattern](#146-pyramid-pattern)
+- [Chapter 19: Callbacks](#chapter-19-callbacks)
+  - [147: Passing a Callback Function](#147-passing-a-callback-function)
+  - [148: Callback Parameters](#148-callback-parameters)
+  - [149: Synchronous Callbacks](#149-synchronous-callbacks)
+  - [150: Asynchronous Callbacks](#150-asynchronous-callbacks)
+  - [151: Callback Hell](#151-callback-hell)
+  - [152: Nested Callbacks in a QA Flow](#152-nested-callbacks-in-a-qa-flow)
+  - [153: Returning a Value from a Callback](#153-returning-a-value-from-a-callback)
+  - [154: Callback Pyramid](#154-callback-pyramid)
+- [Chapter 20: Promises](#chapter-20-promises)
+  - [155: Promise Resolve and Reject](#155-promise-resolve-and-reject)
+  - [156: finally()](#156-finally)
+  - [157: Chaining Promises](#157-chaining-promises)
+  - [158: Promise.all()](#158-promiseall)
+  - [159: Promise.allSettled()](#159-promiseallsettled)
+  - [160: Promise.race()](#160-promiserace)
+  - [161: Promise Practice](#161-promise-practice)
+- [Chapter 21: Async/Await](#chapter-21-asyncawait)
+  - [162: Async Functions and await](#162-async-functions-and-await)
 - [Coming Up](#coming-up)
 
 ---
@@ -162,7 +181,10 @@ flowchart LR
     C15 --> C16["16 Strings<br/>properties, access, searching"]:::progress
     C16 --> C17["17 Objects<br/>properties, methods, references, copying"]:::progress
     C17 --> C18["18 Multidimensional Arrays<br/>nested arrays, traversal, patterns"]:::progress
-    C18 --> TS["TypeScript"]:::planned
+    C18 --> C19["19 Callbacks<br/>sync, async, nested flows"]:::progress
+    C19 --> C20["20 Promises<br/>chaining and combinators"]:::progress
+    C20 --> C21["21 Async/Await<br/>async functions and await"]:::progress
+    C21 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -195,6 +217,9 @@ flowchart LR
 | 16 | Strings | [16_Chapter_String](16_Chapter_String/) | 🟡 In progress | String literals, template strings, properties, character access and search methods |
 | 17 | Objects | [17_Chapter_Objects](17_Chapter_Objects/) | 🟡 In progress | Object literals, property access and updates, methods, references, and shallow vs deep copies |
 | 18 | Multidimensional Arrays | [18_Multi_Dimensions_Array](18_Multi_Dimensions_Array/) | 🟡 In progress | Nested arrays, two-dimensional matrices, row transformations, and nested-loop patterns |
+| 19 | Callbacks | [19_Callback](19_Callback/) | 🟡 In progress | Passing functions as callbacks, synchronous and asynchronous execution, and nested callback flows |
+| 20 | Promises | [20_Promise](20_Promise/) | 🟡 In progress | Promise resolution and rejection, chaining, `finally()`, and the `all`, `allSettled` and `race` combinators |
+| 21 | Async/Await | [21_Async_Await](21_Async_Await/) | 🟡 In progress | The relationship between async functions, Promises, and `await` |
 
 ---
 
@@ -376,14 +401,33 @@ LearnJSTSPlaywright4x/
 │   ├── 137_Config.js                       # add, update and delete configuration properties
 │   ├── 138_Call_By_Ref_By_Value.js         # primitive value copies vs shared object references
 │   └── 139_Shallow_Copy_Deep_Copy.js       # spread shallow copy vs structuredClone deep copy
-└── 18_Multi_Dimensions_Array/
-    ├── 140_MDArrays.js                     # one-dimensional array example
-    ├── 141_2D.js                           # create, access and update a two-dimensional array
-    ├── 142_REAL_Exmaple.js                 # nested-loop traversal of a test-results matrix
-    ├── 143_array_Fn.js                     # calculate totals for each row with map and reduce
-    ├── 144_Right_Hand_Pattern.js           # increasing left-aligned triangle with nested loops
-    ├── 145_Left_Hand_Triablge_Pattern.js   # decreasing left-aligned triangle
-    └── 146_Pyamid_Pattern.js               # centered pyramid using spaces and stars
+├── 18_Multi_Dimensions_Array/
+│   ├── 140_MDArrays.js                     # one-dimensional array example
+│   ├── 141_2D.js                           # create, access and update a two-dimensional array
+│   ├── 142_REAL_Exmaple.js                 # nested-loop traversal of a test-results matrix
+│   ├── 143_array_Fn.js                     # calculate totals for each row with map and reduce
+│   ├── 144_Right_Hand_Pattern.js           # increasing left-aligned triangle with nested loops
+│   ├── 145_Left_Hand_Triablge_Pattern.js   # decreasing left-aligned triangle
+│   └── 146_Pyamid_Pattern.js               # centered pyramid using spaces and stars
+├── 19_Callback/
+│   ├── 147_Callback.js                     # pass a function as a callback
+│   ├── 148_More_CB.js                      # callback parameters and a test example
+│   ├── 149_CB_Sync.js                      # synchronous forEach callback execution
+│   ├── 150_CB_Async.js                     # observe asynchronous callback ordering with setTimeout
+│   ├── 151_CallBackHell.js                 # nested callbacks in a browser login flow
+│   ├── 152_REAL_QA.js                      # nested callbacks in an end-to-end QA workflow
+│   ├── 153_Callbacl_Return.js              # return a value through a callback
+│   └── 154_Pyramid_DOOM.js                 # nested callback pyramid
+├── 20_Promise/
+│   ├── 155_Promise.js                      # resolve and reject, then and catch
+│   ├── 156_Promise_Finally.js              # run cleanup with finally()
+│   ├── 157_Promise_Improve.js              # chain async workflow steps with Promises
+│   ├── 158_Promise.All.js                  # Promise.all() success and rejection
+│   ├── 159_Promise.Settle.js               # inspect every result with Promise.allSettled()
+│   ├── 160_Promise.race.js                 # take the first settled result with Promise.race()
+│   └── 161_IQ.js                            # Promise resolution, chaining and error handling practice
+└── 21_Async_Await/
+    └── 162_Async_Await.js                  # introductory note on async functions and await
 ```
 
 ---
@@ -3665,7 +3709,83 @@ runTest(); // edge
 
 ---
 
+## Chapter 19: Callbacks
+
+### 147: Passing a Callback Function
+
+**Concept:** Pass a function into another function and invoke it after the main operation.
+
+### 148: Callback Parameters
+
+**Concept:** Accept a callback as a function parameter and use it to represent work performed after a test step.
+
+### 149: Synchronous Callbacks
+
+**Concept:** `forEach()` invokes its callbacks synchronously, so the loop finishes before the next statement runs.
+
+### 150: Asynchronous Callbacks
+
+**Concept:** `setTimeout()` schedules a callback to run later, allowing other synchronous statements to run first.
+
+### 151: Callback Hell
+
+**Concept:** Nested callbacks can make a sequence of asynchronous login steps difficult to read and maintain.
+
+### 152: Nested Callbacks in a QA Flow
+
+**Concept:** Follow a QA workflow through multiple dependent callback-based operations and their error checks.
+
+### 153: Returning a Value from a Callback
+
+**Concept:** A callback can compute and return a value to the function that invokes it.
+
+### 154: Callback Pyramid
+
+**Concept:** Visualize deeply nested callback steps and why nested asynchronous flows become hard to follow.
+
+---
+
+## Chapter 20: Promises
+
+### 155: Promise Resolve and Reject
+
+**Concept:** A Promise represents a result that may resolve or reject; handle success with `then()` and errors with `catch()`.
+
+### 156: finally()
+
+**Concept:** Use `finally()` for work that should run after a Promise settles, regardless of success or failure.
+
+### 157: Chaining Promises
+
+**Concept:** Return a Promise from each `then()` handler to sequence asynchronous workflow steps and handle errors.
+
+### 158: Promise.all()
+
+**Concept:** Wait for all Promises to fulfill with `Promise.all()`; the combined Promise rejects if any input rejects.
+
+### 159: Promise.allSettled()
+
+**Concept:** Use `Promise.allSettled()` to inspect every outcome, including both fulfilled and rejected Promises.
+
+### 160: Promise.race()
+
+**Concept:** `Promise.race()` settles with the result of the first input Promise to settle.
+
+### 161: Promise Practice
+
+**Concept:** Practice Promise fulfillment, rejection, chaining, and cleanup with `finally()`.
+
+---
+
+## Chapter 21: Async/Await
+
+### 162: Async Functions and await
+
+**Concept:** An `async` function always returns a Promise, and `await` reads a Promise’s fulfilled value inside an async function.
+
+---
+
 ## Coming Up
 
 - **Chapter 14: var, let, const** continues with scope, hoisting and the temporal dead zone (TDZ).
-- Chapters 15-18 cover closures, strings, objects, and multidimensional arrays. Then TypeScript, then Playwright.
+- Chapters 15-21 cover closures, strings, objects, multidimensional arrays, callbacks, Promises, and async/await. Then TypeScript, then Playwright.
