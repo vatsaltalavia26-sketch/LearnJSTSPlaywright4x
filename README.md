@@ -155,6 +155,15 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [161: Promise Practice](#161-promise-practice)
 - [Chapter 21: Async/Await](#chapter-21-asyncawait)
   - [162: Async Functions and await](#162-async-functions-and-await)
+  - [163: Async Error Handling](#163-async-error-handling)
+  - [164: await in a Playwright Test](#164-await-in-a-playwright-test)
+  - [165: Awaiting an Async Helper](#165-awaiting-an-async-helper)
+  - [166: Sequential Async Execution](#166-sequential-async-execution)
+  - [167: Parallel Async Execution](#167-parallel-async-execution)
+  - [168: Flaky API Attempts](#168-flaky-api-attempts)
+  - [169: Async QA Workflow](#169-async-qa-workflow)
+  - [170: API Response Handling](#170-api-response-handling)
+  - [171: Async Execution Order](#171-async-execution-order)
 - [Coming Up](#coming-up)
 
 ---
@@ -427,7 +436,16 @@ LearnJSTSPlaywright4x/
 │   ├── 160_Promise.race.js                 # take the first settled result with Promise.race()
 │   └── 161_IQ.js                            # Promise resolution, chaining and error handling practice
 └── 21_Async_Await/
-    └── 162_Async_Await.js                  # introductory note on async functions and await
+    ├── 162_Async_Await.js                  # await an API request and read its response
+    ├── 163_AA.js                            # async functions, rejection, catch and finally
+    ├── 164_Playwright.spec.ts               # await navigation in a Playwright test
+    ├── 165_Playwright2.spec.ts              # await an async helper in a Playwright test
+    ├── 166_SEQ.executin.js                  # run asynchronous calls sequentially
+    ├── 167_Parallel_Ex.js                   # run asynchronous calls with Promise.all()
+    ├── 168_API_Flaky_Finder.js              # create a simulated flaky API
+    ├── 169_IQ.js                            # sequence async QA workflow steps
+    ├── 170_IQ.js                            # handle an API response and clean up
+    └── 171_IQ.js                            # observe execution order around await
 ```
 
 ---
@@ -3782,6 +3800,42 @@ runTest(); // edge
 ### 162: Async Functions and await
 
 **Concept:** An `async` function always returns a Promise, and `await` reads a Promise’s fulfilled value inside an async function.
+
+### 163: Async Error Handling
+
+**Concept:** Use async functions with rejected Promises and handle errors with `try`/`catch`/`finally`.
+
+### 164: await in a Playwright Test
+
+**Concept:** Await browser navigation within an asynchronous Playwright test.
+
+### 165: Awaiting an Async Helper
+
+**Concept:** Await a helper function from inside a Playwright test.
+
+### 166: Sequential Async Execution
+
+**Concept:** Await each asynchronous call before starting the next one.
+
+### 167: Parallel Async Execution
+
+**Concept:** Use `Promise.all()` to await independent asynchronous calls together.
+
+### 168: Flaky API Attempts
+
+**Concept:** Create a simulated API function whose result depends on its attempt count.
+
+### 169: Async QA Workflow
+
+**Concept:** Use `await` to run QA workflow steps in order.
+
+### 170: API Response Handling
+
+**Concept:** Read response fields and run cleanup with `try`/`catch`/`finally`.
+
+### 171: Async Execution Order
+
+**Concept:** Observe how code after `await` runs relative to synchronous statements.
 
 ---
 
