@@ -164,6 +164,14 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [169: Async QA Workflow](#169-async-qa-workflow)
   - [170: API Response Handling](#170-api-response-handling)
   - [171: Async Execution Order](#171-async-execution-order)
+- [Chapter 22: Export and Import](#chapter-22-export-and-import)
+  - [172: Named Exports](#172-named-exports)
+  - [173: Aliased Imports](#173-aliased-imports)
+  - [174: Default and Named Exports](#174-default-and-named-exports)
+- [Chapter 23: Classes and Objects](#chapter-23-classes-and-objects)
+  - [175: Defining a Class](#175-defining-a-class)
+- [Chapter 24: Playwright](#chapter-24-playwright)
+  - [Running Playwright Tests](#running-playwright-tests)
 - [Coming Up](#coming-up)
 
 ---
@@ -193,8 +201,10 @@ flowchart LR
     C18 --> C19["19 Callbacks<br/>sync, async, nested flows"]:::progress
     C19 --> C20["20 Promises<br/>chaining and combinators"]:::progress
     C20 --> C21["21 Async/Await<br/>async functions and await"]:::progress
-    C21 --> TS["TypeScript"]:::planned
-    TS --> PW["Playwright"]:::planned
+    C21 --> C22["22 Export / Import<br/>modules and exports"]:::progress
+    C22 --> C23["23 Classes and Objects<br/>class syntax and instances"]:::progress
+    C23 --> TS["TypeScript"]:::planned
+    TS --> C24["24 Playwright<br/>browser tests"]:::progress
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
     classDef progress fill:#fef3c7,stroke:#d97706,color:#78350f
@@ -229,6 +239,9 @@ flowchart LR
 | 19 | Callbacks | [19_Callback](19_Callback/) | 🟡 In progress | Passing functions as callbacks, synchronous and asynchronous execution, and nested callback flows |
 | 20 | Promises | [20_Promise](20_Promise/) | 🟡 In progress | Promise resolution and rejection, chaining, `finally()`, and the `all`, `allSettled` and `race` combinators |
 | 21 | Async/Await | [21_Async_Await](21_Async_Await/) | 🟡 In progress | The relationship between async functions, Promises, and `await` |
+| 22 | Export and Import | [22_Export_Import](22_Export_Import/) | 🟡 In progress | Named and default exports, importing modules, and aliasing imports |
+| 23 | Classes and Objects | [23_Class_Objects](23_Class_Objects/) | 🟡 In progress | Defining a class, instance fields and methods, and creating objects |
+| 24 | Playwright | [24_Playwright](24_Playwright/) | 🟡 In progress | Writing and running browser tests with the Playwright test runner |
 
 ---
 
@@ -435,17 +448,31 @@ LearnJSTSPlaywright4x/
 │   ├── 159_Promise.Settle.js               # inspect every result with Promise.allSettled()
 │   ├── 160_Promise.race.js                 # take the first settled result with Promise.race()
 │   └── 161_IQ.js                            # Promise resolution, chaining and error handling practice
-└── 21_Async_Await/
-    ├── 162_Async_Await.js                  # await an API request and read its response
-    ├── 163_AA.js                            # async functions, rejection, catch and finally
-    ├── 164_Playwright.spec.ts               # await navigation in a Playwright test
-    ├── 165_Playwright2.spec.ts              # await an async helper in a Playwright test
-    ├── 166_SEQ.executin.js                  # run asynchronous calls sequentially
-    ├── 167_Parallel_Ex.js                   # run asynchronous calls with Promise.all()
-    ├── 168_API_Flaky_Finder.js              # create a simulated flaky API
-    ├── 169_IQ.js                            # sequence async QA workflow steps
-    ├── 170_IQ.js                            # handle an API response and clean up
-    └── 171_IQ.js                            # observe execution order around await
+├── 21_Async_Await/
+│   ├── 162_Async_Await.js                  # await an API request and read its response
+│   ├── 163_AA.js                            # async functions, rejection, catch and finally
+│   ├── 164_Playwright.spec.ts               # await navigation in a Playwright test
+│   ├── 165_Playwright2.spec.ts              # await an async helper in a Playwright test
+│   ├── 166_SEQ.executin.js                  # run asynchronous calls sequentially
+│   ├── 167_Parallel_Ex.js                   # run asynchronous calls with Promise.all()
+│   ├── 168_API_Flaky_Finder.js              # create a simulated flaky API
+│   ├── 169_IQ.js                            # sequence async QA workflow steps
+│   ├── 170_IQ.js                            # handle an API response and clean up
+│   └── 171_IQ.js                            # observe execution order around await
+├── 22_Export_Import/
+│   ├── 172_IE.js                            # import named exports from a utility module
+│   ├── 173.js                               # alias imports from separate modules
+│   ├── 174_Logs.js                          # combine default and named imports
+│   ├── testutils.js                         # named exports for examples
+│   ├── utils.js                             # utility exports
+│   └── logs/logger.js                       # default and named logger exports
+├── 23_Class_Objects/
+│   └── 175_Class.js                         # define a class and create instances
+└── 24_Playwright/
+    ├── package.json                         # Playwright test dependencies
+    ├── package-lock.json                    # pinned dependency versions
+    ├── playwright.config.ts                 # browser and test-runner configuration
+    └── tests/example.spec.ts                 # sample Playwright tests
 ```
 
 ---
@@ -455,7 +482,7 @@ LearnJSTSPlaywright4x/
 You only need [Node.js](https://nodejs.org/) 18 or newer. Chapter 08 uses one npm package ([prompt-sync](https://www.npmjs.com/package/prompt-sync)), so run `npm install` once after cloning.
 
 ```bash
-git clone https://github.com/PramodDutta/LearnJSTSPlaywright4x.git
+git clone https://github.com/vatsaltalavia26-sketch/LearnJSTSPlaywright4x.git
 cd LearnJSTSPlaywright4x
 npm install                                 # installs prompt-sync for chapter 08
 node --version                              # v18+ (tested on v22)
@@ -463,6 +490,17 @@ node 01_chapter_JS_Basics/01_HelloWorld.js  # Hello World!
 ```
 
 Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
+
+To install Playwright's dependencies and run the sample test in Chromium:
+
+```bash
+cd 24_Playwright
+npm install
+npx playwright install chromium
+npx playwright test --project=chromium
+```
+
+Run Playwright tests with `npx playwright test`; `ts-node` is not required.
 
 ---
 
@@ -3839,7 +3877,39 @@ runTest(); // edge
 
 ---
 
+## Chapter 22: Export and Import
+
+### 172: Named Exports
+
+**Concept:** Import named functions and values exported from another JavaScript module.
+
+### 173: Aliased Imports
+
+**Concept:** Use import aliases to distinguish names exported by different modules.
+
+### 174: Default and Named Exports
+
+**Concept:** Combine a module's default export with its named exports.
+
+---
+
+## Chapter 23: Classes and Objects
+
+### 175: Defining a Class
+
+**Concept:** Define a class with private instance fields and methods, then create instances.
+
+---
+
+## Chapter 24: Playwright
+
+### Running Playwright Tests
+
+**Concept:** Run browser tests through the Playwright test runner, for example `npx playwright test --project=chromium`.
+
+---
+
 ## Coming Up
 
-- **Chapter 14: var, let, const** continues with scope, hoisting and the temporal dead zone (TDZ).
-- Chapters 15-21 cover closures, strings, objects, multidimensional arrays, callbacks, Promises, and async/await. Then TypeScript, then Playwright.
+- Chapters 22-23 introduce JavaScript modules and classes.
+- Chapter 24 uses the Playwright test runner to run browser automation tests.

@@ -1,0 +1,12 @@
+{
+  "name": "learnjstsplaywright4x",
+  "private": true,
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6"
+  },
+  "scripts": {}
+}
