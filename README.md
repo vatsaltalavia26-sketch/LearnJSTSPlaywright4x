@@ -678,8 +678,6 @@ $ node 02_chapter_JS_Keywrods_Identifiers/03_js_engine.js
 
 ### 05: Keywords vs Identifiers: var, let, const
 
-![Anatomy of a declaration: let is the keyword, userName the identifier, = the assignment, "Pramod" the literal](assets/images/ch02-declaration-anatomy.png)
-
 **Concept:** A keyword is a word the language owns (`var`, `let`, `const`, `if`, `class`, `return`). An identifier is the name you choose. In `let l = 10;`, `let` is the keyword, `l` is the identifier and `10` is the literal value.
 
 **Why:** Every variable in a test (a URL, a timeout, an expected value) starts with one of these three keywords, so choosing between them is the first decision you make on every line.
@@ -3625,6 +3623,8 @@ console.log(browsers);     // [ 'chrome', 'firefox' ]
 
 ### 121: var Hoisting
 
+![var hoisting initializes a declaration to undefined before its assignment runs](assets/images/ch14-hoisting-tdz.png)
+
 **Concept:** A `var` declaration is hoisted to the top of its scope and initialized to `undefined`; its assignment remains at the original line. `121_Var_Hoisting.js` logs the variable before and after the assignment.
 
 ```js
@@ -3661,6 +3661,8 @@ console.log(greeting); // Hello
 
 ## Chapter 15: Function Closures
 
+![A closure retains access to a function's outer variable after that function returns](assets/images/ch15-closure.png)
+
 ### 128: A Function Remembers Its Outer Scope
 
 **Concept:** A closure is created when a function retains access to variables from the scope where it was defined, even after that outer function has returned. In `128_Closure.js`, `installBrowser` still reads `name` after `startBrowser()` has completed.
@@ -3687,6 +3689,8 @@ runTest(); // edge
 
 ### 130: String Properties and Access
 
+![String length, indexing, and at() provide ways to inspect characters](assets/images/ch16-string-index.png)
+
 **Concept:** Strings expose their character count through `.length` and support bracket indexing, `.at()` (including negative indexes), `.charAt()` and `.charCodeAt()`.
 
 ### 131: Searching Strings
@@ -3698,6 +3702,8 @@ runTest(); // edge
 ---
 
 ## Chapter 17: Objects
+
+![An object groups named properties and methods](assets/images/ch17-object-anatomy.png)
 
 ### 132: Object Properties
 
@@ -3729,6 +3735,8 @@ runTest(); // edge
 
 ### 139: Shallow vs Deep Copy
 
+![Shallow copies share nested objects while deep copies duplicate nested data](assets/images/ch17-reference-shallow-deep.png)
+
 **Concept:** Object spread creates a shallow copy whose nested objects are still shared. `structuredClone()` creates a deep copy for supported values.
 
 ---
@@ -3740,6 +3748,8 @@ runTest(); // edge
 **Concept:** Begin with a one-dimensional array and see how it stores a list of values.
 
 ### 141: Two-Dimensional Arrays
+
+![A two-dimensional array organizes values in rows and columns](assets/images/ch18-2d-grid.png)
 
 **Concept:** Represent rows and columns with nested arrays, access a cell with two indexes, and inspect row and column lengths.
 
@@ -3761,11 +3771,15 @@ runTest(); // edge
 
 ### 146: Pyramid Pattern
 
+![Nested loops add leading spaces and stars to build a centered pyramid](assets/images/ch18-pyramid.png)
+
 **Concept:** Build a centered star pyramid by adding leading spaces and an increasing number of stars on each row.
 
 ---
 
 ## Chapter 19: Callbacks
+
+![Callbacks can run immediately, later, or inside a nested asynchronous flow](assets/images/ch19-three-ways.png)
 
 ### 147: Passing a Callback Function
 
@@ -3803,6 +3817,8 @@ runTest(); // edge
 
 ## Chapter 20: Promises
 
+![A Promise moves from pending to fulfilled or rejected](assets/images/ch20-promise-states.png)
+
 ### 155: Promise Resolve and Reject
 
 **Concept:** A Promise represents a result that may resolve or reject; handle success with `then()` and errors with `catch()`.
@@ -3820,6 +3836,8 @@ runTest(); // edge
 **Concept:** Wait for all Promises to fulfill with `Promise.all()`; the combined Promise rejects if any input rejects.
 
 ### 159: Promise.allSettled()
+
+![Promise.allSettled() reports every result while Promise.race() returns the first settled result](assets/images/ch20-all-settled-race.png)
 
 **Concept:** Use `Promise.allSettled()` to inspect every outcome, including both fulfilled and rejected Promises.
 
@@ -3853,6 +3871,8 @@ runTest(); // edge
 
 ### 166: Sequential Async Execution
 
+![Sequential async operations wait for each result; parallel operations start together](assets/images/ch21-seq-vs-parallel.png)
+
 **Concept:** Await each asynchronous call before starting the next one.
 
 ### 167: Parallel Async Execution
@@ -3873,11 +3893,15 @@ runTest(); // edge
 
 ### 171: Async Execution Order
 
+![Synchronous statements run before the continuation after await](assets/images/ch21-await-order.png)
+
 **Concept:** Observe how code after `await` runs relative to synchronous statements.
 
 ---
 
 ## Chapter 22: Export and Import
+
+![A module can expose named exports, a default export, or both](assets/images/ch22-default-vs-named.png)
 
 ### 172: Named Exports
 
@@ -3897,6 +3921,8 @@ runTest(); // edge
 
 ### 175: Defining a Class
 
+![A class defines the fields and methods used to create object instances](assets/images/ch23-class-object.png)
+
 **Concept:** Define a class with private instance fields and methods, then create instances.
 
 ---
@@ -3904,6 +3930,8 @@ runTest(); // edge
 ## Chapter 24: Playwright
 
 ### Running Playwright Tests
+
+![Run a Playwright test with the Playwright test runner and select a browser project](assets/images/ch24-playwright-run.png)
 
 **Concept:** Run browser tests through the Playwright test runner, for example `npx playwright test --project=chromium`.
 
