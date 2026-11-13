@@ -172,6 +172,18 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [175: Defining a Class](#175-defining-a-class)
 - [Chapter 24: Playwright](#chapter-24-playwright)
   - [Running Playwright Tests](#running-playwright-tests)
+- [Chapter 25: Constructors and Static Members](#chapter-25-constructors-and-static-members)
+  - [176: Private Fields and a Constructor](#176-private-fields-and-a-constructor)
+  - [177: Passing Values to a Constructor](#177-passing-values-to-a-constructor)
+  - [178: One Constructor per Class](#178-one-constructor-per-class)
+  - [179: Constructor Runs When an Object Is Created](#179-constructor-runs-when-an-object-is-created)
+  - [180: Test Cases as Class Instances](#180-test-cases-as-class-instances)
+  - [181: Browser Objects for QA](#181-browser-objects-for-qa)
+  - [182: API Client Instances](#182-api-client-instances)
+  - [184: Static Test Counters](#184-static-test-counters)
+  - [185: Static Summary Methods](#185-static-summary-methods)
+  - [186: Static and Instance Members](#186-static-and-instance-members)
+  - [187: Initializing Instance Fields](#187-initializing-instance-fields)
 - [Coming Up](#coming-up)
 
 ---
@@ -205,6 +217,7 @@ flowchart LR
     C22 --> C23["23 Classes and Objects<br/>class syntax and instances"]:::progress
     C23 --> TS["TypeScript"]:::planned
     TS --> C24["24 Playwright<br/>browser tests"]:::progress
+    C24 --> C25["25 Constructors and Static Members<br/>constructors, private fields, static members"]:::progress
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
     classDef progress fill:#fef3c7,stroke:#d97706,color:#78350f
@@ -242,6 +255,7 @@ flowchart LR
 | 22 | Export and Import | [22_Export_Import](22_Export_Import/) | 🟡 In progress | Named and default exports, importing modules, and aliasing imports |
 | 23 | Classes and Objects | [23_Class_Objects](23_Class_Objects/) | 🟡 In progress | Defining a class, instance fields and methods, and creating objects |
 | 24 | Playwright | [24_Playwright](24_Playwright/) | 🟡 In progress | Writing and running browser tests with the Playwright test runner |
+| 25 | Constructors and Static Members | [25_Class_Object_Constructor](25_Class_Object_Constructor/) | 🟡 In progress | Constructors, private fields, QA-focused class instances, and static members |
 
 ---
 
@@ -468,11 +482,24 @@ LearnJSTSPlaywright4x/
 │   └── logs/logger.js                       # default and named logger exports
 ├── 23_Class_Objects/
 │   └── 175_Class.js                         # define a class and create instances
-└── 24_Playwright/
-    ├── package.json                         # Playwright test dependencies
-    ├── package-lock.json                    # pinned dependency versions
-    ├── playwright.config.ts                 # browser and test-runner configuration
-    └── tests/example.spec.ts                 # sample Playwright tests
+├── 24_Playwright/
+│   ├── package.json                         # Playwright test dependencies
+│   ├── package-lock.json                    # pinned dependency versions
+│   ├── playwright.config.ts                 # browser and test-runner configuration
+│   └── tests/example.spec.ts                 # sample Playwright tests
+└── 25_Class_Object_Constructor/
+    ├── 176_Con.js                            # constructor and private-field example
+    ├── 177_IQ.js                             # pass values into a constructor
+    ├── 178_IQ.js                             # constructor interview question
+    ├── 179.js                                # constructor execution on instantiation
+    ├── 180_REAL_PW.js                        # model test cases as class instances
+    ├── 181_Private_Public.js                 # browser class with public state and methods
+    ├── 182_api.js                            # create API clients with different base URLs
+    ├── 183_Static.js                         # empty placeholder
+    ├── 184_Static.js                          # count tests with static fields
+    ├── 185_IQ.js                              # static summary method and instance method
+    ├── 186_REAL.js                            # compare static and instance members
+    └── 187.js                                 # initialize an instance field in a constructor
 ```
 
 ---
@@ -3937,7 +3964,60 @@ runTest(); // edge
 
 ---
 
+## Chapter 25: Constructors and Static Members
+
+![JavaScript class constructors and object initialization](assets/images/ch25-constructor.png)
+
+### 176: Private Fields and a Constructor
+
+**Concept:** Initialize an instance's public name and private API key through its constructor.
+
+### 177: Passing Values to a Constructor
+
+**Concept:** Pass different values to one class constructor to create distinct objects.
+
+### 178: One Constructor per Class
+
+**Concept:** JavaScript classes define a single constructor method.
+
+### 179: Constructor Runs When an Object Is Created
+
+**Concept:** Observe the constructor running when `new` creates an instance.
+
+### 180: Test Cases as Class Instances
+
+**Concept:** Store test names, status, and priority on instances and display each test.
+
+### 181: Browser Objects for QA
+
+**Concept:** Represent browser instances with state and methods for QA workflows.
+
+### 182: API Client Instances
+
+**Concept:** Configure API client objects with different base URLs.
+
+![Static class fields and methods for shared test summaries](assets/images/ch25-static.png)
+
+### 184: Static Test Counters
+
+**Concept:** Keep shared test totals and pass counts on the class.
+
+### 185: Static Summary Methods
+
+**Concept:** Use a static method to summarize shared counters while instance methods use object data.
+
+### 186: Static and Instance Members
+
+**Concept:** Compare class-level static members with per-instance fields.
+
+### 187: Initializing Instance Fields
+
+**Concept:** Set up instance fields from the constructor.
+
+---
+
 ## Coming Up
 
 - Chapters 22-23 introduce JavaScript modules and classes.
 - Chapter 24 uses the Playwright test runner to run browser automation tests.
+- Chapter 25 explores constructors, private fields, and static class members.
