@@ -184,7 +184,24 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [185: Static Summary Methods](#185-static-summary-methods)
   - [186: Static and Instance Members](#186-static-and-instance-members)
   - [187: Initializing Instance Fields](#187-initializing-instance-fields)
-- [Coming Up](#coming-up)
+- [Chapter 26: Encapsulation](#chapter-26-encapsulation)
+  - [188: Encapsulation with Private Fields](#188-encapsulation-with-private-fields)
+  - [189: Hiding Internal State](#189-hiding-internal-state)
+  - [190: Protecting a Bank Balance](#190-protecting-a-bank-balance)
+  - [191: Test Case Encapsulation](#191-test-case-encapsulation)
+  - [192: Bug Details](#192-bug-details)
+  - [193: Environment Configuration](#193-environment-configuration)
+  - [194: User Greeting](#194-user-greeting)
+- [Chapter 27: Inheritance](#chapter-27-inheritance)
+  - [195: Single Inheritance](#195-single-inheritance)
+  - [196: Inheriting Page Actions](#196-inheriting-page-actions)
+  - [197: Animal and Dog Classes](#197-animal-and-dog-classes)
+  - [198: Inheriting Test Setup](#198-inheriting-test-setup)
+  - [199: Reusing Browser Test Actions](#199-reusing-browser-test-actions)
+  - [200: Specialized Test Cases](#200-specialized-test-cases)
+  - [201: Shared Page Verification](#201-shared-page-verification)
+  - [202: Specialized Reports](#202-specialized-reports)
+- [Object-Oriented Learning Path](#object-oriented-learning-path)
 
 ---
 
@@ -218,6 +235,8 @@ flowchart LR
     C23 --> TS["TypeScript"]:::planned
     TS --> C24["24 Playwright<br/>browser tests"]:::progress
     C24 --> C25["25 Constructors and Static Members<br/>constructors, private fields, static members"]:::progress
+    C25 --> C26["26 Encapsulation<br/>private fields and controlled access"]:::progress
+    C26 --> C27["27 Inheritance<br/>single inheritance and code reuse"]:::progress
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
     classDef progress fill:#fef3c7,stroke:#d97706,color:#78350f
@@ -256,6 +275,8 @@ flowchart LR
 | 23 | Classes and Objects | [23_Class_Objects](23_Class_Objects/) | 🟡 In progress | Defining a class, instance fields and methods, and creating objects |
 | 24 | Playwright | [24_Playwright](24_Playwright/) | 🟡 In progress | Writing and running browser tests with the Playwright test runner |
 | 25 | Constructors and Static Members | [25_Class_Object_Constructor](25_Class_Object_Constructor/) | 🟡 In progress | Constructors, private fields, QA-focused class instances, and static members |
+| 26 | Encapsulation | [26_OOPs_Encapsulation](26_OOPs_Encapsulation/) | 🟡 In progress | Hiding internal state with private fields and exposing controlled methods for bank, test-case, environment, and user examples |
+| 27 | Inheritance | [27_OOPs_Inheritance](27_OOPs_Inheritance/) | 🟡 In progress | Extending base classes to reuse browser and page actions, specialize test cases, and format reports |
 
 ---
 
@@ -487,19 +508,37 @@ LearnJSTSPlaywright4x/
 │   ├── package-lock.json                    # pinned dependency versions
 │   ├── playwright.config.ts                 # browser and test-runner configuration
 │   └── tests/example.spec.ts                 # sample Playwright tests
-└── 25_Class_Object_Constructor/
-    ├── 176_Con.js                            # constructor and private-field example
-    ├── 177_IQ.js                             # pass values into a constructor
-    ├── 178_IQ.js                             # constructor interview question
-    ├── 179.js                                # constructor execution on instantiation
-    ├── 180_REAL_PW.js                        # model test cases as class instances
-    ├── 181_Private_Public.js                 # browser class with public state and methods
-    ├── 182_api.js                            # create API clients with different base URLs
-    ├── 183_Static.js                         # empty placeholder
-    ├── 184_Static.js                          # count tests with static fields
-    ├── 185_IQ.js                              # static summary method and instance method
-    ├── 186_REAL.js                            # compare static and instance members
-    └── 187.js                                 # initialize an instance field in a constructor
+├── 25_Class_Object_Constructor/
+│   ├── 176_Con.js                            # constructor and private-field example
+│   ├── 177_IQ.js                             # pass values into a constructor
+│   ├── 178_IQ.js                             # constructor interview question
+│   ├── 179.js                                # constructor execution on instantiation
+│   ├── 180_REAL_PW.js                        # model test cases as class instances
+│   ├── 181_Private_Public.js                 # browser class with public state and methods
+│   ├── 182_api.js                            # create API clients with different base URLs
+│   ├── 183_Static.js                         # empty placeholder
+│   ├── 184_Static.js                         # count tests with static fields
+│   ├── 185_IQ.js                             # static summary method and instance method
+│   ├── 186_REAL.js                           # compare static and instance members
+│   └── 187.js                                # initialize an instance field in a constructor
+├── 26_OOPs_Encapsulation/
+│   ├── 188_Encapsulation.js                  # private fields and controlled access
+│   ├── 189.js                                # hide a car's engine behind a method
+│   ├── 190_Bank.ecap.js                      # protect a bank balance
+│   ├── 191_IQ.Encap.js                       # encapsulate test-case status
+│   ├── 192_IQ.js                             # represent a bug with private details
+│   ├── 193.iQ.js                             # environment configuration and URL
+│   └── 194.IQ.js                             # user state and greeting
+└── 27_OOPs_Inheritance/
+    └── 01_Single_Inheritance/
+        ├── 195_SI.js                         # single inheritance basics
+        ├── 196_SI_REAL.js                    # reuse base page actions
+        ├── 197_REAL.js                       # inherit animal behavior for a dog
+        ├── 198_SI.js                         # inherit API test setup
+        ├── 199.js                            # extend shared browser test actions
+        ├── 200_IQ.js                         # specialize generic test cases
+        ├── 201_IQ.js                         # share page verification behavior
+        └── 202_IQ.js                         # specialize report formatting
 ```
 
 ---
@@ -4016,8 +4055,79 @@ runTest(); // edge
 
 ---
 
-## Coming Up
+## Chapter 26: Encapsulation
 
-- Chapters 22-23 introduce JavaScript modules and classes.
-- Chapter 24 uses the Playwright test runner to run browser automation tests.
-- Chapter 25 explores constructors, private fields, and static class members.
+![JavaScript encapsulation with private fields and controlled access](assets/images/ch26-encapsulation.png)
+
+### 188: Encapsulation with Private Fields
+
+**Concept:** Keep child names private and expose them through a public method.
+
+### 189: Hiding Internal State
+
+**Concept:** Hide a car's engine field and retrieve it through a public method.
+
+### 190: Protecting a Bank Balance
+
+**Concept:** Keep a bank balance private and use methods to read and update it.
+
+### 191: Test Case Encapsulation
+
+**Concept:** Encapsulate test status and track the number of test-case instances.
+
+### 192: Bug Details
+
+**Concept:** Store bug titles and severity on instances and display a formatted summary.
+
+### 193: Environment Configuration
+
+**Concept:** Provide default or custom environment settings and build a URL.
+
+### 194: User Greeting
+
+**Concept:** Create users with separate names and greet each instance.
+
+---
+
+## Chapter 27: Inheritance
+
+![JavaScript single inheritance for reusable test and page behavior](assets/images/ch27-inheritance.png)
+
+### 195: Single Inheritance
+
+**Concept:** Extend a parent class and use inherited behavior from a child instance.
+
+### 196: Inheriting Page Actions
+
+**Concept:** Reuse common open and close actions from a base page in a login page.
+
+### 197: Animal and Dog Classes
+
+**Concept:** Extend an animal class to add dog-specific behavior and state.
+
+### 198: Inheriting Test Setup
+
+**Concept:** Reuse base test setup in a specialized API test class.
+
+### 199: Reusing Browser Test Actions
+
+**Concept:** Extend shared browser setup and teardown with UI-specific actions.
+
+### 200: Specialized Test Cases
+
+**Concept:** Override generic test behavior for unit, API, and end-to-end tests.
+
+### 201: Shared Page Verification
+
+**Concept:** Reuse base page verification across login, dashboard, and cart pages.
+
+### 202: Specialized Reports
+
+**Concept:** Format the same report data as HTML, JSON, or text.
+
+---
+
+## Object-Oriented Learning Path
+
+- Chapters 23 and 25 introduce classes, constructors, private fields, and static members.
+- Chapters 26-27 extend those foundations with encapsulation and single inheritance.
