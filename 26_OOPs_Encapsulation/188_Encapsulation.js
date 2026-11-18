@@ -26,3 +26,4 @@ let p = new Person("Pramod", "Vrad", "Jenny");
 
  console.log(p.name);
  p.name = "Amit";
+console.log(p.name);

@@ -201,6 +201,12 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [200: Specialized Test Cases](#200-specialized-test-cases)
   - [201: Shared Page Verification](#201-shared-page-verification)
   - [202: Specialized Reports](#202-specialized-reports)
+- [Chapter 28: Polymorphism](#chapter-28-polymorphism)
+  - [Runtime Method Overriding](#runtime-method-overriding)
+  - [Compile-Time Polymorphism](#compile-time-polymorphism)
+- [Chapter 29: OOP Interview Practice](#chapter-29-oop-interview-practice)
+- [Chapter 30: TypeScript Introduction](#chapter-30-typescript-introduction)
+- [Chapter 31: TypeScript Fundamentals](#chapter-31-typescript-fundamentals)
 - [Object-Oriented Learning Path](#object-oriented-learning-path)
 
 ---
@@ -236,7 +242,11 @@ flowchart LR
     TS --> C24["24 Playwright<br/>browser tests"]:::progress
     C24 --> C25["25 Constructors and Static Members<br/>constructors, private fields, static members"]:::progress
     C25 --> C26["26 Encapsulation<br/>private fields and controlled access"]:::progress
-    C26 --> C27["27 Inheritance<br/>single inheritance and code reuse"]:::progress
+    C26 --> C27["27 Inheritance<br/>inheritance patterns and mixins"]:::progress
+    C27 --> C28["28 Polymorphism<br/>method overriding"]:::progress
+    C28 --> C29["29 OOP Interview Practice<br/>class and inheritance exercises"]:::progress
+    C29 --> C30["30 TypeScript Introduction<br/>JavaScript and TypeScript basics"]:::progress
+    C30 --> C31["31 TypeScript Fundamentals<br/>types, functions, objects, any and unknown"]:::progress
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
     classDef progress fill:#fef3c7,stroke:#d97706,color:#78350f
@@ -276,7 +286,11 @@ flowchart LR
 | 24 | Playwright | [24_Playwright](24_Playwright/) | 🟡 In progress | Writing and running browser tests with the Playwright test runner |
 | 25 | Constructors and Static Members | [25_Class_Object_Constructor](25_Class_Object_Constructor/) | 🟡 In progress | Constructors, private fields, QA-focused class instances, and static members |
 | 26 | Encapsulation | [26_OOPs_Encapsulation](26_OOPs_Encapsulation/) | 🟡 In progress | Hiding internal state with private fields and exposing controlled methods for bank, test-case, environment, and user examples |
-| 27 | Inheritance | [27_OOPs_Inheritance](27_OOPs_Inheritance/) | 🟡 In progress | Extending base classes to reuse browser and page actions, specialize test cases, and format reports |
+| 27 | Inheritance | [27_OOPs_Inheritance](27_OOPs_Inheritance/) | 🟡 In progress | Single and multilevel inheritance, JavaScript's multiple-inheritance limitation, mixins, and other inheritance patterns |
+| 28 | Polymorphism | [28_OOPs_Polymorphism](28_OOPs_Polymorphism/) | 🟡 In progress | Method overriding and runtime polymorphism |
+| 29 | OOP Interview Practice | [29_IQ](29_IQ/) | 🟡 In progress | Classes, `super`, method chaining, and TypeScript annotation exercises |
+| 30 | TypeScript Introduction | [30_TypeScript](30_TypeScript/) | 🟡 In progress | Compare a JavaScript example with its TypeScript-annotated version |
+| 31 | TypeScript Fundamentals | [31_TypeScript](31_TypeScript/) | 🟡 In progress | Primitive and array types, `any` vs `unknown`, function and object annotations, `void`, and `never` |
 
 ---
 
@@ -529,16 +543,44 @@ LearnJSTSPlaywright4x/
 │   ├── 192_IQ.js                             # represent a bug with private details
 │   ├── 193.iQ.js                             # environment configuration and URL
 │   └── 194.IQ.js                             # user state and greeting
-└── 27_OOPs_Inheritance/
-    └── 01_Single_Inheritance/
-        ├── 195_SI.js                         # single inheritance basics
-        ├── 196_SI_REAL.js                    # reuse base page actions
-        ├── 197_REAL.js                       # inherit animal behavior for a dog
-        ├── 198_SI.js                         # inherit API test setup
-        ├── 199.js                            # extend shared browser test actions
-        ├── 200_IQ.js                         # specialize generic test cases
-        ├── 201_IQ.js                         # share page verification behavior
-        └── 202_IQ.js                         # specialize report formatting
+├── 27_OOPs_Inheritance/
+│   ├── 01_Single_Inheritance/
+│   │   ├── 195_SI.js                         # single inheritance basics
+│   │   ├── 196_SI_REAL.js                    # reuse base page actions
+│   │   ├── 197_REAL.js                       # inherit animal behavior for a dog
+│   │   ├── 198_SI.js                         # inherit API test setup
+│   │   ├── 199.js                            # extend shared browser test actions
+│   │   ├── 200_IQ.js                         # specialize generic test cases
+│   │   ├── 201_IQ.js                         # share page verification behavior
+│   │   └── 202_IQ.js                         # specialize report formatting
+│   ├── 02_MultilLevel_Inheritance/
+│   │   └── 203_MI.js                         # multilevel page inheritance
+│   ├── 03_Multiple_Inheritance/
+│   │   ├── 204_Multipe.js                    # JavaScript multiple-inheritance limitation
+│   │   └── 205_Mixin_MI.js                   # compose behavior with mixins
+│   ├── 04_Hierarichal_Inheritance/
+│   │   └── 206_HI.js                         # hierarchical inheritance
+│   └── 05_Hybrid_Inheritance/
+│       └── 207_Hybird.js                     # hybrid inheritance note
+├── 28_OOPs_Polymorphism/
+│   ├── Complie_Time/
+│   │   └── 208.js                            # compile-time polymorphism placeholder
+│   └── Run_Time/
+│       └── 207_RTP.js                        # override a setup method at runtime
+├── 29_IQ/
+│   ├── 209.js                                # represent and display bug severity
+│   ├── 210.js                                # chain overridden methods with super
+│   ├── 211.js                                # fluent method chaining
+│   └── 212.js                                # TypeScript annotation practice
+├── 30_TypeScript/
+│   ├── 213.js                                # JavaScript example
+│   └── 213.ts                                # TypeScript-annotated counterpart
+└── 31_TypeScript/
+    ├── 214.ts                                # TypeScript setup and typed variable
+    ├── 215_Basic.ts                          # primitive, array, any and unknown types
+    ├── 216_Fn.ts                             # function parameter and return types
+    ├── 217.ts                                # arrow, object, and void annotations
+    └── 218.ts                                # never-returning functions
 ```
 
 ---
@@ -4127,7 +4169,52 @@ runTest(); // edge
 
 ---
 
+![Inheritance patterns in JavaScript](assets/images/ch27-inheritance-types.png)
+
+### 203: Multilevel Inheritance
+
+**Concept:** Pass inherited behavior through a chain of page classes.
+
+### 204-207: Other Inheritance Patterns
+
+**Concept:** Explore JavaScript's single-parent class syntax, compose capabilities with mixins, and sketch hierarchical and hybrid inheritance.
+
+---
+
+## Chapter 28: Polymorphism
+
+### Runtime Method Overriding
+
+**Concept:** Override a base setup method and select the implementation through the instance at runtime.
+
+### Compile-Time Polymorphism
+
+**Concept:** Placeholder for comparing compile-time polymorphism with JavaScript's runtime behavior.
+
+---
+
+## Chapter 29: OOP Interview Practice
+
+**Concept:** Practice class-based examples involving severity display, chained `super` calls, fluent methods, and TypeScript annotations.
+
+---
+
+## Chapter 30: TypeScript Introduction
+
+**Concept:** Compare a JavaScript variable with the same value annotated as a TypeScript string.
+
+---
+
+## Chapter 31: TypeScript Fundamentals
+
+![TypeScript learning flow](assets/images/ch30-ts-flow.png)
+
+**Concept:** Annotate primitive and array values, function inputs and outputs, object shapes, `void`, and `never`; compare the flexibility of `any` with the safer `unknown` type in [any_vs_unknown_typescript.md](00_Learning/any_vs_unknown_typescript.md).
+
+---
+
 ## Object-Oriented Learning Path
 
 - Chapters 23 and 25 introduce classes, constructors, private fields, and static members.
-- Chapters 26-27 extend those foundations with encapsulation and single inheritance.
+- Chapters 26-29 extend those foundations with encapsulation, inheritance, polymorphism, and OOP interview practice.
+- Chapters 30-31 introduce TypeScript syntax and type fundamentals.
