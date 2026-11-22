@@ -8,6 +8,8 @@
 
 A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScript, and Playwright automation. Every chapter is a folder, every lesson is a small file you can run on its own.
 
+For quick revision, keep the [study notes](STUDY_NOTES.md) or download the [Word document](STUDY_NOTES.docx).
+
 ---
 
 ## Table of Contents
@@ -207,6 +209,7 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
 - [Chapter 29: OOP Interview Practice](#chapter-29-oop-interview-practice)
 - [Chapter 30: TypeScript Introduction](#chapter-30-typescript-introduction)
 - [Chapter 31: TypeScript Fundamentals](#chapter-31-typescript-fundamentals)
+- [Chapter 32: Abstraction with Interfaces and Enums](#chapter-32-abstraction-with-interfaces-and-enums)
 - [Object-Oriented Learning Path](#object-oriented-learning-path)
 
 ---
@@ -291,6 +294,7 @@ flowchart LR
 | 29 | OOP Interview Practice | [29_IQ](29_IQ/) | 🟡 In progress | Classes, `super`, method chaining, and TypeScript annotation exercises |
 | 30 | TypeScript Introduction | [30_TypeScript](30_TypeScript/) | 🟡 In progress | Compare a JavaScript example with its TypeScript-annotated version |
 | 31 | TypeScript Fundamentals | [31_TypeScript](31_TypeScript/) | 🟡 In progress | Primitive and array types, `any` vs `unknown`, function and object annotations, `void`, and `never` |
+| 32 | Abstraction with Interfaces and Enums | [32_Abstraction_OOPs](32_Abstraction_OOPs/) | 🟡 In progress | Define object shapes and callable contracts with interfaces, implement interfaces in classes, and represent fixed choices with enums |
 
 ---
 
@@ -575,29 +579,41 @@ LearnJSTSPlaywright4x/
 ├── 30_TypeScript/
 │   ├── 213.js                                # JavaScript example
 │   └── 213.ts                                # TypeScript-annotated counterpart
-└── 31_TypeScript/
-    ├── 214.ts                                # TypeScript setup and typed variable
-    ├── 215_Basic.ts                          # primitive, array, any and unknown types
-    ├── 216_Fn.ts                             # function parameter and return types
-    ├── 217.ts                                # arrow, object, and void annotations
-    └── 218.ts                                # never-returning functions
+├── 31_TypeScript/
+│   ├── 214.ts                                # TypeScript setup and typed variable
+│   ├── 215_Basic.ts                          # primitive, array, any and unknown types
+│   ├── 216_Fn.ts                             # function parameter and return types
+│   ├── 217.ts                                # arrow, object, and void annotations
+│   └── 218.ts                                # never-returning functions
+└── 32_Abstraction_OOPs/
+    ├── 00_Interface/
+    │   ├── 219.TS through 227_Class_VS_iNTERFACE.TS
+    │   └── examples for objects, APIs, readonly fields, hooks, classes, and callable interfaces
+    └── 01_ENUM/
+        ├── 228_ENUM.ts through 231.API.ts
+        └── string enums for test status, environments, browsers, and API paths
 ```
 
 ---
 
 ## Getting Started
 
-You only need [Node.js](https://nodejs.org/) 18 or newer. Chapter 08 uses one npm package ([prompt-sync](https://www.npmjs.com/package/prompt-sync)), so run `npm install` once after cloning.
+You only need [Node.js](https://nodejs.org/) 18 or newer. Run `npm install` once after cloning to install [prompt-sync](https://www.npmjs.com/package/prompt-sync) and the TypeScript lesson tools.
 
 ```bash
 git clone https://github.com/vatsaltalavia26-sketch/LearnJSTSPlaywright4x.git
 cd LearnJSTSPlaywright4x
-npm install                                 # installs prompt-sync for chapter 08
+npm install                                 # installs lesson dependencies and TypeScript tools
 node --version                              # v18+ (tested on v22)
 node 01_chapter_JS_Basics/01_HelloWorld.js  # Hello World!
 ```
 
 Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
+Run a TypeScript lesson from the repository root with the local runner:
+
+```bash
+npx ts-node 31_TypeScript/214.ts
+```
 
 To install Playwright's dependencies and run the sample test in Chromium:
 
@@ -4213,8 +4229,19 @@ runTest(); // edge
 
 ---
 
+## Chapter 32: Abstraction with Interfaces and Enums
+
+![Interface and enum learning flow](assets/images/ch32-interface.png)
+
+**Concept:** Use interfaces to describe object shapes, optional properties, readonly fields, callable contracts, function types, and class implementations. Use string enums for fixed Playwright and API values such as test status, browser, environment, and API paths.
+
+![Enum examples](assets/images/ch32-enum.png)
+
+---
+
 ## Object-Oriented Learning Path
 
 - Chapters 23 and 25 introduce classes, constructors, private fields, and static members.
 - Chapters 26-29 extend those foundations with encapsulation, inheritance, polymorphism, and OOP interview practice.
 - Chapters 30-31 introduce TypeScript syntax and type fundamentals.
+- Chapter 32 adds abstraction examples with interfaces, class implementations, callable contracts, and string enums.
