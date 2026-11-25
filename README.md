@@ -210,6 +210,9 @@ For quick revision, keep the [study notes](STUDY_NOTES.md) or download the [Word
 - [Chapter 30: TypeScript Introduction](#chapter-30-typescript-introduction)
 - [Chapter 31: TypeScript Fundamentals](#chapter-31-typescript-fundamentals)
 - [Chapter 32: Abstraction with Interfaces and Enums](#chapter-32-abstraction-with-interfaces-and-enums)
+- [Chapter 33: TypeScript Generics](#chapter-33-typescript-generics)
+- [Chapter 34: Access Modifiers](#chapter-34-access-modifiers)
+- [Chapter 35: Abstract Classes](#chapter-35-abstract-classes)
 - [Object-Oriented Learning Path](#object-oriented-learning-path)
 
 ---
@@ -295,6 +298,9 @@ flowchart LR
 | 30 | TypeScript Introduction | [30_TypeScript](30_TypeScript/) | 🟡 In progress | Compare a JavaScript example with its TypeScript-annotated version |
 | 31 | TypeScript Fundamentals | [31_TypeScript](31_TypeScript/) | 🟡 In progress | Primitive and array types, `any` vs `unknown`, function and object annotations, `void`, and `never` |
 | 32 | Abstraction with Interfaces and Enums | [32_Abstraction_OOPs](32_Abstraction_OOPs/) | 🟡 In progress | Define object shapes and callable contracts with interfaces, implement interfaces in classes, and represent fixed choices with enums |
+| 33 | TypeScript Generics | [33_OOPs_Generic](33_OOPs_Generic/) | 🟡 In progress | Reuse functions and classes with type-safe generic parameters |
+| 34 | Access Modifiers | [34_private_public_protected](34_private_public_protected/) | 🟡 In progress | Control class member visibility with `public`, `private`, `protected`, and `readonly` |
+| 35 | Abstract Classes | [35_TS_Abstract_Class](35_TS_Abstract_Class/) | 🟡 In progress | Define shared test behavior and require subclasses to implement abstract methods |
 
 ---
 
@@ -304,7 +310,7 @@ flowchart LR
 LearnJSTSPlaywright4x/
 ├── README.md
 ├── .gitignore
-├── package.json                            # One dependency: prompt-sync (chapter 08)
+├── package.json                            # prompt-sync plus TypeScript lesson tooling
 ├── package-lock.json
 ├── assets/images/                          # Banner and chapter cheat-sheet images used in this README
 ├── 00_Learning/
@@ -525,7 +531,7 @@ LearnJSTSPlaywright4x/
 │   ├── package.json                         # Playwright test dependencies
 │   ├── package-lock.json                    # pinned dependency versions
 │   ├── playwright.config.ts                 # browser and test-runner configuration
-│   └── tests/example.spec.ts                 # sample Playwright tests
+│   └── yes/example.spec.ts                   # sample Playwright tests
 ├── 25_Class_Object_Constructor/
 │   ├── 176_Con.js                            # constructor and private-field example
 │   ├── 177_IQ.js                             # pass values into a constructor
@@ -585,13 +591,23 @@ LearnJSTSPlaywright4x/
 │   ├── 216_Fn.ts                             # function parameter and return types
 │   ├── 217.ts                                # arrow, object, and void annotations
 │   └── 218.ts                                # never-returning functions
-└── 32_Abstraction_OOPs/
-    ├── 00_Interface/
-    │   ├── 219.TS through 227_Class_VS_iNTERFACE.TS
-    │   └── examples for objects, APIs, readonly fields, hooks, classes, and callable interfaces
-    └── 01_ENUM/
-        ├── 228_ENUM.ts through 231.API.ts
-        └── string enums for test status, environments, browsers, and API paths
+├── 32_Abstraction_OOPs/
+│   ├── 00_Interface/
+│   │   ├── 219.TS through 227_Class_VS_iNTERFACE.TS
+│   │   └── examples for objects, APIs, readonly fields, hooks, classes, and callable interfaces
+│   └── 01_ENUM/
+│       ├── 228_ENUM.ts through 232.API.ts
+│       └── string enums for test status, environments, browsers, and API paths
+├── 33_OOPs_Generic/
+│   ├── 233_Generic_Method.ts                # generic functions and type parameters
+│   ├── 234_Generic_Class.ts                 # generic class for typed test data
+│   └── 235_REAL_Generic_API.ts              # generic API response wrapper
+├── 34_private_public_protected/
+│   ├── 236_PPP.ts                           # public, private, and protected members
+│   ├── 237_PageObejctMode.ts                # protected page behavior shared by subclasses
+│   └── 238_Readonly.ts                      # readonly configuration fields
+└── 35_TS_Abstract_Class/
+    └── 239_AC.ts                            # abstract test base class
 ```
 
 ---
@@ -608,11 +624,11 @@ node --version                              # v18+ (tested on v22)
 node 01_chapter_JS_Basics/01_HelloWorld.js  # Hello World!
 ```
 
-Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
-Run a TypeScript lesson from the repository root with the local runner:
+Every JavaScript lesson file runs the same way: `node <chapter folder>/<file>.js`.
+Run a TypeScript lesson from the repository root with the local runner (no global `ts-node` installation is needed):
 
 ```bash
-npx ts-node 31_TypeScript/214.ts
+npm run ts -- 32_Abstraction_OOPs/00_Interface/220_Readonly.ts
 ```
 
 To install Playwright's dependencies and run the sample test in Chromium:
@@ -620,11 +636,33 @@ To install Playwright's dependencies and run the sample test in Chromium:
 ```bash
 cd 24_Playwright
 npm install
-npx playwright install chromium
-npx playwright test --project=chromium
+npm run playwright -- install chromium
+npm test -- --project=chromium
 ```
 
-Run Playwright tests with `npx playwright test`; `ts-node` is not required.
+From `24_Playwright`, run Playwright commands with `npm run playwright -- <command>` (for example, `npm run playwright -- --version`) or run the tests with `npm test`. This uses the project's local Playwright installation; `ts-node` is not required.
+
+To launch codegen from the repository root, use:
+
+```bash
+npm --prefix 24_Playwright run playwright -- codegen https://app.thetestingacademy.com/login
+```
+
+To make the bare `playwright` command available in PowerShell from any folder, install the CLI globally and its Chromium browser once:
+
+```powershell
+npm install --global playwright@1.65.1
+playwright install chromium
+playwright codegen https://app.thetestingacademy.com/login
+```
+
+When using the global command, write `playwright codegen <url>`; the `--` separator is only for forwarding arguments through `npm run`.
+
+If the Playwright-managed Chromium executable is unavailable, use an installed Microsoft Edge browser instead:
+
+```powershell
+playwright codegen --channel msedge https://app.thetestingacademy.com/login
+```
 
 ---
 
@@ -4239,9 +4277,40 @@ runTest(); // edge
 
 ---
 
+## Chapter 33: TypeScript Generics
+
+![TypeScript generics examples](assets/images/ch33-generics.png)
+
+**Concept:** Use generic functions and classes to keep reusable API responses and test data type-safe.
+
+Examples: [generic methods](33_OOPs_Generic/233_Generic_Method.ts), [generic classes](33_OOPs_Generic/234_Generic_Class.ts), and a [generic API response wrapper](33_OOPs_Generic/235_REAL_Generic_API.ts).
+
+---
+
+## Chapter 34: Access Modifiers
+
+![TypeScript access modifier examples](assets/images/ch34-access-modifiers.png)
+
+**Concept:** Restrict class member access with `private` and `protected`, expose intended behavior through `public` methods, and prevent reassignment with `readonly`.
+
+Examples: [public, private, and protected](34_private_public_protected/236_PPP.ts), [page object inheritance](34_private_public_protected/237_PageObejctMode.ts), and [readonly configuration](34_private_public_protected/238_Readonly.ts).
+
+---
+
+## Chapter 35: Abstract Classes
+
+![TypeScript abstract class example](assets/images/ch35-abstract-class.png)
+
+**Concept:** Use an abstract base class to define shared state and required methods for concrete test classes.
+
+See the [abstract test class example](35_TS_Abstract_Class/239_AC.ts).
+
+---
+
 ## Object-Oriented Learning Path
 
 - Chapters 23 and 25 introduce classes, constructors, private fields, and static members.
 - Chapters 26-29 extend those foundations with encapsulation, inheritance, polymorphism, and OOP interview practice.
 - Chapters 30-31 introduce TypeScript syntax and type fundamentals.
 - Chapter 32 adds abstraction examples with interfaces, class implementations, callable contracts, and string enums.
+- Chapters 33-35 cover generics, access modifiers, and abstract classes in TypeScript.

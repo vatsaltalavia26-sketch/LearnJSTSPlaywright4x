@@ -1,6 +1,9 @@
 {
   "name": "learnjstsplaywright4x",
   "private": true,
+  "scripts": {
+    "ts": "ts-node"
+  },
   "dependencies": {
     "prompt-sync": "^4.2.0"
   },
